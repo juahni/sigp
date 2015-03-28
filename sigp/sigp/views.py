@@ -9,13 +9,13 @@ from django.core.urlresolvers import reverse
 @login_required(login_url='/login/')
 def home(request):
     """
-    Genera la vista home del sistema.
+    Genera la vista home del Sistema.
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
 
     @rtype: django.http.HttpResponse
-    @return: Renderiza index.html, la pagina de inicio del sistema
+    @return: Renderiza index.html, la Pagina de inicio del sistema
     """
     template = 'index.html'
     return render(request, template, locals())
