@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class AutenticationTest(TestCase):
     """
-    Clase que realiza el Test del modulo de autenticacion de usuarios
+    Clase que realiza el Test del modulo de Autenticacion de Usuarios
     """
 
     def setUp(self):

@@ -16,12 +16,12 @@
 
       <form class="form-signin" action="{% url 'login' %}" method="post">
       	{% csrf_token %}
-        <h2 class="form-signin-heading">Ingreso al sistema</h2>
+        <h2 class="form-signin-heading">Ingreso al Sistema</h2>
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">
   			<i class="fa fa-fw fa-warning"></i>
   			<span class="sr-only">Error:</span>
- 			 Ingrese un usuario o password válido
+ 			 Ingrese un usuario o contraseña válida
 		</div>
 
 		{% endif %}
