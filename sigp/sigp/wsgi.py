@@ -1,5 +1,5 @@
 """
-WSGI config for gpsk project.
+WSGI config for SIGP project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
