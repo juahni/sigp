@@ -16,18 +16,18 @@
 
       <form class="form-signin" action="{% url 'login' %}" method="post">
       	{% csrf_token %}
-        <h2 class="form-signin-heading">Ingreso al Sistema</h2>
+        <h2 class="form-signin-heading">Ingreso al sistema</h2>
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">
   			<i class="fa fa-fw fa-warning"></i>
   			<span class="sr-only">Error:</span>
- 			 Ingrese un usuario o contraseña válida
+ 			 Ingrese un usuario o clave válida
 		</div>
 
 		{% endif %}
         <label for="username" class="sr-only">Usuario</label>
         <input id="inputEmail" class="form-control" placeholder="Usuario" required="" autofocus="" type="text" name="username">
-        <label for="password" class="sr-only">Password</label>
+        <label for="password" class="sr-only">Contraseña</label>
         <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password" name="password">
        <!-- <div class="checkbox">
            <label>
