@@ -7,6 +7,4 @@ urlpatterns = patterns('',
                        url(r'^login/$', 'sigp.views.custom_login', name='login'),
                        url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page':'/login/'}, name='logout'),
                        url(r'^usuarios/', include('apps.usuarios.urls', namespace="usuarios")),
-                       #url(r'^proyectos/', include('proyectos.urls', namespace="proyectos")),
-                       url(r'^proyectos/', include('proyectos.urls')),
                        )
