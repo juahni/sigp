@@ -1,5 +1,5 @@
 """
-Django settings for gpsk project.
+Django settings for sigp project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -26,6 +26,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.usuarios',
+    'apps.proyectos',
+    'apps.roles_proyecto',
+    'apps.clientes',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,3 +60,12 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = [BASE_DIR.child('templates')]
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sigp.system@gmail.com'
+EMAIL_HOST_PASSWORD = 'sigpk@password'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER

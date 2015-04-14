@@ -8,4 +8,6 @@ urlpatterns = patterns('apps',
                        url(r'^update/(?P<pk>\d+)/$', login_required(views.UserUpdate.as_view()), name='update'),
                        url(r'^delete/(?P<pk_usuario>\d+)/$', 'usuarios.views.inactivar_usuario', name='delete'),
                        url(r'^activate/(?P<pk_usuario>\d+)/$', 'usuarios.views.activar_usuario', name='activate'),
+                       url(r'^update/(?P<pk_usuario>\d+)/change_password/$', 'usuarios.views.user_change_password',
+                           name='change_password'),
                        )

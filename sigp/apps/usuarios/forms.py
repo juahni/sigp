@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from models import Usuario
 from views import *
+from django.contrib.auth.forms import AdminPasswordChangeForm
 
 #class
 class UserCreateForm(UserCreationForm):
@@ -66,3 +67,18 @@ class UserUpdateForm(forms.ModelForm):
         usuario.direccion = self.cleaned_data['direccion']
         usuario.save()
         return user, usuario
+
+    class MyPasswordChangeForm(AdminPasswordChangeForm):
+     error_messages = {
+        'password_too_short': ("El password debe tener al menos 5 carateres."),
+        'password_mismatch': ("Los dos campos de password no coinciden."),
+        }
+
+    def clean_password1(self):
+        passwd = self.cleaned_data['password1']
+        if passwd and len(passwd) < 5:
+            raise forms.ValidationError(
+                self.error_messages['password_too_short'],
+                code='password_too_short',
+            )
+        return passwd

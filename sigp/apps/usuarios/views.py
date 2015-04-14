@@ -161,3 +161,32 @@ def activar_usuario(request, pk_usuario):
     user_detail = get_object_or_404(User, pk=pk_usuario)
 
     return render(request, 'usuarios/activate.html', locals())
+
+#@permission_required('usuarios.modificar_usuario')
+@login_required(login_url='/login/')
+def user_change_password(request, pk_usuario):
+    """
+    Funcion que permite modificar el password de un usuario selecionado.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_usuario: string
+    @param pk_usuario: id del usuario con password a modificar
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza usuarios/user_password_change.html para obtener el formulario o
+            redirecciona a la vista update del usuario.
+    """
+    if request.method == 'POST':
+        user_detail = get_object_or_404(User, pk=pk_usuario)
+        form = MyPasswordChangeForm(user_detail, request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            update_session_auth_hash(request, user_detail)
+            return HttpResponseRedirect(reverse('usuarios:update', args=[user_detail.pk]))
+    else:
+        user_detail = get_object_or_404(User, pk=pk_usuario)
+        form = MyPasswordChangeForm(user_detail)
+
+    return render(request, 'usuarios/user_password_change.html', locals())

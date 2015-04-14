@@ -1,5 +1,5 @@
 """
-WSGI config for gpsk project.
+WSGI config for sigp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 
 import os
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gpsk.settings")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sigp.settings.local")
 

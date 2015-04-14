@@ -26,17 +26,11 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
 
-                <li class="dropdown">
+               <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lg fa-user"></i> {{user}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="{% url 'user_profile' %}"><i class="fa fa-fw fa-user"></i> Mi Perfil</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -66,7 +60,11 @@
 
 
                     <li>
-                        <a href="#"><i class="fa fa-lg fa-table"></i> Proyectos</a>
+                        <a href="{% url 'proyectos:index' %}"><i class="fa fa-lg fa-table"></i> Proyectos</a>
+                    </li>
+
+                    <li>
+                    <a href="{% url 'clientes:index' %}"><i class="fa fa-lg fa-user"></i> Clientes</a>
                     </li>
 
                 </ul>
