@@ -21,4 +21,18 @@
 }
 #welcome-text {
 	text-align: center;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+}
+ul {
+	list-style-type: none;
+}
+.errorlist{
+		width: 350px;
+		padding: 5px;
+		margin-bottom: 5px;
+=======
+>>>>>>> master
+>>>>>>> branch-3ra-iteracion
 }

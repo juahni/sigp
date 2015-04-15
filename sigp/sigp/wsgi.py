@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 
 import os
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gpsk.settings")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sigp.settings")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sigp.settings.local")
 
