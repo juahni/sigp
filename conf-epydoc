@@ -1,8 +1,8 @@
 [epydoc]
 
-name: SIGP
+name: GPSK
 
-modules: apps, sigp
+modules: apps, gpsk
 
 output: html
 
