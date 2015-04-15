@@ -17,7 +17,7 @@
 
 <form action="{{ usuario.get_absolute_url }}" method="post">
 	{% csrf_token %}
-    <p>¿Está seguro que desea deshabilitar el usuario "{{ user_detail }}"?</p>
+    <p>¿Está seguro que desea inactivar el usuario "{{ user_detail }}"?</p>
     <input type="submit" value="Inactivar" class="btn btn-danger"/>
 </form>
 {% endblock %}
