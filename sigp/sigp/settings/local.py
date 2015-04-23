@@ -1,15 +1,17 @@
 from .base import *
 
 DEBUG = True
+PATH = '/var/production/sigp'
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#bdsigp
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'basedatos',
+        'NAME': 'bdsigp',
         'USER': 'fran',
         'PASSWORD': 'fran02',
         'HOST': 'localhost',
