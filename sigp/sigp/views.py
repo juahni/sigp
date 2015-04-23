@@ -14,7 +14,7 @@ from django.contrib.auth.views import password_reset, password_reset_confirm, pa
 @login_required(login_url='/login/')
 def home(request):
     """
-    Genera la vista home del sistema.
+    Genera la vista home del sistema.......
 
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
