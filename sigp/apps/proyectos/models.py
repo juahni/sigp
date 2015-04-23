@@ -21,7 +21,6 @@ class Proyecto(models.Model):
     equipo = models.ManyToManyField(User, null=True)
     estado = models.CharField(max_length=15, choices=ESTADOS_PROYECTO, default='No iniciado')
 
-
     def __unicode__(self):
         return self.nombre_corto
     

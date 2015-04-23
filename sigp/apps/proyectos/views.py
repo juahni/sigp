@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 from models import Proyecto
 from django.contrib.auth.models import User, Group
-#from apps.roles_proyecto.models import RolProyecto, RolProyecto_Proyecto
+from apps.roles_proyecto.models import RolProyecto, RolProyecto_Proyecto
 from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm
 
 from django.http import HttpResponseRedirect

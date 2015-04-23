@@ -13,7 +13,11 @@ urlpatterns = patterns('',
 
                        url(r'^usuarios/', include('apps.usuarios.urls', namespace="usuarios")),
 
+                       url(r'^roles/', include('apps.roles.urls', namespace="roles")),
+
                        url(r'^proyectos/', include('apps.proyectos.urls', namespace="proyectos")),
+
+                       url(r'^roles_proyecto/', include('apps.roles_proyecto.urls', namespace="roles_proyecto")),
 
                        url(r'^clientes/', include('apps.clientes.urls', namespace="clientes")),
                        )

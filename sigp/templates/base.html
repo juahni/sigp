@@ -46,17 +46,23 @@
                         <a href="{% url 'usuarios:index' %}"><i class="fa fa-lg fa-user"></i> Usuarios</a>
                     </li>
 
+                    {% if perms.auth.add_group or perms.auth.change_group or perms.auth.delete_group or perms.roles_proyecto %}
                     <li>
                         <a aria-expanded="true" class="" href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-lg fa-arrows-v"></i> Roles <i class="fa fa-lg fa-caret-down"></i></a>
                         <ul style="" aria-expanded="true" id="demo" class="collapse in">
+                            {% if perms.auth.add_group or perms.auth.change_group or perms.auth.delete_group %}
                             <li>
-                                <a href="#"><i class="fa fa-lg fa-group"></i> Roles de Sistema</a>
+                                <a href="{% url 'roles:index' %}"><i class="fa fa-lg fa-group"></i> Roles de Sistema</a>
                             </li>
+                            {% endif %}
+                            {% if perms.roles_proyecto %}
                             <li>
-                                <a href="#"><i class="fa fa-lg fa-group"></i> Roles de Proyecto</a>
+                                <a href="{% url 'roles_proyecto:index' %}"><i class="fa fa-lg fa-group"></i> Roles de Proyecto</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </li>
+                    {% endif %}
 
 
                     <li>

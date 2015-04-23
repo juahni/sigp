@@ -1,28 +1,35 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
 
 from models import Usuario
 from views import *
 from django.contrib.auth.forms import AdminPasswordChangeForm
 
-#class
 class UserCreateForm(UserCreationForm):
     """
     Clase que contiene los campos del formulario, necesarios para el registro de nuevos Usuarios
     en la base de datos.
 
     @type UserCreationForm: django.contrib.auth.forms
-    @param UserCreationForm: Se hereda el formulario incorporado en django para la creacion
+    @ivar UserCreationForm: Se hereda el formulario incorporado en django para la creacion
                             del objeto User, para usar sus funcionalidades
     """
+    first_name = forms.CharField(max_length=30, required=True, label='Nombre')
+    last_name = forms.CharField(max_length=30, required=True, label='Apellido')
+    password1 = forms.RegexField(label='Password', regex=r'^[\w.@+-]+$', min_length=5,
+                                 widget=forms.PasswordInput,
+                                 help_text='Minimo 5 carateres. Letras, digitos y @/./+/-/_ solamente.')
+    password2 = forms.RegexField(label='Password (Confirmacion)', regex=r'^[\w.@+-]+$', min_length=5,
+                                 widget=forms.PasswordInput)
     email = forms.EmailField(required=True)
-    telefono = forms.CharField(max_length=20)
+    telefono = forms.RegexField(regex=r'^[\d()+-]+$', max_length=20,
+                                help_text='Digitos y + - ( ) solamente.')
     direccion = forms.CharField(max_length=50)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'password1', 'password2', 'email']
 
     def save(self, commit=True):
         if not commit:
@@ -40,7 +47,7 @@ class UserUpdateForm(forms.ModelForm):
     registrados en la base de datos.
 
     @type forms.ModelForm: django.forms
-    @param forms.ModelForm: Se hereda el formulario incorporado en django para los modelos
+    @ivar forms.ModelForm: Se hereda el formulario incorporado en django para los modelos
                             para usar sus funcionalidades
     """
     def __init__(self, *args, **kwargs):
@@ -53,7 +60,11 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['telefono'].initial = telefono
         self.fields['direccion'].initial = direccion
 
-    telefono = forms.CharField(max_length=20)
+    first_name = forms.CharField(max_length=30, required=True, label='Nombre')
+    last_name = forms.CharField(max_length=30, required=True, label='Apellido')
+    email = forms.EmailField(required=True)
+    telefono = forms.RegexField(regex=r'^[\d()+-]+$', max_length=20,
+                                help_text='Digitos y + - ( ) solamente.')
     direccion = forms.CharField(max_length=50)
 
     class Meta:
@@ -68,8 +79,19 @@ class UserUpdateForm(forms.ModelForm):
         usuario.save()
         return user, usuario
 
-    class MyPasswordChangeForm(AdminPasswordChangeForm):
-     error_messages = {
+
+class UserAsignarRolesForm(forms.ModelForm):
+
+    groups = forms.ModelMultipleChoiceField(Group.objects.all().filter(rolproyecto__es_rol_proyecto=None),
+                                            widget=forms.CheckboxSelectMultiple, required=False)
+
+    class Meta:
+        model = User
+        fields = ['groups']
+
+
+class MyPasswordChangeForm(AdminPasswordChangeForm):
+    error_messages = {
         'password_too_short': ("El password debe tener al menos 5 carateres."),
         'password_mismatch': ("Los dos campos de password no coinciden."),
         }
