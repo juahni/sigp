@@ -8,11 +8,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('clientes', '0001_initial'),
+        ('proyectos', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
+        migrations.AddField(
+            model_name='proyecto',
             name='cliente',
-            options={'default_permissions': ('crear', 'modificar', 'eliminar', 'listar')},
+            field=models.ForeignKey(related_name='cliente_proyecto', to='clientes.Cliente', null=True),
+            preserve_default=True,
         ),
     ]
