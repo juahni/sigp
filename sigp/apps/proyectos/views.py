@@ -2,19 +2,20 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.urlresolvers import reverse
-
-from models import Proyecto
 from django.contrib.auth.models import User, Group
-from apps.roles_proyecto.models import RolProyecto, RolProyecto_Proyecto
-from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm
-
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
+
+from models import Proyecto
+from apps.roles_proyecto.models import RolProyecto_Proyecto
+from apps.user_stories.models import UserStory
+from apps.sprints.models import Sprint
+from apps.flujos.models import Flujo
+from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm
 
 
 class IndexView(generic.ListView):
@@ -28,13 +29,9 @@ class IndexView(generic.ListView):
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
-    model = Proyecto
+    queryset = Proyecto.objects.all().order_by('codigo')
     template_name = 'proyectos/index.html'
 
-    #@method_decorator(permission_required('proyectos.listar_proyecto'))
-    #def dispatch(self, *args, **kwargs):
-    #    return super(IndexView, self).dispatch(*args, **kwargs)
-    
 
 class ProyectoCreate(SuccessMessageMixin, CreateView):
     """
@@ -49,19 +46,19 @@ class ProyectoCreate(SuccessMessageMixin, CreateView):
     form_class = ProyectoCreateForm
     template_name = 'proyectos/create.html'
     success_message = "%(nombre_corto)s fue creado de manera exitosa"
-    
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         # form.save() Eliminar porque guarda dos veces
         return super(ProyectoCreate, self).form_valid(form)
 
-    def get_success_url(self): 
+    def get_success_url(self):
         return reverse('proyectos:index')
 
-    #@method_decorator(permission_required('proyectos.crear_proyecto'))
-    #def dispatch(self, *args, **kwargs):
-    #    return super(ProyectoCreate, self).dispatch(*args, **kwargs)
+    @method_decorator(permission_required('proyectos.crear_proyecto'))
+    def dispatch(self, *args, **kwargs):
+        return super(ProyectoCreate, self).dispatch(*args, **kwargs)
 
 
 class ProyectoUpdate(SuccessMessageMixin, UpdateView):
@@ -82,15 +79,15 @@ class ProyectoUpdate(SuccessMessageMixin, UpdateView):
         obj = Proyecto.objects.get(pk=self.kwargs['pk'])
         return obj
 
-    def get_success_url(self): 
+    def get_success_url(self):
         return reverse('proyectos:index')
 
-    #@method_decorator(permission_required('proyectos.modificar_proyecto'))
-    #def dispatch(self, *args, **kwargs):
-    #    return super(ProyectoUpdate, self).dispatch(*args, **kwargs)
+    @method_decorator(permission_required('proyectos.modificar_proyecto'))
+    def dispatch(self, *args, **kwargs):
+        return super(ProyectoUpdate, self).dispatch(*args, **kwargs)
 
 @login_required(login_url='/login/')
-#@permission_required('proyectos.eliminar_proyecto')
+@permission_required('proyectos.eliminar_proyecto')
 def eliminar_proyecto(request, pk_proyecto):
     if request.method == 'POST':
         proyecto_detail = get_object_or_404(Proyecto, pk=pk_proyecto)
@@ -114,7 +111,7 @@ def proyecto_index(request, pk):
     #Equipo
     lista_equipo = Proyecto.objects.get(pk=pk).equipo.all()
     print lista_equipo
-    
+
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
@@ -123,16 +120,21 @@ def proyecto_index(request, pk):
 
     print nueva_lista
 
+    lista_us = UserStory.objects.filter(proyecto=pk).order_by('nombre')[:5]
+    lista_sprints = Sprint.objects.filter(proyecto=pk).order_by('pk')
+    lista_flujos = Flujo.objects.filter(proyecto=pk).order_by('pk')
+
+
     return render(request, template, locals())
 
 
 @login_required(login_url='/login/')
-#@permission_required('proyectos.asignar_rol_proyecto_proyecto')
+@permission_required('proyectos.asignar_rol_proyecto_proyecto')
 def listar_equipo(request, pk_proyecto):
     proyecto = Proyecto.objects.get(pk=pk_proyecto)
     lista_equipo = Proyecto.objects.get(pk=pk_proyecto).equipo.all()
     print lista_equipo
-    
+
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
@@ -157,9 +159,9 @@ class AddMiembro(generic.UpdateView):
         obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
         return reverse( 'proyectos:equipo_list', args=[obj.pk])
 
-    #@method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
-    #def dispatch(self, *args, **kwargs):
-    #    return super(AddMiembro, self).dispatch(*args, **kwargs)
+    @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
+    def dispatch(self, *args, **kwargs):
+        return super(AddMiembro, self).dispatch(*args, **kwargs)
 
 
 @login_required(login_url='/login/')
@@ -180,7 +182,7 @@ def delete_miembro(request, pk_proyecto, pk_user):
             return HttpResponseRedirect(reverse( 'proyectos:equipo_list', args=[proyecto.pk]))
 
         else:
-            mensaje = 'No se puede eliminar el usuario ' 
+            mensaje = 'No se puede eliminar el usuario '
             mensaje =  mensaje + usuario.username + ' del proyecto porque es el Scrum Master. Designe primero como Scrum Master a otro usuario.'
             return render(request, template, locals())
 
@@ -202,7 +204,7 @@ class RolMiembro(UpdateView):
         #listar los roles en ese proyecto
         roles_proyecto_del_usuario = solo_del_usuario.values('rol_proyecto').distinct()
         print "roles_proyecto_del_usuario = %s" % roles_proyecto_del_usuario
-        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario) 
+        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario)
 
         print "roro = %s" % roro
 
@@ -223,6 +225,6 @@ class RolMiembro(UpdateView):
         obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
         return reverse( 'proyectos:equipo_list', args=[obj.pk])
 
-    #@method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
-    #def dispatch(self, *args, **kwargs):
-    #    return super(RolMiembro, self).dispatch(*args, **kwargs)
+    @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
+    def dispatch(self, *args, **kwargs):
+        return super(RolMiembro, self).dispatch(*args, **kwargs)

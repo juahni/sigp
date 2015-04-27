@@ -33,6 +33,8 @@ INSTALLED_APPS = (
     'apps.proyectos',
     'apps.roles_proyecto',
     'apps.flujos',
+    'apps.user_stories',
+    'apps.sprints',
 )
 
 MIDDLEWARE_CLASSES = (

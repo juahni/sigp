@@ -12,7 +12,7 @@
 	<!-- /.row -->
 	
 
-{% if perms.flujos.crear_flujo %}
+{% if perms.flujos.crear_plantillaflujo %}
 	<a type="button" class="btn btn-success pull-right" href="{% url 'flujos:create' %}" >
 	<i class="fa fa-lg fa-exchange"></i>
 		Nuevo Flujo
@@ -25,6 +25,7 @@
 		<tr>
 			<th>Nombre</th>
 			<th>Actividades</th>
+            <th>Editar</th>
 			
 		</tr>
 	</thead>
@@ -41,6 +42,11 @@
 					{% for act in flujo.actividades.all %}
 						<p>{{act.nombre}}</p>
 					{% endfor %}
+					</td>
+                    <td>
+					    <a type="button" class="btn btn-primary" href="#">
+						<i class="fa fa-lg fa-edit"></i>
+						</a>
 					</td>
 
 					
