@@ -15,17 +15,15 @@ from apps.roles_proyecto.models import RolProyecto_Proyecto
 from apps.user_stories.models import UserStory
 from apps.sprints.models import Sprint
 from apps.flujos.models import Flujo
-from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm
+from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm, HorasDeveloperForm
 
 
 class IndexView(generic.ListView):
     """
     Clase que despliega la lista completa de proyectos en el Index
     de la aplicacion Proyecto.
-
     @ivar queryset: Consulta a la base de datos
     @type queryset: django.db.models.query
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -36,10 +34,8 @@ class IndexView(generic.ListView):
 class ProyectoCreate(SuccessMessageMixin, CreateView):
     """
     Clase que despliega el formulario para la creacion de proyectos.
-
     @ivar form_class: Formulario que se utiliza para la creacion de usuarios
     @type form_class: django.forms
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -64,10 +60,8 @@ class ProyectoCreate(SuccessMessageMixin, CreateView):
 class ProyectoUpdate(SuccessMessageMixin, UpdateView):
     """
     Clase que despliega el formulario para la modficacion de proyectos.
-
     @ivar form_class: Formulario que se utiliza para la modficacion de usuarios
     @type form_class: django.forms
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -120,10 +114,13 @@ def proyecto_index(request, pk):
 
     print nueva_lista
 
+    duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
+    print "duracion = %s" % duracion_proyecto.days
+    duracion = duracion_proyecto.days
+
     lista_us = UserStory.objects.filter(proyecto=pk).order_by('nombre')[:5]
     lista_sprints = Sprint.objects.filter(proyecto=pk).order_by('pk')
     lista_flujos = Flujo.objects.filter(proyecto=pk).order_by('pk')
-
 
     return render(request, template, locals())
 
@@ -228,3 +225,94 @@ class RolMiembro(UpdateView):
     @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
     def dispatch(self, *args, **kwargs):
         return super(RolMiembro, self).dispatch(*args, **kwargs)
+
+
+class HorasDeveloper(UpdateView):
+    """
+    Clase que despliega el formulario para la modficacion de las horas asignadas a un desarrollador.
+    @ivar form_class: Formulario que se utiliza para la asignacion de horas
+    @type form_class: django.forms
+    @ivar template_name: Nombre del template a utilizar en la vista
+    @type template_name: string
+    """
+    form_class = HorasDeveloperForm
+    template_name = 'proyectos/proyecto_equipo_horas_developer.html'
+    context_object_name = 'proyecto_detail'
+
+    def get_initial(self):
+        """
+        Metodo que retorna datos iniciales a ser utilizados en el formulario
+        @return:
+        """
+        initial = super(HorasDeveloper, self).get_initial()
+        user = User.objects.get(pk=self.kwargs['pk_user'])
+        proyecto = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
+        #las filas con la tupla user_rol_proyecto
+        solo_del_usuario = RolProyecto_Proyecto.objects.filter(user=user, proyecto=proyecto)
+        print "solo_del_usuario = %s" % solo_del_usuario
+        rol_developer = []
+        for rol in solo_del_usuario:
+            if rol.rol_proyecto.group.name == "Developer":
+                rol_developer.append(rol)
+
+        print "rol_developer = %s" % rol_developer
+
+        horas = rol_developer[0].horas_developer
+        print "rol_developer = %s" % rol_developer
+
+        initial['horas_developer'] = horas
+        initial['rol_developer'] = rol_developer
+        initial['user'] = user
+        print "user = %s" % user
+
+        return initial
+
+    def get_object(self, queryset=None):
+        """
+        Metodo que retorna el proyecto actual
+        @param queryset:
+        @return:
+        """
+        obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
+        return obj
+
+    def get_success_url(self):
+        """
+        Metodo que realiza la redireccion si la modificacion de horas es exitosa
+        @return:
+        """
+        obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
+        return reverse( 'proyectos:equipo_list', args=[obj.pk])
+
+    def get_context_data(self, **kwargs):
+        """
+        Metodo que retorna datos a utilizar en el template de la vista
+        @param kwargs:
+        @return:
+        """
+        context = super(HorasDeveloper, self).get_context_data(**kwargs)
+        proyecto = get_object_or_404(Proyecto, pk=self.kwargs['pk_proyecto'])
+        duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
+        #ocho horas por dia
+        duracion_horas = duracion_proyecto.days * 8
+        print "duracion = %s" % duracion_horas
+
+        context['duracion_horas'] = duracion_horas
+
+        #Usar al determinar la duracion del sprint
+        rows_del_proyecto = RolProyecto_Proyecto.objects.filter(proyecto=proyecto)
+        print "rows_del_proyecto = %s" % rows_del_proyecto
+
+        horas_asignadas = 0
+        for row in rows_del_proyecto:
+            horas_asignadas = horas_asignadas + row.horas_developer
+
+        context['horas_asignadas'] = horas_asignadas
+
+        #self.user_story = get_object_or_404(UserStory, pk=self.kwargs['pk_user_story'])
+        #context['user_story'] = self.user_story
+        return context
+
+    @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
+    def dispatch(self, *args, **kwargs):
+        return super(HorasDeveloper, self).dispatch(*args, **kwargs)
