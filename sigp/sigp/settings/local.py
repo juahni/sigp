@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-PATH = '/var/production/sigp'
+#PATH = '/var/production/sigp'
 
 TEMPLATE_DEBUG = True
 
