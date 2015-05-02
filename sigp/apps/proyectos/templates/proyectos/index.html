@@ -10,7 +10,7 @@
 	        </div>
 	    </div>
 	<!-- /.row -->
-	
+
 
 
 {% if perms.proyectos.crear_proyecto %}
@@ -33,45 +33,52 @@
             <th>Cliente</th>
 			<th>Editar</th>
 			<th>Cancelar</th>
-			
+
 		</tr>
 	</thead>
 	<tbody>
 
 		{% for proyecto in  proyecto_list %}
-			
+
 				{% if user in proyecto.equipo.all %}
-				
-				
-			
-			
+
+
+
+
 			{% if proyecto.cancelado == False %}
-				
+
 				<tr>
-					<td><a type="button" class="btn btn-warning" href="{% url 'proyectos:proyecto_index' proyecto.id %}">
+                    {% if proyecto.estado|stringformat:"s" == "Activo" %}
+					<td>
+                        <a type="button" class="btn btn-warning" href="{% url 'proyectos:proyecto_index' proyecto.id %}">
 						<i class="fa fa-lg fa-archive"></i>
-						</a></td>
+						</a>
+                    </td>
+                    {% else %}
+                    <td></td>
+                    {%endif%}
+
 					<td>{{proyecto.codigo}}</td>
 					<td>{{proyecto.nombre_corto}}</td>
-					
+
 					<td>{{proyecto.nombre_largo}}</td>
 
 					<td>{{proyecto.scrum_master}}</td>
 
-					
 
-					
+
+
 					<td>
-						
+
 						{{proyecto.estado}}
-						
+
 					</td>
                     <td>
 
 						{{proyecto.cliente}}
 
 					</td>
-					
+
 					{% if user == proyecto.scrum_master %}
 					{% if perms.proyectos.modificar_proyecto %}
 					<td>
@@ -96,7 +103,7 @@
 					<td></td>
 					<td></td>
 					{% endif %}
-					
+
 				</tr>
 			{% else %}
 				<tr>
@@ -105,32 +112,32 @@
 						</a></td>
 					<td>{{proyecto.codigo}}</td>
 					<td>{{proyecto.nombre_corto}}</td>
-					
+
 					<td>{{proyecto.nombre_largo}}</td>
 
 					<td>{{proyecto.scrum_master}}</td>
 
 					<td>
 						Cancelado
-					</td>			
+					</td>
 
                         {{proyecto.cliente}}
 					<td>
-						
+
 					</td>
 
-					
+
 
 					<td>
-						
+
 					</td>
-					
-					
+
+
 				</tr>
 			{% endif %}
 			{% endif %}
 		{% endfor %}
-			
+
 	</tbody>
 </table>
 
