@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-PATH = '/var/production/sigp'
+#PATH = '/var/production/sigp'
 
 TEMPLATE_DEBUG = True
 
@@ -11,9 +11,9 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sigp',
-        'USER': 'juahni',
-        'PASSWORD': 'postgres',
+        'NAME': 'bdprincipal',
+        'USER': 'fran',
+        'PASSWORD': 'fran02',
         'HOST': 'localhost',
         'PORT': '5432',
     }
