@@ -2,6 +2,7 @@
 echo "***********Copiando el contenido de la base de datos de produccion***********"
 echo "***********Ingrese el password del usuario user-prod***********"
 
+# bdx es la base de datos que se va hacer el backup
 pg_dump -c bdx -f /home/fran/is2/dumps/poblacion_prueba.sql -U fran -h localhost
 
 
