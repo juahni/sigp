@@ -18,7 +18,11 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Usuario</th>
+			<th>Operacion</th>
+            <th>Campo</th>
+            <th>Valor</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
 
 
 		</tr>
@@ -28,7 +32,19 @@
 
     <tr>
         <td>
-            {{historial}}
+            {{historial.operacion}}
+        </td>
+        <td>
+            {{historial.campo}}
+        </td>
+        <td>
+            {{historial.valor}}
+        </td>
+        <td>
+            {{historial.usuario}}
+        </td>
+        <td>
+            {{historial.fecha}}
         </td>
     </tr>
     {% endfor %}
