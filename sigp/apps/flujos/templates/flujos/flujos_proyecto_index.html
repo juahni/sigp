@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<a type="button" class="btn btn-info" href="{% url 'proyectos:proyecto_index' proyecto.id %}" >
+	<i class="fa fa-fw fa-chevron-left"></i> Atrás
+</a>
+
+
+	<!-- Page Heading -->
+	    <div class="row">
+	        <div class="col-lg-12">
+	            <h1 class="page-header">
+	                <i class="fa fa-exchange fa-fw"></i>Flujos <small>Administración</small>
+	            </h1>
+	        </div>
+	    </div>
+	<!-- /.row -->
+
+
+{% if perms.flujos.crear_flujo %}
+
+	<a type="button" class="btn btn-success pull-right" href="{% url 'flujos:asignar' proyecto.id %}" >
+	<i class="fa fa-lg fa-exchange"></i>
+		Asignar Flujo
+	</a>
+
+{% endif %}
+
+
+
+
+	<table class="table table-striped">
+	<thead>
+		<tr>
+            <th>Nombre</th>
+			<th>Actividades</th>
+
+
+
+		</tr>
+	</thead>
+	<tbody>
+
+		{% for flujo in  flujo_list %}
+
+
+				<tr>
+
+
+					<td>{{flujo.nombre}}</td>
+
+
+					<td>
+					{% for act in flujo.actividades.all %}
+						<p>{{act.nombre}}</p>
+					{% endfor %}
+					</td>
+
+
+
+
+
+
+                        </tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}
