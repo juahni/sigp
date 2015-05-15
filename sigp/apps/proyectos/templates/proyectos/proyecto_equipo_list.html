@@ -14,7 +14,7 @@
 	    </div>
 	<!-- /.row -->
 {% if proyecto.cancelado == False %}
-	
+
 
 	<a type="button" class="btn btn-success pull-right" href="{% url 'proyectos:add_miembro' proyecto.id %}" >
 	<i class="fa fa-lg fa-user-plus"></i>
@@ -30,14 +30,15 @@
 			<th>Usuario</th>
 			<th>Roles</th>
 			<th>Editar</th>
-			<th>Eliminar</th>			
+			<th>Eliminar</th>
+            <th>Horas</th>
 		</tr>
 	</thead>
 	<tbody>
 
 				{% for el_usuario in lista_equipo %}
 				<tr>
-					
+
 					<td>{{el_usuario}}</td>
 
 					<td>
@@ -49,30 +50,56 @@
 							{% endfor %}
 						{% endfor %}
 					</td>
-					
+
+
+
 					{% if proyecto.cancelado == False %}
 					<td>
 						<a type="button" class="btn btn-warning" href="{% url 'proyectos:rol_miembro' proyecto.id el_usuario.id %}">
 						<i class="fa fa-lg fa-group"></i>
 						</a>
 					</td>
-						
+
 					<td>
 						<a type="button" class="btn btn-danger" href="{% url 'proyectos:delete_miembro' proyecto.id el_usuario.id %}">
 						<i class="fa fa-lg fa-minus"></i>
 						</a>
 					</td>
+                    <td>
+
+                        {% for row in nueva_lista %}
+                            {% for usuario in row %}
+                                {% if el_usuario == row.0.user and "Developer" in usuario.rol_proyecto.group.name|stringformat:"s" %}
+
+                                    {{usuario.horas_developer}} Horas
+                                    <a type="button" class="btn btn-primary" href="{% url 'proyectos:horas_developer' proyecto.id el_usuario.id %}">
+                                        <i class="fa fa-lg fa-gavel"></i> Asignar horas
+                                    </a>
+
+                                {% endif %}
+                            {% endfor %}
+
+                        {% endfor %}
+
+                    </td>
 					{% else %}
 					<td></td>
 					<td></td>
 					{% endif %}
 				</tr>
 				{% endfor %}
-			
+
+                <tr class="info">
+                    <td>Fuerza de trabajo total del Proyecto</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{horas_hombre_totales}} Horas</td>
+                </tr>
+
 	</tbody>
 </table>
 
 
 
 {% endblock %}
-

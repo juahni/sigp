@@ -3,8 +3,15 @@ from django.db.models import Q
 
 from models import Sprint
 from apps.proyectos.models import Proyecto
-from apps.flujos.models import Flujo
 from apps.user_stories.models import UserStory, HistorialUserStory, UserStoryDetalle, Tarea
+from apps.roles_proyecto.models import RolProyecto_Proyecto, RolProyecto
+
+
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+MAX_UPLOAD_SIZE = "5242880"
 
 
 class SprintCreateForm(forms.ModelForm):
@@ -120,7 +127,7 @@ class SprintAsignarUserStoryForm(forms.ModelForm):
         kwargs.pop('initial')
 
         sprint = Sprint.objects.get(pk=sprint_string.pk)
-        proyecto = Sprint.objects.get(pk=proyecto_string.pk)
+        proyecto = Proyecto.objects.get(pk=proyecto_string.pk)
 
         ESTADO_USER_STORY=(
         ('No asignado', 'No asignado'),
@@ -146,10 +153,13 @@ class SprintAsignarUserStoryForm(forms.ModelForm):
             required=True)
         self.fields['estado'] = forms.ChoiceField(choices=ESTADO_USER_STORY, widget=forms.HiddenInput(), required=False)
         #flitrar solo los flujos del proyecto
-        self.fields['flujo'] = forms.ModelChoiceField(Flujo.objects.all(), required=True)
+        #self.fields['flujo'] = forms.ModelChoiceField(Flujo.objects.all(), required=True)
         #flitrar solo los sprints del proyecto
-        self.fields['sprint'] = forms.ModelChoiceField(Sprint.objects.filter(proyecto=kwargs['instance'].pk).order_by('pk'),
+        self.fields['sprint'] = forms.ModelChoiceField(Sprint.objects.filter(proyecto=proyecto).order_by('pk'),
                                                        required=False, widget=forms.HiddenInput())
+
+        self.fields['proyecto'] = forms.ModelChoiceField(Proyecto.objects.all(), widget=forms.HiddenInput(), required=False)
+        self.fields['proyecto'].initial = proyecto.id
 
         self.fields['sprint'].initial = sprint.id
 
@@ -159,14 +169,40 @@ class SprintAsignarUserStoryForm(forms.ModelForm):
         model = Sprint
         fields = ['nombre']
 
-    def save(self, commit=True):
-        cleaned_data = super(SprintAsignarUserStoryForm, self).clean()
-        #usuario = Usuario.objects.get(user=self.instance)
-        proyecto = Proyecto.objects.get(pk=self.instance.pk)
-
+    def clean_user_story(self):
         sprint = super(SprintAsignarUserStoryForm, self).save(commit=True)
 
         user_story = UserStory.objects.get(pk=self.cleaned_data['user_story'].pk)
+
+        proyecto = Proyecto.objects.get(pk=self.data.get('proyecto'))
+
+        user_story_list_sprint = UserStory.objects.filter(sprint=sprint).exclude(estado='Descartado').order_by('nombre')
+        rol_developer = RolProyecto.objects.get(group__name='Developer')
+        miembros = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, rol_proyecto=rol_developer)
+        cantidad_developers = miembros.count()
+
+        horas_asignadas_sprint = 0
+        for us in user_story_list_sprint:
+            horas_asignadas_sprint = horas_asignadas_sprint + us.estimacion
+
+        horas_totales_sprint = sprint.duracion * cantidad_developers * 8
+        horas_disponibles = horas_totales_sprint - horas_asignadas_sprint
+
+        horas_disponibles = horas_disponibles - user_story.estimacion
+
+        if horas_disponibles < 0:
+            raise forms.ValidationError("No existen suficientes horas disponibles para asignar en el sprint.")
+
+        return horas_disponibles
+
+    def save(self, commit=True):
+        cleaned_data = super(SprintAsignarUserStoryForm, self).clean()
+        #usuario = Usuario.objects.get(user=self.instance)
+        #proyecto = Proyecto.objects.get(pk=self.instance.pk)
+
+        sprint = super(SprintAsignarUserStoryForm, self).save(commit=True)
+
+        user_story = UserStory.objects.get(pk=self.data.get('user_story'))
 
 
 
@@ -174,10 +210,10 @@ class SprintAsignarUserStoryForm(forms.ModelForm):
         historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="desarrollador",
                                               valor=self.cleaned_data['desarrollador'], usuario=self.user)
         historial_us.save()
-        user_story.flujo = self.cleaned_data['flujo']
-        historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="flujo",
-                                              valor=self.cleaned_data['flujo'], usuario=self.user)
-        historial_us.save()
+        #user_story.flujo = self.cleaned_data['flujo']
+        #historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="flujo",
+        #                                      valor=self.cleaned_data['flujo'], usuario=self.user)
+        #historial_us.save()
         user_story.sprint = sprint
         historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="sprint",
                                               valor=sprint, usuario=self.user)
@@ -212,7 +248,7 @@ class SprintUpdateUserStoryForm(forms.ModelForm):
 
         user_story = UserStory.objects.get(pk=user_story_string.pk)
         sprint = Sprint.objects.get(pk=sprint_string.pk)
-        proyecto = Sprint.objects.get(pk=proyecto_string.pk)
+        proyecto = Proyecto.objects.get(pk=proyecto_string.pk)
 
         ESTADO_USER_STORY=(
         ('No asignado', 'No asignado'),
@@ -235,15 +271,15 @@ class SprintUpdateUserStoryForm(forms.ModelForm):
 
         self.fields['estado'] = forms.ChoiceField(choices=ESTADO_USER_STORY, widget=forms.HiddenInput(), required=False)
         #flitrar solo los flujos del proyecto
-        self.fields['flujo'] = forms.ModelChoiceField(Flujo.objects.all(), required=True)
+        #self.fields['flujo'] = forms.ModelChoiceField(Flujo.objects.all(), required=True)
         #flitrar solo los sprints del proyecto
-        self.fields['sprint'] = forms.ModelChoiceField(Sprint.objects.filter(proyecto=kwargs['instance'].pk).order_by('pk'),
+        self.fields['sprint'] = forms.ModelChoiceField(Sprint.objects.filter(proyecto=proyecto).order_by('pk'),
                                                        required=False, widget=forms.HiddenInput())
 
         self.fields['id'].initial = user_story.id
         self.fields['desarrollador'].initial = user_story.usuario
         self.fields['estado'].initial = user_story.estado
-        self.fields['flujo'].initial = user_story.flujo
+        #self.fields['flujo'].initial = user_story.flujo
         self.fields['sprint'].initial = user_story.sprint
 
     nombre = forms.CharField(widget=forms.HiddenInput(), required=True)
@@ -255,7 +291,7 @@ class SprintUpdateUserStoryForm(forms.ModelForm):
     def save(self, commit=True):
         cleaned_data = super(SprintUpdateUserStoryForm, self).clean()
         #usuario = Usuario.objects.get(user=self.instance)
-        proyecto = Proyecto.objects.get(pk=self.instance.pk)
+        #proyecto = Proyecto.objects.get(pk=self.instance.pk)
 
         sprint = super(SprintUpdateUserStoryForm, self).save(commit=True)
 
@@ -267,11 +303,11 @@ class SprintUpdateUserStoryForm(forms.ModelForm):
                                               valor=self.cleaned_data['desarrollador'], usuario=self.user)
             historial_us.save()
 
-        if user_story.flujo != self.cleaned_data['flujo']:
-            user_story.flujo = self.cleaned_data['flujo']
-            historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="flujo",
-                                                  valor=self.cleaned_data['flujo'], usuario=self.user)
-            historial_us.save()
+        #if user_story.flujo != self.cleaned_data['flujo']:
+        #    user_story.flujo = self.cleaned_data['flujo']
+        #    historial_us = HistorialUserStory(user_story=user_story, operacion='modificado', campo="flujo",
+        #                                          valor=self.cleaned_data['flujo'], usuario=self.user)
+        #    historial_us.save()
 
         user_story.sprint = self.cleaned_data['sprint']
 
@@ -317,7 +353,7 @@ class RegistrarTareaForm(forms.ModelForm):
     def save(self, commit=True):
         cleaned_data = super(RegistrarTareaForm, self).clean()
         #usuario = Usuario.objects.get(user=self.instance)
-        proyecto = Proyecto.objects.get(pk=self.instance.pk)
+        #proyecto = Proyecto.objects.get(pk=self.instance.pk)
 
         sprint = super(RegistrarTareaForm, self).save(commit=True)
 
@@ -334,3 +370,16 @@ class RegistrarTareaForm(forms.ModelForm):
         tarea.save()
 
         return sprint
+
+
+class AdjuntarArchivoForm(forms.Form):
+    archivo = forms.FileField()
+
+    #def clean_archivo(self):
+    #    print "clean"
+    #    archivo = self.cleaned_data['archivo']
+    #    if archivo._size > MAX_UPLOAD_SIZE:
+    #        print "if"
+    #        raise forms.ValidationError('Archivo mayor a %s. Su archivo tiene %s' % (defaultfilters.filesizeformat(MAX_UPLOAD_SIZE), defaultfilters.filesizeformat(archivo._size)))
+
+    #    return archivo
