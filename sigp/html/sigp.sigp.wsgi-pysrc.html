@@ -54,22 +54,25 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="sigp.sigp.wsgi-module.html">Module sigp.sigp.wsgi</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">WSGI config for SIGP project.</tt> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">It exposes the WSGI callable as a module-level variable named ``application``.</tt> </tt>
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">WSGI config for SIGP project.</tt> </tt>
 <a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">For more information on this file, see</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/</tt> </tt>
-<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
-<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
-<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">.</tt><tt class="py-name">setdefault</tt><tt class="py-op">(</tt><tt class="py-string">"DJANGO_SETTINGS_MODULE"</tt><tt class="py-op">,</tt> <tt class="py-string">"sigp.settings"</tt><tt class="py-op">)</tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module sigp.sigp.wsgi=sigp.sigp.wsgi-module.html"><a title="sigp.sigp.wsgi" class="py-name" href="#" onclick="return doclink('link-0', 'wsgi', 'link-0');">wsgi</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">get_wsgi_application</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable sigp.sigp.wsgi.application=sigp.sigp.wsgi-module.html#application,Variable sigp.sigp.wsgi_prod.application=sigp.sigp.wsgi_prod-module.html#application"><a title="sigp.sigp.wsgi.application
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">It exposes the WSGI callable as a module-level variable named ``application``.</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">For more information on this file, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">.</tt><tt class="py-name">setdefault</tt><tt class="py-op">(</tt><tt class="py-string">"DJANGO_SETTINGS_MODULE"</tt><tt class="py-op">,</tt> <tt class="py-string">"sigp.settings.local"</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module sigp.sigp.wsgi=sigp.sigp.wsgi-module.html"><a title="sigp.sigp.wsgi" class="py-name" href="#" onclick="return doclink('link-0', 'wsgi', 'link-0');">wsgi</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">get_wsgi_application</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable sigp.sigp.wsgi.application=sigp.sigp.wsgi-module.html#application,Variable sigp.sigp.wsgi_prod.application=sigp.sigp.wsgi_prod-module.html#application"><a title="sigp.sigp.wsgi.application
 sigp.sigp.wsgi_prod.application" class="py-name" href="#" onclick="return doclink('link-1', 'application', 'link-1');">application</a></tt> <tt class="py-op">=</tt> <tt class="py-name">get_wsgi_application</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -99,7 +102,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Apr 27 15:06:15 2015
+    Generated by Epydoc 3.0.1 on Sat May 16 18:24:21 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
