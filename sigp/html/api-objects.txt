@@ -1,6 +1,6 @@
+script-epydoc_sh	script-epydoc_sh-module.html
 script-script_is2_prueba_sh	script-script_is2_prueba_sh-module.html
 script-script_is2_prueba_sh_	script-script_is2_prueba_sh_-module.html
-script-script_is2_sh	script-script_is2_sh-module.html
 script-tests_is2_sh	script-tests_is2_sh-module.html
 sigp.apps	sigp.apps-module.html
 sigp.apps.__package__	sigp.apps-module.html#__package__

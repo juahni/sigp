@@ -10,8 +10,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sigp-prod',
-        'USER': 'juahni',
-        'PASSWORD': 'postgres',
+        'USER': 'sigp',
+        'PASSWORD': 'sigp',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -23,11 +23,6 @@ STATICFILES_DIRS = (
     BASE_DIR.child('static'),
 )
 
-#STATIC_ROOT = '/home/juahni/PycharmProjects/sigp/sigp/'
-staticos_prod = Path(__file__).ancestor(5)
-STATIC_ROOT = staticos_prod.child('static')
-
 MEDIA_URL = '/media/'
 
-media_prod = Path(__file__).ancestor(5)
-MEDIA_ROOT = media_prod.child('media')
+MEDIA_ROOT = BASE_DIR.child('media')
