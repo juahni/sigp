@@ -10,9 +10,9 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sigp_prueba',
-        'USER': 'romina',
-        'PASSWORD': '1q2w3e4r5t',
+        'NAME': 'sigp-prueba',
+        'USER': 'sigp',
+        'PASSWORD': 'sigp',
         'HOST': 'localhost',
         'PORT': '5432',
     }
