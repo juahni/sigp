@@ -1,17 +1,17 @@
-from .base import *
+from base import *
 
 DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bdproduccion',
-        'USER': 'fran',
-        'PASSWORD': 'fran02',
+        'NAME': 'sigp-prod',
+        'USER': 'juahni',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -23,8 +23,11 @@ STATICFILES_DIRS = (
     BASE_DIR.child('static'),
 )
 
-#STATIC_ROOT = '/home/daniel/dev/is2-env/static/'
+#STATIC_ROOT = '/home/juahni/PycharmProjects/sigp/sigp/'
 staticos_prod = Path(__file__).ancestor(5)
 STATIC_ROOT = staticos_prod.child('static')
 
-ALLOWED_HOSTS = ['*']
+MEDIA_URL = '/media/'
+
+media_prod = Path(__file__).ancestor(5)
+MEDIA_ROOT = media_prod.child('media')

@@ -16,6 +16,7 @@ from apps.roles_proyecto.models import RolProyecto_Proyecto
 class IndexView(generic.ListView):
     """
     Clase que despliega la lista de user stories del proyecto para su modificacion
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -25,6 +26,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """
         Metodo que filtra los user story correspondientes al proyecto
+
         @rtype: django.db.models.query.Querysets
         @return: resultado de la consulta
         """
@@ -38,8 +40,10 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         """
         Metodo que retorna un diccionario que representa el contexto del template.
+
         @type
         @param kwargs: la clave primaria del proyecto
+
         @rtype: context
         @return: El diccionario
         """
@@ -55,10 +59,13 @@ class IndexView(generic.ListView):
 class UserStoryCreate(UpdateView):
     """
     Clase que despliega el formulario para la creacion de User Stories.
+
     @ivar form_class: Formulario que se utiliza para la creacion de User Stories
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
+
     @ivar context_object_name: Variable de contexto
     @type context_object_name: string
     """
@@ -73,8 +80,10 @@ class UserStoryCreate(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de User Stories una vez que el formulario se haya guardado correctamente.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @rtype: django.core.urlresolvers
         @return: redireccion al index de la aplicacion usuarios
         """
@@ -95,8 +104,10 @@ class UserStoryCreate(UpdateView):
 class UserStoryUpdatePO(UpdateView):
     """
     Clase que despliega el formulario para la modficacion de User Stories, con privilegio de Product Owner.
+
     @ivar form_class: Formulario que se utiliza para la modficacion de User Stories
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -107,10 +118,13 @@ class UserStoryUpdatePO(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del usuario a ser modificado.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
+
         @rtype: User
         @return: Usuario actual a ser modificado
         """
@@ -120,8 +134,10 @@ class UserStoryUpdatePO(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de User Stories una vez que el formulario se haya guardado correctamente.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @rtype: django.core.urlresolvers, primary key del proyecto
         @return: redireccion al index de la aplicacion user storie, respecto al proyecto al que corresponde
         """
@@ -155,8 +171,10 @@ class UserStoryUpdatePO(UpdateView):
 class UserStoryUpdateSM(UpdateView):
     """
     Clase que despliega el formulario para la modficacion de User Stories, con privilegio de Scrum Master.
+
     @ivar form_class: Formulario que se utiliza para la modficacion de User Stories
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -167,10 +185,13 @@ class UserStoryUpdateSM(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del usuario a ser modificado.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
+
         @rtype: Proyecto
         @return: Proyecto actual a ser modificado
         """
@@ -180,8 +201,10 @@ class UserStoryUpdateSM(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de User Stories una vez que el formulario se haya guardado correctamente.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @rtype: django.core.urlresolvers, primary key del proyecto
         @return: redireccion al index de la aplicacion user storie, respecto al proyecto al que corresponde
         """
@@ -215,12 +238,16 @@ class UserStoryUpdateSM(UpdateView):
 def descartar_user_story(request, pk_proyecto, pk_user_story):
     """
     Metodo que descarta un user story
+
     @param request:
     @type
+
     @param pk_proyecto: clave primaria del proyecto al cual corresponde el user story
     @type
+
     @param pk_user_story: clave primaria del user story
     @type
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza user_stories/delete.html para obtener el formulario o
             redirecciona a la vista index de User Stories si el user story fue descartado.

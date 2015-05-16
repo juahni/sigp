@@ -4,6 +4,9 @@
 	<i class="fa fa-fw fa-chevron-left"></i> Atrás
 </a>
 
+<p class="btn btn-default pull-right"  >
+		Duración del proyecto: {{duracion}} días
+	</p>
 	<!-- Page Heading -->
 	    <div class="row">
 	        <div class="col-lg-12">
@@ -14,7 +17,7 @@
 	    </div>
 	<!-- /.row -->
 {% if proyecto.cancelado == False %}
-
+	
 
 	<a type="button" class="btn btn-success pull-right" href="{% url 'proyectos:add_miembro' proyecto.id %}" >
 	<i class="fa fa-lg fa-user-plus"></i>
@@ -31,14 +34,14 @@
 			<th>Roles</th>
 			<th>Editar</th>
 			<th>Eliminar</th>
-            <th>Horas</th>
+            <th>Horas por día</th>
 		</tr>
 	</thead>
 	<tbody>
 
 				{% for el_usuario in lista_equipo %}
 				<tr>
-
+					
 					<td>{{el_usuario}}</td>
 
 					<td>
@@ -59,7 +62,7 @@
 						<i class="fa fa-lg fa-group"></i>
 						</a>
 					</td>
-
+						
 					<td>
 						<a type="button" class="btn btn-danger" href="{% url 'proyectos:delete_miembro' proyecto.id el_usuario.id %}">
 						<i class="fa fa-lg fa-minus"></i>
@@ -90,16 +93,17 @@
 				{% endfor %}
 
                 <tr class="info">
-                    <td>Fuerza de trabajo total del Proyecto</td>
+                    <td>Fuerza de trabajo total del Proyecto en {{duracion}} días</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td>{{horas_hombre_totales}} Horas</td>
                 </tr>
-
+			
 	</tbody>
 </table>
 
 
 
 {% endblock %}
+

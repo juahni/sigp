@@ -1,6 +1,9 @@
 from operator import attrgetter
+import urlparse
+import json
+import locale
 
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse
@@ -15,6 +18,7 @@ from apps.proyectos.models import Proyecto
 from apps.user_stories.models import UserStory, HistorialUserStory, UserStoryDetalle, Tarea, Archivo
 from apps.roles_proyecto.models import RolProyecto_Proyecto, RolProyecto
 from apps.flujos.models import Flujo
+from tasks import cambio_estado, fin_user_story, reversion_estado, aprobacion_user_story
 
 
 class IndexView(generic.ListView):
@@ -272,15 +276,18 @@ class SprintGestionar(UpdateView):
         rol_developer = RolProyecto.objects.get(group__name='Developer')
         miembros = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, rol_proyecto=rol_developer)
         cantidad_developers = miembros.count()
-        #horas_hombre_totales = 0
-        #for miembro in miembros:
-        #    horas_hombre_totales = horas_hombre_totales + miembro.horas_developer
 
         horas_asignadas_sprint = 0
         for us in user_story_list_sprint:
             horas_asignadas_sprint = horas_asignadas_sprint + us.estimacion
 
-        horas_totales_sprint = sprint.duracion * cantidad_developers * 8
+        horas_totales_sprint = 0
+        for miembro in miembros:
+            horas_developer_sprint = 0
+            horas_developer_sprint = miembro.horas_developer * sprint.duracion
+            horas_totales_sprint = horas_totales_sprint + horas_developer_sprint
+
+        #horas_totales_sprint = sprint.duracion * cantidad_developers * 8
         horas_disponibles = horas_totales_sprint - horas_asignadas_sprint
         context['cantidad'] = cantidad_developers
         context['horas_asignadas'] = horas_asignadas_sprint
@@ -291,6 +298,21 @@ class SprintGestionar(UpdateView):
 
 
 def detalle_horas(request, pk_proyecto, pk_sprint):
+    """
+    Funcion que permite ver el detalle de la asignacion de horas en un sprint.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto
+
+    @type pk_sprint: string
+    @param pk_sprint: id del sprint
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza sprints/detalle_horas.html para obtener el detalle de horas.
+    """
     template = 'sprints/detalle_horas.html'
     proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
     sprint = get_object_or_404(Sprint, pk=pk_sprint)
@@ -309,20 +331,28 @@ def detalle_horas(request, pk_proyecto, pk_sprint):
 
     dev_horas_disponibles = []
     dev_horas_asignadas = []
+    dev_total_horas = []
     for developer in lista_developers:
         user_story_list_sprint_usuario = UserStory.objects.filter(usuario=developer.user, sprint=sprint)
         total_horas_us_user = 0
         for us in user_story_list_sprint_usuario:
             total_horas_us_user = total_horas_us_user + us.estimacion
-        dev_horas_disponibles.append(developer.horas_developer - total_horas_us_user)
+        dev_horas_disponibles.append(developer.horas_developer * sprint.duracion - total_horas_us_user)
         dev_horas_asignadas.append(total_horas_us_user)
+        dev_total_horas.append(developer.horas_developer * sprint.duracion)
 
 
     horas_asignadas_sprint = 0
     for us in user_story_list_sprint:
         horas_asignadas_sprint = horas_asignadas_sprint + us.estimacion
 
-    horas_totales_sprint = sprint.duracion * cantidad_developers * 8
+    horas_totales_sprint = 0
+    for miembro in lista_developers:
+        horas_developer_sprint = 0
+        horas_developer_sprint = miembro.horas_developer * sprint.duracion
+        horas_totales_sprint = horas_totales_sprint + horas_developer_sprint
+
+    #horas_totales_sprint = sprint.duracion * cantidad_developers * 8
 
     horas_disponibles = horas_totales_sprint - horas_asignadas_sprint
 
@@ -516,6 +546,24 @@ def sprint_kanban(request, pk_proyecto, pk_sprint):
 
 @login_required(login_url='/login/')
 def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
+    """
+    Funcion que cambia el estado y/o la actividad de un user story seleccionado en un flujo.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto
+
+    @type pk_sprint: string
+    @param pk_sprint: id del sprint
+
+    @type pk_user_story: string
+    @param pk_user_story: id del user story
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
+    """
     proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
     sprint = get_object_or_404(Sprint, pk=pk_sprint)
     user_story = get_object_or_404(UserStory, pk=pk_user_story)
@@ -525,6 +573,13 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     detalle = UserStoryDetalle.objects.get(user_story=user_story)
     us_original_act = user_story.userstorydetalle.actividad
     us_original_est = user_story.userstorydetalle.estado
+
+    us_id = user_story.id
+    uri = request.build_absolute_uri()
+    print "uri= %s" % uri
+
+    uri_us = urlparse.urljoin(uri, '../../tareas/%s/' % us_id)
+    print "uri_us= %s" % uri_us
 
     for index, act in enumerate(actividades):
         estados = act.estados.all()
@@ -540,7 +595,12 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.flujo = user_story.flujo
                 tarea.actividad = user_story.userstorydetalle.actividad
                 tarea.estado = detalle.estado
+                tarea.tipo = 'Cambio de Estado'
+                tarea.usuario = request.user
                 tarea.save()
+
+                #se envia la notificacion a traves de celery
+                cambio_estado.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
             elif us_original_est == estados[1] and actividades.reverse()[0] != act:
                 detalle.estado = estados[2]
@@ -553,6 +613,8 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.flujo = user_story.flujo
                 tarea.actividad = user_story.userstorydetalle.actividad
                 tarea.estado = detalle.estado
+                tarea.tipo = 'Cambio de Estado'
+                tarea.usuario = request.user
                 tarea.save()
 
                 detalle.actividad = actividades[index+1]
@@ -566,9 +628,14 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.actividad = detalle.actividad
                 est = actividades[index+1].estados.all()
                 tarea.estado = est[0]
+                tarea.tipo = 'Cambio de Estado'
+                tarea.usuario = request.user
                 tarea.save()
 
                 detalle.estado = est[0]
+
+                #se envia la notificacion a traves de celery
+                cambio_estado.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
             elif us_original_est == estados[1] and actividades.reverse()[0] == act:
                 detalle.estado = estados[2]
@@ -581,6 +648,8 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.flujo = user_story.flujo
                 tarea.actividad = user_story.userstorydetalle.actividad
                 tarea.estado = detalle.estado
+                tarea.tipo = 'Cambio de Estado'
+                tarea.usuario = request.user
                 tarea.save()
 
                 user_story.estado = 'Finalizado'
@@ -593,7 +662,12 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.flujo = user_story.flujo
                 tarea.actividad = user_story.userstorydetalle.actividad
                 tarea.estado = detalle.estado
+                tarea.tipo = 'Cambio de Estado'
+                tarea.usuario = request.user
                 tarea.save()
+
+                #se envia la notificacion a traves de celery
+                fin_user_story.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
     detalle.save()
     user_story.save()
@@ -602,6 +676,24 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 
 
 def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
+    """
+    Funcion que revierte el estado y/o la actividad de un user story seleccionado en un flujo.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto
+
+    @type pk_sprint: string
+    @param pk_sprint: id del sprint
+
+    @type pk_user_story: string
+    @param pk_user_story: id del user story
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
+    """
     proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
     sprint = get_object_or_404(Sprint, pk=pk_sprint)
     user_story = get_object_or_404(UserStory, pk=pk_user_story)
@@ -611,6 +703,13 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     detalle = UserStoryDetalle.objects.get(user_story=user_story)
     us_original_act = user_story.userstorydetalle.actividad
     us_original_est = user_story.userstorydetalle.estado
+
+    us_id = user_story.id
+    uri = request.build_absolute_uri()
+    print "uri= %s" % uri
+
+    uri_us = urlparse.urljoin(uri, '../../tareas/%s/' % us_id)
+    print "uri_us= %s" % uri_us
 
     for index, act in enumerate(actividades):
         estados = act.estados.all()
@@ -630,9 +729,14 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                     tarea.actividad = detalle.actividad
                     est = actividades[index-1].estados.all()
                     tarea.estado = est[0]
+                    tarea.tipo = 'Cambio de Estado'
+                    tarea.usuario = request.user
                     #tarea.estado = detalle.estado
                     tarea.save()
                     detalle.estado = est[0]
+
+                    #se envia la notificacion a traves de celery
+                    reversion_estado.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
                 if user_story.estado == 'Finalizado':
                     detalle.actividad = actividades[index]
@@ -646,10 +750,15 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                     tarea.actividad = detalle.actividad
                     est = actividades[index].estados.all()
                     tarea.estado = est[0]
+                    tarea.tipo = 'Cambio de Estado'
+                    tarea.usuario = request.user
                     #tarea.estado = detalle.estado
                     tarea.save()
                     detalle.estado = est[0]
                     user_story.estado = 'Activo'
+
+                    #se envia la notificacion a traves de celery
+                    reversion_estado.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
     detalle.save()
     user_story.save()
@@ -658,6 +767,24 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 
 @login_required(login_url='/login/')
 def aprobar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
+    """
+    Funcion que permite aprobar un user story finalizado en un flujo.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto
+
+    @type pk_sprint: string
+    @param pk_sprint: id del sprint
+
+    @type pk_user_story: string
+    @param pk_user_story: id del user story
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
+    """
 
     template = 'sprints/user_story_aprobar.html'
     proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
@@ -667,6 +794,13 @@ def aprobar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
     detalle = UserStoryDetalle.objects.get(user_story=user_story)
     lista_tareas_us = Tarea.objects.filter(user_story=user_story)
     horas_acumuladas = 0
+
+    us_id = user_story.id
+    uri = request.build_absolute_uri()
+    print "uri= %s" % uri
+
+    uri_us = urlparse.urljoin(uri, '../../tareas/%s/' % us_id)
+    print "uri_us= %s" % uri_us
 
     for tarea in lista_tareas_us:
         horas_acumuladas = horas_acumuladas + tarea.horas_de_trabajo
@@ -683,7 +817,12 @@ def aprobar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
         tarea.flujo = user_story.flujo
         tarea.actividad = user_story.userstorydetalle.actividad
         tarea.estado = user_story.userstorydetalle.estado
+        tarea.tipo = 'Cambio de Estado'
+        tarea.usuario = request.user
         tarea.save()
+
+        #se envia la notificacion a traves de celery
+        aprobacion_user_story.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
 
         return HttpResponseRedirect(reverse('sprints:kanban', args=[pk_proyecto, pk_sprint]))
 
@@ -810,16 +949,37 @@ class TareasIndexView(generic.ListView):
         lista_archivos = Archivo.objects.filter(user_story=self.user_story)
         cantidad_archivos = lista_archivos.count()
 
+        tipos_tareas = ['Registro de Tarea', 'Cambio de Estado']
+
         context['proyecto'] = proyecto
         context['sprint'] = sprint
         context['user_story'] = self.user_story
         context['horas_acumuladas'] = horas_acumuladas
         context['cantidad_archivos'] = cantidad_archivos
+        context['tipos_tareas'] = tipos_tareas
 
         return context
 
 
 def adjuntar_archivo(request, pk_proyecto, pk_sprint, pk_user_story):
+    """
+    Funcion que permite adjuntar un archivo a un user story seleccionado en un flujo.
+
+    @type request: django.http.HttpRequest
+    @param request: Contiene informacion sobre la peticion actual
+
+    @type pk_proyecto: string
+    @param pk_proyecto: id del proyecto
+
+    @type pk_sprint: string
+    @param pk_sprint: id del sprint
+
+    @type pk_user_story: string
+    @param pk_user_story: id del user story
+
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
+    """
 
     template = 'sprints/user_story_adjuntar_archivo.html'
     proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
@@ -847,6 +1007,8 @@ def adjuntar_archivo(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.flujo = user_story.flujo
                 tarea.actividad = user_story.userstorydetalle.actividad
                 tarea.estado = user_story.userstorydetalle.estado
+                tarea.tipo = 'Registro de Tarea'
+                tarea.usuario = request.user
                 tarea.save()
 
                 return HttpResponseRedirect(reverse('sprints:adjuntar_archivo', args=[pk_proyecto, pk_sprint, pk_user_story]))
@@ -859,6 +1021,75 @@ def adjuntar_archivo(request, pk_proyecto, pk_sprint, pk_user_story):
         form = AdjuntarArchivoForm()
 
     return render(request, template, locals())
+
+
+class TareasIndexViewAjax(generic.TemplateView):
+    """
+    Clase que despliega la lista de tareas realizadas en un user story utilizando Ajax para el filtrado
+    """
+
+    def get(self, request, *args, **kwargs):
+        """
+        Metodo que obtiene los datos a ser enviados al template de la vista
+
+        @type self: FormView
+        @param self: Informacion sobre la vista actual
+
+        @type request: django.http.HttpRequest
+        @param request: Contiene informacion sobre la peticion actual
+
+        @rtype: django.http.HttpResponse
+        @return: Renderiza sprints/ver_tareas.html para obtener las tareas del user story
+        """
+        tipo_tarea = request.GET['tipo']
+        print "tipo_tarea= %s" % tipo_tarea
+
+        user_story_id = request.GET['id_us']
+        print "us= %s" % user_story_id
+
+        tareas_x_tipo = Tarea.objects.filter(user_story__id=user_story_id, tipo=tipo_tarea).order_by('-fecha')
+        print tareas_x_tipo
+
+        locale.setlocale(locale.LC_ALL, 'es_PY.utf8')
+
+        if tareas_x_tipo:
+            lista = []
+            for tarea in tareas_x_tipo:
+                #fecha = str(tarea.fecha)
+                lista.append({'descripcion': tarea.descripcion, 'horas_de_trabajo': tarea.horas_de_trabajo,
+                              'actividad': tarea.actividad.nombre, 'estado': tarea.estado.nombre,
+                              'usuario': tarea.usuario.username,
+                              'fecha': tarea.fecha.strftime('%d de %B de %Y a las %H:%M')})
+            print tarea.fecha
+            #print fecha
+            data = json.dumps(lista)
+
+            #data = serializers.serialize('json', tareas_x_tipo,
+            #                             fields=('descripcion', 'horas_de_trabajo', 'actividad_tarea', 'estado', 'fecha'))
+
+            print data
+
+        elif tipo_tarea == 'Todas las tareas' and Tarea.objects.filter(user_story__id=user_story_id):
+            todas = Tarea.objects.filter(user_story__id=user_story_id).order_by('-fecha')
+            print todas
+
+            lista = []
+            for tarea in todas:
+                #fecha = str(tarea.fecha)
+                lista.append({'descripcion': tarea.descripcion, 'horas_de_trabajo': tarea.horas_de_trabajo,
+                              'actividad': tarea.actividad.nombre, 'estado': tarea.estado.nombre,
+                              'usuario': tarea.usuario.username,
+                              'fecha': tarea.fecha.strftime('%d de %B de %Y a las %H:%M')})
+            print tarea.fecha
+            #print fecha
+            data = json.dumps(lista)
+
+        else:
+            print "sin tipo"
+            data = [{}]
+            return HttpResponse(data, content_type='application/json')
+
+        return HttpResponse(data, content_type='application/json')
 
 
 #def abrir_archivo(request, pk_proyecto, pk_sprint, pk_user_story, pk_archivo):

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView
@@ -22,31 +24,35 @@ class IndexView(generic.ListView):
     """
     Clase que despliega la lista completa de proyectos en el Index
     de la aplicacion Proyecto.
+
     @ivar queryset: Consulta a la base de datos
     @type queryset: django.db.models.query
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
     queryset = Proyecto.objects.all().order_by('codigo')
     template_name = 'proyectos/index.html'
-
+    
 
 class ProyectoCreate(SuccessMessageMixin, CreateView):
     """
     Clase que despliega el formulario para la creacion de proyectos.
+
     @ivar form_class: Formulario que se utiliza para la creacion de usuarios
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
     form_class = ProyectoCreateForm
     template_name = 'proyectos/create.html'
     success_message = "%(nombre_corto)s fue creado de manera exitosa"
-
+    
     def form_valid(self, form):
         return super(ProyectoCreate, self).form_valid(form)
 
-    def get_success_url(self):
+    def get_success_url(self): 
         return reverse('proyectos:index')
 
     @method_decorator(permission_required('proyectos.crear_proyecto'))
@@ -57,8 +63,10 @@ class ProyectoCreate(SuccessMessageMixin, CreateView):
 class ProyectoUpdate(SuccessMessageMixin, UpdateView):
     """
     Clase que despliega el formulario para la modficacion de proyectos.
+
     @ivar form_class: Formulario que se utiliza para la modficacion de usuarios
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -70,7 +78,7 @@ class ProyectoUpdate(SuccessMessageMixin, UpdateView):
         obj = Proyecto.objects.get(pk=self.kwargs['pk'])
         return obj
 
-    def get_success_url(self):
+    def get_success_url(self): 
         return reverse('proyectos:index')
 
     @method_decorator(permission_required('proyectos.modificar_proyecto'))
@@ -113,7 +121,7 @@ def proyecto_index(request, pk):
 
     lista_equipo = Proyecto.objects.get(pk=pk).equipo.all()
     print lista_equipo
-
+    
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
@@ -122,9 +130,12 @@ def proyecto_index(request, pk):
 
     print nueva_lista
 
-    duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
-    print "duracion = %s" % duracion_proyecto.days
-    duracion = duracion_proyecto.days
+    #duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
+    #print "duracion = %s" % duracion_proyecto.days
+    #duracion = duracion_proyecto.days
+
+    duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
+
 
     lista_us = UserStory.objects.filter(proyecto=pk).order_by('nombre')[:5]
     lista_sprints = Sprint.objects.filter(proyecto=pk).order_by('pk')
@@ -146,6 +157,8 @@ def listar_equipo(request, pk_proyecto):
     lista_equipo = Proyecto.objects.get(pk=pk_proyecto).equipo.all().order_by('id')
     print lista_equipo
 
+    duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
+
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
@@ -155,7 +168,9 @@ def listar_equipo(request, pk_proyecto):
     miembros = RolProyecto_Proyecto.objects.filter(proyecto=proyecto)
     horas_hombre_totales = 0
     for miembro in miembros:
-        horas_hombre_totales = horas_hombre_totales + miembro.horas_developer
+        horas_developer_proyecto = 0
+        horas_developer_proyecto = miembro.horas_developer * duracion
+        horas_hombre_totales = horas_hombre_totales + horas_developer_proyecto
 
     print nueva_lista
     template = 'proyectos/proyecto_equipo_list.html'
@@ -165,8 +180,10 @@ def listar_equipo(request, pk_proyecto):
 class AddMiembro(generic.UpdateView):
     """
     Clase que despliega el formulario para la agregacion de miembros.
+
     @ivar form_class: Formulario que se utiliza para la agregacion de usuarios
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -212,7 +229,7 @@ def delete_miembro(request, pk_proyecto, pk_user):
             return HttpResponseRedirect(reverse( 'proyectos:equipo_list', args=[proyecto.pk]))
 
         else:
-            mensaje = 'No se puede eliminar el usuario '
+            mensaje = 'No se puede eliminar el usuario ' 
             mensaje =  mensaje + usuario.username + ' del proyecto porque es el Scrum Master. Designe primero como Scrum Master a otro usuario.'
             return render(request, template, locals())
 
@@ -222,8 +239,10 @@ def delete_miembro(request, pk_proyecto, pk_user):
 class RolMiembro(UpdateView):
     """
     Clase que despliega el template para la especificar los roles de los miembros.
+
     @ivar form_class: Formulario que se utiliza para la agregacion roles para el usuario
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -239,7 +258,7 @@ class RolMiembro(UpdateView):
         print "solo_del_usuario = %s" % solo_del_usuario
         roles_proyecto_del_usuario = solo_del_usuario.values('rol_proyecto').distinct()
         print "roles_proyecto_del_usuario = %s" % roles_proyecto_del_usuario
-        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario)
+        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario) 
 
         print "roro = %s" % roro
 
@@ -266,8 +285,10 @@ class RolMiembro(UpdateView):
 class HorasDeveloper(UpdateView):
     """
     Clase que despliega el formulario para la modficacion de las horas asignadas a un desarrollador.
+
     @ivar form_class: Formulario que se utiliza para la asignacion de horas
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -327,12 +348,13 @@ class HorasDeveloper(UpdateView):
         """
         context = super(HorasDeveloper, self).get_context_data(**kwargs)
         proyecto = get_object_or_404(Proyecto, pk=self.kwargs['pk_proyecto'])
-        duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
-        duracion_horas = duracion_proyecto.days * 8
-        print "duracion = %s" % duracion_horas
+        #duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
+        duracion_proyecto = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
+        #duracion_horas = duracion_proyecto * 8
+        #print "duracion = %s" % duracion_horas
 
-        context['duracion_proyecto'] = duracion_proyecto.days
-        context['duracion_horas'] = duracion_horas
+        context['duracion_proyecto'] = duracion_proyecto
+        #context['duracion_horas'] = duracion_horas
 
         rows_del_proyecto = RolProyecto_Proyecto.objects.filter(proyecto=proyecto)
         print "rows_del_proyecto = %s" % rows_del_proyecto
@@ -348,3 +370,42 @@ class HorasDeveloper(UpdateView):
     @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
     def dispatch(self, *args, **kwargs):
         return super(HorasDeveloper, self).dispatch(*args, **kwargs)
+
+
+#Recibe dos fechas y calcula cuantos dias habiles hay entre las mismas,
+#incluyendo la fecha de inicio
+def habiles(fecha1, fecha2):
+
+    time1 = int(str(datetime.weekday(fecha1)))
+    time2 = int(str(datetime.weekday(fecha2)))
+    dia = time1 - time2
+    diferencia = fecha2 - fecha1
+    valor = int(str(diferencia.days))
+
+    if valor >= 7:
+        val = ((valor+dia)//7)*2
+        habiles = valor-val+1
+
+        if time1 > 4 or time2 > 4:
+            if time2 > time1:
+                if time2 == 5:
+                    habiles = habiles-1
+                else:
+                    if time2 == 6:
+                        habiles = habiles-2
+            else:
+                if (time1 > time2 and time1 == 6) and time2 != 5:
+                    habiles = habiles+1
+                else:
+                    if time1 == time2:
+                        habiles=habiles-1
+    else:
+        if (time1+valor) > 5:
+            habiles = valor-1
+        else:
+            if (time1+valor) == 5:
+                habiles = valor
+            else:
+                habiles = valor+1
+
+    return habiles

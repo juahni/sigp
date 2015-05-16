@@ -13,10 +13,12 @@ SET search_path = public, pg_catalog;
 
 ALTER TABLE ONLY public.usuarios_usuario DROP CONSTRAINT usuarios_usuario_user_id_1647f9d2f8f9478f_fk_auth_user_id;
 ALTER TABLE ONLY public.usuarios_usuario_rolesproyecto DROP CONSTRAINT usuarios_usu_usuario_id_3ea6caa1de07b4b6_fk_usuarios_usuario_id;
+ALTER TABLE ONLY public.user_stories_archivo DROP CONSTRAINT user_user_story_id_27dba9196198acf_fk_user_stories_userstory_id;
 ALTER TABLE ONLY public.user_stories_userstory DROP CONSTRAINT user_stories_usersto_usuario_id_c122d348955854f_fk_auth_user_id;
 ALTER TABLE ONLY public.user_stories_userstory DROP CONSTRAINT user_stories_userst_flujo_id_97b0930a449919f_fk_flujos_flujo_id;
 ALTER TABLE ONLY public.user_stories_userstorydetalle DROP CONSTRAINT user_stories_use_estado_id_65cabc5b7c5d332c_fk_flujos_estado_id;
 ALTER TABLE ONLY public.user_stories_userstory DROP CONSTRAINT user_stories_us_sprint_id_13e3507adce568c0_fk_sprints_sprint_id;
+ALTER TABLE ONLY public.user_stories_tarea DROP CONSTRAINT user_stories_tarea_usuario_id_c545a16716d3992_fk_auth_user_id;
 ALTER TABLE ONLY public.user_stories_tarea DROP CONSTRAINT user_stories_tarea_flujo_id_4fcaa9847af1ab7e_fk_flujos_flujo_id;
 ALTER TABLE ONLY public.user_stories_tarea DROP CONSTRAINT user_stories_tar_estado_id_59650f6907cbbd5b_fk_flujos_estado_id;
 ALTER TABLE ONLY public.user_stories_tarea DROP CONSTRAINT user_stories_ta_sprint_id_2795cb443cf34a8f_fk_sprints_sprint_id;
@@ -65,11 +67,13 @@ DROP INDEX public.user_stories_userstory_b688f27b;
 DROP INDEX public.user_stories_userstory_abfe0f96;
 DROP INDEX public.user_stories_tarea_bd1d5624;
 DROP INDEX public.user_stories_tarea_b688f27b;
+DROP INDEX public.user_stories_tarea_abfe0f96;
 DROP INDEX public.user_stories_tarea_8fde7968;
 DROP INDEX public.user_stories_tarea_6f919ae9;
 DROP INDEX public.user_stories_tarea_2c189993;
 DROP INDEX public.user_stories_historialuserstory_abfe0f96;
 DROP INDEX public.user_stories_historialuserstory_8fde7968;
+DROP INDEX public.user_stories_archivo_8fde7968;
 DROP INDEX public.sprints_sprint_f543c3f9;
 DROP INDEX public.roles_proyecto_rolproyecto_proyecto_f543c3f9;
 DROP INDEX public.roles_proyecto_rolproyecto_proyecto_e8701ad4;
@@ -112,6 +116,7 @@ ALTER TABLE ONLY public.user_stories_userstorydetalle DROP CONSTRAINT user_stori
 ALTER TABLE ONLY public.user_stories_userstory DROP CONSTRAINT user_stories_userstory_pkey;
 ALTER TABLE ONLY public.user_stories_tarea DROP CONSTRAINT user_stories_tarea_pkey;
 ALTER TABLE ONLY public.user_stories_historialuserstory DROP CONSTRAINT user_stories_historialuserstory_pkey;
+ALTER TABLE ONLY public.user_stories_archivo DROP CONSTRAINT user_stories_archivo_pkey;
 ALTER TABLE ONLY public.sprints_sprint DROP CONSTRAINT sprints_sprint_pkey;
 ALTER TABLE ONLY public.roles_proyecto_rolproyecto_proyecto DROP CONSTRAINT roles_proyecto_rolproyecto_proyecto_pkey;
 ALTER TABLE ONLY public.roles_proyecto_rolproyecto DROP CONSTRAINT roles_proyecto_rolproyecto_pkey;
@@ -147,6 +152,7 @@ ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_use
 ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_pkey;
 ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_user_id_group_id_key;
 ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_pkey;
+ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_email_15154ca621be1b41_uniq;
 ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_pkey;
 ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_codename_key;
 ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_pkey;
@@ -159,6 +165,7 @@ ALTER TABLE public.user_stories_userstorydetalle ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.user_stories_userstory ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.user_stories_tarea ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.user_stories_historialuserstory ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.user_stories_archivo ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.sprints_sprint ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.roles_proyecto_rolproyecto_proyecto ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.roles_proyecto_rolproyecto ALTER COLUMN id DROP DEFAULT;
@@ -195,6 +202,8 @@ DROP SEQUENCE public.user_stories_tarea_id_seq;
 DROP TABLE public.user_stories_tarea;
 DROP SEQUENCE public.user_stories_historialuserstory_id_seq;
 DROP TABLE public.user_stories_historialuserstory;
+DROP SEQUENCE public.user_stories_archivo_id_seq;
+DROP TABLE public.user_stories_archivo;
 DROP SEQUENCE public.sprints_sprint_id_seq;
 DROP TABLE public.sprints_sprint;
 DROP SEQUENCE public.roles_proyecto_rolproyecto_proyecto_id_seq;
@@ -1140,6 +1149,40 @@ ALTER SEQUENCE sprints_sprint_id_seq OWNED BY sprints_sprint.id;
 
 
 --
+-- Name: user_stories_archivo; Type: TABLE; Schema: public; Owner: juahni; Tablespace: 
+--
+
+CREATE TABLE user_stories_archivo (
+    id integer NOT NULL,
+    archivo character varying(100) NOT NULL,
+    user_story_id integer NOT NULL
+);
+
+
+ALTER TABLE user_stories_archivo OWNER TO juahni;
+
+--
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: juahni
+--
+
+CREATE SEQUENCE user_stories_archivo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_stories_archivo_id_seq OWNER TO juahni;
+
+--
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: juahni
+--
+
+ALTER SEQUENCE user_stories_archivo_id_seq OWNED BY user_stories_archivo.id;
+
+
+--
 -- Name: user_stories_historialuserstory; Type: TABLE; Schema: public; Owner: juahni; Tablespace: 
 --
 
@@ -1190,7 +1233,9 @@ CREATE TABLE user_stories_tarea (
     estado_id integer NOT NULL,
     flujo_id integer NOT NULL,
     sprint_id integer NOT NULL,
-    user_story_id integer NOT NULL
+    user_story_id integer NOT NULL,
+    tipo character varying(25) NOT NULL,
+    usuario_id integer NOT NULL
 );
 
 
@@ -1536,6 +1581,13 @@ ALTER TABLE ONLY sprints_sprint ALTER COLUMN id SET DEFAULT nextval('sprints_spr
 -- Name: id; Type: DEFAULT; Schema: public; Owner: juahni
 --
 
+ALTER TABLE ONLY user_stories_archivo ALTER COLUMN id SET DEFAULT nextval('user_stories_archivo_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: juahni
+--
+
 ALTER TABLE ONLY user_stories_historialuserstory ALTER COLUMN id SET DEFAULT nextval('user_stories_historialuserstory_id_seq'::regclass);
 
 
@@ -1580,10 +1632,9 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto ALTER COLUMN id SET DEFAULT next
 
 COPY auth_group (id, name) FROM stdin;
 1	Administrador del sistema
-2	Scrum Master
-3	Product Owner
-4	Desarrollador
-5	Developer
+2	Product Owner
+3	Scrum Master
+4	Developer
 \.
 
 
@@ -1591,7 +1642,7 @@ COPY auth_group (id, name) FROM stdin;
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('auth_group_id_seq', 5, true);
+SELECT pg_catalog.setval('auth_group_id_seq', 4, true);
 
 
 --
@@ -1732,39 +1783,6 @@ COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
 165	4	65
 166	4	66
 167	4	67
-168	5	28
-169	5	29
-170	5	30
-171	5	31
-172	5	32
-173	5	37
-174	5	38
-175	5	39
-176	5	40
-177	5	41
-178	5	42
-179	5	43
-180	5	44
-181	5	45
-182	5	46
-183	5	47
-184	5	48
-185	5	49
-186	5	50
-187	5	51
-188	5	52
-189	5	53
-190	5	54
-191	5	55
-192	5	56
-193	5	57
-194	5	58
-195	5	59
-196	5	63
-197	5	64
-198	5	65
-199	5	66
-200	5	67
 \.
 
 
@@ -1772,7 +1790,7 @@ COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('auth_group_permissions_id_seq', 200, true);
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 167, true);
 
 
 --
@@ -1862,10 +1880,11 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 67, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$15000$LV2mRAnspNyA$vvrMfweLYYJa3JavtmoYGLwXS6GoEXQ1Jd+T/E0BC8s=	2015-05-14 16:12:48.689874-04	t	root			juahni@gmail.com	t	t	2015-05-14 15:50:10.897565-04
-4	pbkdf2_sha256$15000$km0Ow36IR89f$YuQQxIhmnB+oOlt068Hq8EEz2w3UkdD5e7oFyh9X3Qo=	2015-05-14 16:26:11.318061-04	f	Romina	Romina	Diaz	rodibe86@gmail.com	f	t	2015-05-14 16:02:59.967363-04
-2	pbkdf2_sha256$15000$p7pnVdqF4Rth$oNztOOpIoBb0ghKP5NXBNJd5wiBdljY0ZyqSht1d6nM=	2015-05-14 16:43:59.926058-04	f	Francisco	Francisco	Velloso	rucontra@gmail.com	f	t	2015-05-14 16:02:07.846379-04
-3	pbkdf2_sha256$15000$X7OnZO3yLn6t$STxNk226s5MnsjHSs/iQsvGcxSVxA9TFgqpFuMBIQdg=	2015-05-14 16:43:35.98067-04	f	Carolina	Carolina	Arguello	caro@gmail.com	f	t	2015-05-14 16:02:36.138823-04
+3	pbkdf2_sha256$15000$DBGrTFVBOsjB$WriGvh9vwx5eMLGUCeUBWNbSNEhKrtynjRFRD1sWYm0=	2015-05-16 16:20:35.930199-04	f	Carolina	Carolina	Arguello	caro@gmail.com	f	t	2015-05-16 15:45:30.322201-04
+5	pbkdf2_sha256$15000$VFBNVPuQfosu$+XbPr6HTyGpdd60sKnRLFncgRel0aJePk0hbilap5z8=	2015-05-16 17:09:49.875417-04	f	Pepe	Pepe	Godoy	pepe@gmail.com	f	t	2015-05-16 15:46:26.484721-04
+4	pbkdf2_sha256$15000$JXV8ET8kxob1$YlVGiDcq59ltZ2kp0nF2WiPSdbMqyWaXhLoamczuR4s=	2015-05-16 17:12:18.650388-04	f	Romina	Romina	Diaz	rodibe86@gmail.com	f	t	2015-05-16 15:46:00.567135-04
+1	pbkdf2_sha256$15000$3w52mi1XGzdM$qZg6msZYg611GfCniOhuYJAYMyaQihLFypT2Kv0gbR4=	2015-05-16 17:14:18.979163-04	t	juahni			juahni@gmail.com	t	t	2015-05-16 15:43:13.612249-04
+2	pbkdf2_sha256$15000$MSxqnuKJ14pG$K0YUSTK1VzxK8uIOvQguO2iPC58bOf4Yo8I1LmTVu3A=	2015-05-16 17:15:03.591522-04	f	Francisco	Francisco	Velloso	rucontra@gmail.com	f	t	2015-05-16 15:45:05.028069-04
 \.
 
 
@@ -1874,10 +1893,11 @@ COPY auth_user (id, password, last_login, is_superuser, username, first_name, la
 --
 
 COPY auth_user_groups (id, user_id, group_id) FROM stdin;
-2	2	1
-3	2	2
-4	3	5
-5	4	3
+1	2	1
+2	2	3
+3	3	2
+6	4	1
+7	5	1
 \.
 
 
@@ -1885,14 +1905,14 @@ COPY auth_user_groups (id, user_id, group_id) FROM stdin;
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('auth_user_groups_id_seq', 5, true);
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 7, true);
 
 
 --
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('auth_user_id_seq', 4, true);
+SELECT pg_catalog.setval('auth_user_id_seq', 5, true);
 
 
 --
@@ -1915,7 +1935,7 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 --
 
 COPY clientes_cliente (id, nombre, descripcion, "correoElectronico", telefono, direccion) FROM stdin;
-1	Jose	Gonzalez	jose@gmail.com	0873222345	Bartolome de las casas
+1	Jose	Gonzalez	jose@gmail.com	0982432838	Mcal Lopez
 \.
 
 
@@ -1983,17 +2003,19 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
 --
 
 COPY django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2015-05-14 15:47:23.42779-04
-2	auth	0001_initial	2015-05-14 15:47:24.198403-04
-3	admin	0001_initial	2015-05-14 15:47:24.3997-04
-4	clientes	0001_initial	2015-05-14 15:47:24.633464-04
-5	proyectos	0001_initial	2015-05-14 15:47:25.000449-04
-6	flujos	0001_initial	2015-05-14 15:47:26.003874-04
-7	roles_proyecto	0001_initial	2015-05-14 15:47:26.305788-04
-8	sessions	0001_initial	2015-05-14 15:47:26.472515-04
-9	sprints	0001_initial	2015-05-14 15:47:26.594952-04
-10	user_stories	0001_initial	2015-05-14 15:47:27.497294-04
-11	usuarios	0001_initial	2015-05-14 15:47:27.768682-04
+1	contenttypes	0001_initial	2015-05-16 15:42:15.935061-04
+2	auth	0001_initial	2015-05-16 15:42:16.704189-04
+3	admin	0001_initial	2015-05-16 15:42:16.88338-04
+4	auth	0002_auto_20150516_1330	2015-05-16 15:42:16.961027-04
+5	clientes	0001_initial	2015-05-16 15:42:17.20579-04
+6	proyectos	0001_initial	2015-05-16 15:42:17.572977-04
+7	flujos	0001_initial	2015-05-16 15:42:18.489093-04
+8	roles_proyecto	0001_initial	2015-05-16 15:42:18.801809-04
+9	sessions	0001_initial	2015-05-16 15:42:18.968646-04
+10	sprints	0001_initial	2015-05-16 15:42:19.091204-04
+11	user_stories	0001_initial	2015-05-16 15:42:20.037507-04
+12	user_stories	0002_auto_20150516_1330	2015-05-16 15:42:20.774014-04
+13	usuarios	0001_initial	2015-05-16 15:42:21.05235-04
 \.
 
 
@@ -2001,7 +2023,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 11, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 13, true);
 
 
 --
@@ -2009,7 +2031,8 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 11, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-18ym7lrlv05qbniaxkojeujbc03esr0j	NDE5MDAyMTQzNmRkNGE3NGQwMGQ0M2ZlNmUzOWQ5MWI5ZmZjM2IzMDp7Il9hdXRoX3VzZXJfaGFzaCI6IjA1NmQ3YzY2ZDFkZjNhMDdmMGU5ZGRlMzBhZTc4OGRhYmM2ZTc2MjgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-05-28 16:43:59.937407-04
+jcn00i1ynxlf7rbw7mffmzgfllyi4isi	N2I3YjE2ZDYwZWMxZDcxZTQyNGQxMjAyOGM5ZDBmMWFmNjdiNzBlNTp7Il9hdXRoX3VzZXJfaGFzaCI6IjViMDkyNDM0ODc0ODI4M2UxNmI1NTNlYWI2ZTFjZjZiNWNlZDZiNTYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9	2015-05-30 16:22:35.858772-04
+fs9i4no2jd79fb22gpd2ob6shreytckr	ZTJjZmM0YTIyMTBhNGRiOGJkNTQ3YmVmMmNkZWI1MDdkNWRiYWQ2ZTp7Il9hdXRoX3VzZXJfaGFzaCI6IjM1MGY4NmI3ZDRmOTdlMDc3NzUwODY3YjFiNzBiOTZkNTg3OGYwNzQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-05-30 17:15:03.603734-04
 \.
 
 
@@ -2021,6 +2044,7 @@ COPY flujos_actividad (id, nombre, orden) FROM stdin;
 1	Actividad 1	0
 2	Actividad 2	0
 3	Actividad 3	0
+4	Actividad 4	0
 \.
 
 
@@ -2038,6 +2062,9 @@ COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
 7	3	7
 8	3	8
 9	3	9
+10	4	10
+11	4	11
+12	4	12
 \.
 
 
@@ -2045,14 +2072,14 @@ COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
 -- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 9, true);
+SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 12, true);
 
 
 --
 -- Name: flujos_actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('flujos_actividad_id_seq', 3, true);
+SELECT pg_catalog.setval('flujos_actividad_id_seq', 4, true);
 
 
 --
@@ -2099,6 +2126,9 @@ COPY flujos_estado (id, nombre) FROM stdin;
 7	To do
 8	Doing
 9	Done
+10	To do
+11	Doing
+12	Done
 \.
 
 
@@ -2106,7 +2136,7 @@ COPY flujos_estado (id, nombre) FROM stdin;
 -- Name: flujos_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('flujos_estado_id_seq', 9, true);
+SELECT pg_catalog.setval('flujos_estado_id_seq', 12, true);
 
 
 --
@@ -2115,6 +2145,7 @@ SELECT pg_catalog.setval('flujos_estado_id_seq', 9, true);
 
 COPY flujos_flujo (id, nombre, proyecto_id) FROM stdin;
 1	Flujo 1 alfa	1
+2	Flujo 2 alfa	1
 \.
 
 
@@ -2125,6 +2156,8 @@ COPY flujos_flujo (id, nombre, proyecto_id) FROM stdin;
 COPY flujos_flujo_actividades (id, flujo_id, actividad_id) FROM stdin;
 1	1	1
 2	1	2
+3	2	3
+4	2	4
 \.
 
 
@@ -2132,14 +2165,14 @@ COPY flujos_flujo_actividades (id, flujo_id, actividad_id) FROM stdin;
 -- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 2, true);
+SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 4, true);
 
 
 --
 -- Name: flujos_flujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('flujos_flujo_id_seq', 1, true);
+SELECT pg_catalog.setval('flujos_flujo_id_seq', 2, true);
 
 
 --
@@ -2177,7 +2210,7 @@ SELECT pg_catalog.setval('flujos_plantillaflujo_id_seq', 1, false);
 --
 
 COPY proyectos_proyecto (id, codigo, nombre_corto, nombre_largo, fecha_inicio, fecha_fin, cancelado, estado, cliente_id, scrum_master_id) FROM stdin;
-1	a	Alfa	Proyecto Alfa	2015-05-14	2015-06-30	f	Activo	1	2
+1	a	Alfa	Proyecto Alfa	2015-05-16	2015-05-31	f	Activo	1	2
 \.
 
 
@@ -2189,6 +2222,7 @@ COPY proyectos_proyecto_equipo (id, proyecto_id, user_id) FROM stdin;
 1	1	2
 2	1	3
 3	1	4
+4	1	5
 \.
 
 
@@ -2196,7 +2230,7 @@ COPY proyectos_proyecto_equipo (id, proyecto_id, user_id) FROM stdin;
 -- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 3, true);
+SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 4, true);
 
 
 --
@@ -2214,7 +2248,6 @@ COPY roles_proyecto_rolproyecto (id, es_rol_proyecto, group_id) FROM stdin;
 1	t	2
 2	t	3
 3	t	4
-4	t	5
 \.
 
 
@@ -2222,7 +2255,7 @@ COPY roles_proyecto_rolproyecto (id, es_rol_proyecto, group_id) FROM stdin;
 -- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 4, true);
+SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 3, true);
 
 
 --
@@ -2230,9 +2263,10 @@ SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 4, true);
 --
 
 COPY roles_proyecto_rolproyecto_proyecto (id, horas_developer, proyecto_id, rol_proyecto_id, user_id) FROM stdin;
-2	0	1	1	2
-4	0	1	2	4
-3	15	1	4	3
+2	0	1	2	2
+3	0	1	1	3
+4	8	1	3	4
+5	8	1	3	5
 \.
 
 
@@ -2240,7 +2274,7 @@ COPY roles_proyecto_rolproyecto_proyecto (id, horas_developer, proyecto_id, rol_
 -- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 4, true);
+SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 5, true);
 
 
 --
@@ -2260,19 +2294,54 @@ SELECT pg_catalog.setval('sprints_sprint_id_seq', 1, true);
 
 
 --
+-- Data for Name: user_stories_archivo; Type: TABLE DATA; Schema: public; Owner: juahni
+--
+
+COPY user_stories_archivo (id, archivo, user_story_id) FROM stdin;
+1	user-stories/gatis.jpg	1
+2	user-stories/01_El_Ritual_del_Terere.mp3	2
+3	user-stories/13_Rio_Tinto.mp3	3
+\.
+
+
+--
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
+--
+
+SELECT pg_catalog.setval('user_stories_archivo_id_seq', 3, true);
+
+
+--
 -- Data for Name: user_stories_historialuserstory; Type: TABLE DATA; Schema: public; Owner: juahni
 --
 
 COPY user_stories_historialuserstory (id, operacion, campo, valor, fecha, user_story_id, usuario_id) FROM stdin;
-1	creado			2015-05-14 16:28:04.567997-04	1	4
-2	modificado	valor de negocio	4	2015-05-14 16:28:39.272986-04	1	4
-3	modificado	prioridad	4	2015-05-14 16:30:19.187716-04	1	2
-4	modificado	valor tecnico	3	2015-05-14 16:30:19.196831-04	1	2
-5	modificado	estimacion	15	2015-05-14 16:30:19.208226-04	1	2
-6	modificado	flujo	Flujo 1 alfa	2015-05-14 16:30:19.219476-04	1	2
-7	modificado	desarrollador	Carolina	2015-05-14 16:31:41.326004-04	1	2
-8	modificado	sprint	Sprint 1 alfa	2015-05-14 16:31:41.334486-04	1	2
-9	modificado	estado	Activo	2015-05-14 16:31:41.345751-04	1	2
+1	creado			2015-05-16 15:52:15.593279-04	1	3
+2	creado			2015-05-16 15:52:53.68415-04	2	3
+3	creado			2015-05-16 15:58:12.16585-04	3	3
+4	modificado	valor de negocio	7	2015-05-16 15:58:27.623541-04	2	3
+5	modificado	valor de negocio	9	2015-05-16 15:58:30.656277-04	3	3
+6	modificado	prioridad	4	2015-05-16 16:06:18.543543-04	1	2
+7	modificado	valor tecnico	4	2015-05-16 16:06:18.553473-04	1	2
+8	modificado	estimacion	30	2015-05-16 16:06:18.564665-04	1	2
+9	modificado	flujo	Flujo 1 alfa	2015-05-16 16:06:18.575641-04	1	2
+10	modificado	prioridad	6	2015-05-16 16:06:39.744685-04	2	2
+11	modificado	valor tecnico	6	2015-05-16 16:06:39.754635-04	2	2
+12	modificado	estimacion	50	2015-05-16 16:06:39.765657-04	2	2
+13	modificado	flujo	Flujo 1 alfa	2015-05-16 16:06:39.776811-04	2	2
+14	modificado	prioridad	8	2015-05-16 16:07:04.5456-04	3	2
+15	modificado	valor tecnico	9	2015-05-16 16:07:04.555623-04	3	2
+16	modificado	estimacion	80	2015-05-16 16:07:04.566619-04	3	2
+17	modificado	flujo	Flujo 2 alfa	2015-05-16 16:07:04.577939-04	3	2
+18	modificado	desarrollador	Romina	2015-05-16 16:08:05.048624-04	1	2
+19	modificado	sprint	Sprint 1 alfa	2015-05-16 16:08:05.058554-04	1	2
+20	modificado	estado	Activo	2015-05-16 16:08:05.069496-04	1	2
+21	modificado	desarrollador	Romina	2015-05-16 16:08:34.216252-04	2	2
+22	modificado	sprint	Sprint 1 alfa	2015-05-16 16:08:34.226689-04	2	2
+23	modificado	estado	Activo	2015-05-16 16:08:34.237641-04	2	2
+24	modificado	desarrollador	Pepe	2015-05-16 16:08:57.562023-04	3	2
+25	modificado	sprint	Sprint 1 alfa	2015-05-16 16:08:57.5722-04	3	2
+26	modificado	estado	Activo	2015-05-16 16:08:57.583516-04	3	2
 \.
 
 
@@ -2280,22 +2349,50 @@ COPY user_stories_historialuserstory (id, operacion, campo, valor, fecha, user_s
 -- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 9, true);
+SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 26, true);
 
 
 --
 -- Data for Name: user_stories_tarea; Type: TABLE DATA; Schema: public; Owner: juahni
 --
 
-COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id, estado_id, flujo_id, sprint_id, user_story_id) FROM stdin;
-1	Tarea 1	3	2015-05-14 16:41:14.63341-04	1	1	1	1	1
-2	Cambio de estado: To do -> Doing	0	2015-05-14 16:41:25.756624-04	1	2	1	1	1
-3	Cambio de estado: Doing -> Done	0	2015-05-14 16:41:54.213767-04	1	3	1	1	1
-4	Cambio de actividad: Actividad 1 -> Actividad 2	0	2015-05-14 16:41:54.232085-04	2	4	1	1	1
-5	Cambio de estado: To do -> Doing	0	2015-05-14 16:42:13.631681-04	2	5	1	1	1
-6	Cambio de estado: Doing -> Done	0	2015-05-14 16:42:14.867996-04	2	6	1	1	1
-7	Finalizar user story	0	2015-05-14 16:42:14.876522-04	2	6	1	1	1
-8	Aprobar user story	0	2015-05-14 16:42:56.592911-04	2	6	1	1	1
+COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id, estado_id, flujo_id, sprint_id, user_story_id, tipo, usuario_id) FROM stdin;
+1	Tarea 1 - User story 1	30	2015-05-16 16:11:17.684589-04	1	1	1	1	1	Registro de Tarea	2
+2	Tarea 2 - User story 2	50	2015-05-16 16:11:34.330458-04	1	1	1	1	2	Registro de Tarea	2
+3	Tarea 3 - User story 3	80	2015-05-16 16:11:47.863286-04	3	7	2	1	3	Registro de Tarea	2
+4	Adjuntar archivo	0	2015-05-16 16:23:09.044824-04	1	1	1	1	1	Registro de Tarea	4
+5	Adjuntar archivo	0	2015-05-16 16:23:34.161303-04	1	1	1	1	2	Registro de Tarea	4
+6	Cambio de estado: To do -> Doing	0	2015-05-16 16:24:05.513413-04	1	2	1	1	1	Cambio de Estado	4
+7	Cambio de estado: To do -> Doing	0	2015-05-16 16:24:16.888314-04	1	2	1	1	2	Cambio de Estado	4
+8	Cambio de estado: To do -> Doing	0	2015-05-16 16:26:17.143785-04	1	2	1	1	1	Cambio de Estado	4
+9	Cambio de estado: To do -> Doing	0	2015-05-16 16:35:14.115143-04	1	2	1	1	1	Cambio de Estado	4
+10	Cambio de estado: To do -> Doing	0	2015-05-16 16:35:39.707839-04	1	2	1	1	1	Cambio de Estado	4
+11	Cambio de estado: To do -> Doing	0	2015-05-16 16:43:54.289075-04	1	2	1	1	1	Cambio de Estado	4
+12	Cambio de estado: To do -> Doing	0	2015-05-16 16:44:44.738361-04	1	2	1	1	1	Cambio de Estado	4
+13	Cambio de estado: To do -> Doing	0	2015-05-16 17:04:31.639009-04	1	2	1	1	1	Cambio de Estado	4
+14	Cambio de estado: To do -> Doing	0	2015-05-16 17:08:37.001494-04	1	2	1	1	1	Cambio de Estado	4
+15	Cambio de estado: Doing -> Done	0	2015-05-16 17:08:39.732988-04	1	3	1	1	1	Cambio de Estado	4
+16	Cambio de actividad: Actividad 1 -> Actividad 2	0	2015-05-16 17:08:39.751622-04	2	4	1	1	1	Cambio de Estado	4
+17	Cambio de estado: To do -> Doing	0	2015-05-16 17:09:01.928401-04	2	5	1	1	1	Cambio de Estado	4
+18	Cambio de estado: To do -> Doing	0	2015-05-16 17:09:03.303884-04	1	2	1	1	2	Cambio de Estado	4
+19	Cambio de estado: Doing -> Done	0	2015-05-16 17:09:04.38684-04	1	3	1	1	2	Cambio de Estado	4
+20	Cambio de actividad: Actividad 1 -> Actividad 2	0	2015-05-16 17:09:04.397521-04	2	4	1	1	2	Cambio de Estado	4
+21	Cambio de estado: To do -> Doing	0	2015-05-16 17:10:00.391028-04	3	8	2	1	3	Cambio de Estado	5
+22	Cambio de estado: Doing -> Done	0	2015-05-16 17:10:02.805113-04	3	9	2	1	3	Cambio de Estado	5
+23	Cambio de actividad: Actividad 3 -> Actividad 4	0	2015-05-16 17:10:02.822425-04	4	10	2	1	3	Cambio de Estado	5
+24	Cambio de estado: To do -> Doing	0	2015-05-16 17:10:12.428663-04	4	11	2	1	3	Cambio de Estado	5
+25	Tarea 3 - User story 3	80	2015-05-16 17:10:32.076911-04	4	11	2	1	3	Registro de Tarea	5
+26	Adjuntar archivo	0	2015-05-16 17:10:45.583292-04	4	11	2	1	3	Registro de Tarea	5
+27	Cambio de estado: Doing -> Done	0	2015-05-16 17:11:08.965087-04	4	12	2	1	3	Cambio de Estado	5
+28	Finalizar user story	0	2015-05-16 17:11:08.979716-04	4	12	2	1	3	Cambio de Estado	5
+29	Cambio de estado: Doing -> Done	0	2015-05-16 17:11:22.279664-04	2	6	1	1	1	Cambio de Estado	4
+30	Finalizar user story	0	2015-05-16 17:11:22.30244-04	2	6	1	1	1	Cambio de Estado	4
+31	Cambio de estado: To do -> Doing	0	2015-05-16 17:11:23.86011-04	2	5	1	1	2	Cambio de Estado	4
+32	Cambio de estado: Doing -> Done	0	2015-05-16 17:11:25.426424-04	2	6	1	1	2	Cambio de Estado	4
+33	Finalizar user story	0	2015-05-16 17:11:25.436048-04	2	6	1	1	2	Cambio de Estado	4
+34	Aprobar user story	0	2015-05-16 17:15:13.265157-04	2	6	1	1	1	Cambio de Estado	2
+35	Aprobar user story	0	2015-05-16 17:15:15.977725-04	2	6	1	1	2	Cambio de Estado	2
+36	Aprobar user story	0	2015-05-16 17:15:19.766597-04	4	12	2	1	3	Cambio de Estado	2
 \.
 
 
@@ -2303,7 +2400,7 @@ COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id,
 -- Name: user_stories_tarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('user_stories_tarea_id_seq', 8, true);
+SELECT pg_catalog.setval('user_stories_tarea_id_seq', 36, true);
 
 
 --
@@ -2311,7 +2408,9 @@ SELECT pg_catalog.setval('user_stories_tarea_id_seq', 8, true);
 --
 
 COPY user_stories_userstory (id, nombre, descripcion, valor_negocio, prioridad, valor_tecnico, estimacion, estado, flujo_id, proyecto_id, sprint_id, usuario_id) FROM stdin;
-1	User story alfa	User story alfa	4	4	3	15	Aprobado	1	1	1	3
+1	User story 1	User story 1 alfa	5	4	4	30	Aprobado	1	1	1	4
+2	User story 2 	User story 2 alfa	7	6	6	50	Aprobado	1	1	1	4
+3	User story 3	User story 3 alfa	9	8	9	80	Aprobado	2	1	1	5
 \.
 
 
@@ -2319,7 +2418,7 @@ COPY user_stories_userstory (id, nombre, descripcion, valor_negocio, prioridad, 
 -- Name: user_stories_userstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('user_stories_userstory_id_seq', 1, true);
+SELECT pg_catalog.setval('user_stories_userstory_id_seq', 3, true);
 
 
 --
@@ -2327,7 +2426,9 @@ SELECT pg_catalog.setval('user_stories_userstory_id_seq', 1, true);
 --
 
 COPY user_stories_userstorydetalle (id, actividad_id, estado_id, user_story_id) FROM stdin;
+3	4	12	3
 1	2	6	1
+2	2	6	2
 \.
 
 
@@ -2335,7 +2436,7 @@ COPY user_stories_userstorydetalle (id, actividad_id, estado_id, user_story_id) 
 -- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 1, true);
+SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 3, true);
 
 
 --
@@ -2343,9 +2444,10 @@ SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 1, true);
 --
 
 COPY usuarios_usuario (id, telefono, direccion, user_id) FROM stdin;
-1	0982432838	Bartolome de las casas	2
-3	0873222345	Independencia Nacional	4
-2	9482479384	Mcal Lopez	3
+2	0982432838	Herrera	3
+3	9482479384	Independencia Nacional	4
+4	0982432838	Bartolome de las casas	5
+1	9482479384	Bartolome de las casas	2
 \.
 
 
@@ -2353,7 +2455,7 @@ COPY usuarios_usuario (id, telefono, direccion, user_id) FROM stdin;
 -- Name: usuarios_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_id_seq', 3, true);
+SELECT pg_catalog.setval('usuarios_usuario_id_seq', 4, true);
 
 
 --
@@ -2361,9 +2463,10 @@ SELECT pg_catalog.setval('usuarios_usuario_id_seq', 3, true);
 --
 
 COPY usuarios_usuario_rolesproyecto (id, usuario_id, rolproyecto_id) FROM stdin;
-1	1	1
-2	2	4
-3	3	2
+1	1	2
+2	2	1
+3	3	3
+4	4	3
 \.
 
 
@@ -2371,7 +2474,7 @@ COPY usuarios_usuario_rolesproyecto (id, usuario_id, rolproyecto_id) FROM stdin;
 -- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: juahni
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 3, true);
+SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 4, true);
 
 
 --
@@ -2420,6 +2523,14 @@ ALTER TABLE ONLY auth_permission
 
 ALTER TABLE ONLY auth_permission
     ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_email_15154ca621be1b41_uniq; Type: CONSTRAINT; Schema: public; Owner: juahni; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_email_15154ca621be1b41_uniq UNIQUE (email);
 
 
 --
@@ -2700,6 +2811,14 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
 
 ALTER TABLE ONLY sprints_sprint
     ADD CONSTRAINT sprints_sprint_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_stories_archivo_pkey; Type: CONSTRAINT; Schema: public; Owner: juahni; Tablespace: 
+--
+
+ALTER TABLE ONLY user_stories_archivo
+    ADD CONSTRAINT user_stories_archivo_pkey PRIMARY KEY (id);
 
 
 --
@@ -3006,6 +3125,13 @@ CREATE INDEX sprints_sprint_f543c3f9 ON sprints_sprint USING btree (proyecto_id)
 
 
 --
+-- Name: user_stories_archivo_8fde7968; Type: INDEX; Schema: public; Owner: juahni; Tablespace: 
+--
+
+CREATE INDEX user_stories_archivo_8fde7968 ON user_stories_archivo USING btree (user_story_id);
+
+
+--
 -- Name: user_stories_historialuserstory_8fde7968; Type: INDEX; Schema: public; Owner: juahni; Tablespace: 
 --
 
@@ -3038,6 +3164,13 @@ CREATE INDEX user_stories_tarea_6f919ae9 ON user_stories_tarea USING btree (acti
 --
 
 CREATE INDEX user_stories_tarea_8fde7968 ON user_stories_tarea USING btree (user_story_id);
+
+
+--
+-- Name: user_stories_tarea_abfe0f96; Type: INDEX; Schema: public; Owner: juahni; Tablespace: 
+--
+
+CREATE INDEX user_stories_tarea_abfe0f96 ON user_stories_tarea USING btree (usuario_id);
 
 
 --
@@ -3415,6 +3548,14 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
+-- Name: user_stories_tarea_usuario_id_c545a16716d3992_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: juahni
+--
+
+ALTER TABLE ONLY user_stories_tarea
+    ADD CONSTRAINT user_stories_tarea_usuario_id_c545a16716d3992_fk_auth_user_id FOREIGN KEY (usuario_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: user_stories_us_sprint_id_13e3507adce568c0_fk_sprints_sprint_id; Type: FK CONSTRAINT; Schema: public; Owner: juahni
 --
 
@@ -3444,6 +3585,14 @@ ALTER TABLE ONLY user_stories_userstory
 
 ALTER TABLE ONLY user_stories_userstory
     ADD CONSTRAINT user_stories_usersto_usuario_id_c122d348955854f_fk_auth_user_id FOREIGN KEY (usuario_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_user_story_id_27dba9196198acf_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: juahni
+--
+
+ALTER TABLE ONLY user_stories_archivo
+    ADD CONSTRAINT user_user_story_id_27dba9196198acf_fk_user_stories_userstory_id FOREIGN KEY (user_story_id) REFERENCES user_stories_userstory(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

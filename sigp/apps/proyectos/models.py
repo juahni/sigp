@@ -31,7 +31,7 @@ class Proyecto(models.Model):
 
     def __unicode__(self):
         return self.nombre_corto
-
+    
     def get_absolute_url(self):
         return reverse('proyectos', kwargs={'pk': self.pk})
 

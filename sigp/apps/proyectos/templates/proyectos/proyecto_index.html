@@ -55,7 +55,7 @@
 		</div>
 
 
-	<div class="row">
+	<div class="row">        
 		<div class="col-lg-4">
 			<div class="panel panel-success">
 				<div class="panel-heading">
@@ -76,7 +76,7 @@
 								<tr>
 									<th>Usuario</th>
 									<th>Rol</th>
-
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -86,23 +86,23 @@
 
 									<td>
 									{% for usuario in nueva_lista %}
-
+										
 										{% for u in usuario %}
 											{% if el_usuario == u.user %}
-
+										
 												<p>{{u.rol_proyecto}}</p>
 
 											{% endif %}
 
 										{% endfor %}
-
+										
 									{% endfor %}
 									</td>
 								</tr>
 							{% endfor %}
-
-
-
+								
+								
+								
 							</tbody>
 						</table>
 					</div>
@@ -110,8 +110,8 @@
 				</div>
 			</div>
 		</div>
-
-
+	
+      
 		<div class="col-lg-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">

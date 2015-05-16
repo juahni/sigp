@@ -42,7 +42,7 @@ class ProyectoCreateForm(forms.ModelForm):
         scrum_master.groups.add(grupo)
         #Se agrega el registro de la asignacion del rol a la tabla USER_ROLPROYECTO_PROYECTO
         rolproyecto_proyecto = RolProyecto_Proyecto(user=scrum_master, rol_proyecto=rolproyecto, proyecto=proyecto)
-
+        
 
         max_length = Proyecto._meta.get_field('codigo').max_length
         proyecto.codigo = orig = slugify(proyecto.nombre_corto[0])[:max_length]
@@ -123,7 +123,7 @@ class ProyectoUpdateForm(forms.ModelForm):
                     row_scrum = RolProyecto_Proyecto.objects.get(user=miembro, rol_proyecto=rolproyecto, proyecto=proyecto_antiguo)
                     row_scrum.delete()
 
-        #Se agrega como rol de proyecto y como group
+        #Se agrega como rol de proyecto y como group        
         scrum_master.usuario.rolesproyecto.add(rolproyecto)
         scrum_master.groups.add(grupo)
 
@@ -151,7 +151,7 @@ class AddMiembroForm(forms.ModelForm):
         # print lista
         # for usuario in User.objects.all():
         #   for miembro in miembros_actuales:
-        #       if usuario !=
+        #       if usuario != 
         # lista_sin_actuales = Proyecto.objects.exclude(equipo=miembros_actuales)
         self.fields['usuario'] = forms.ModelChoiceField(User.objects.exclude(Q(is_staff=True) | Q(id__in=miembros_actuales)), required=True)
         print "hola"
@@ -161,7 +161,7 @@ class AddMiembroForm(forms.ModelForm):
     codigo = forms.CharField(widget=forms.HiddenInput(), required=True)
     # usuario = forms.ModelChoiceField(widget=forms.Select(None))
     # rolproyecto = forms.ModelChoiceField(RolProyecto.objects.all())
-    rolproyecto = forms.ModelMultipleChoiceField(Group.objects.all().filter(rolproyecto__es_rol_proyecto=True).exclude(name='Scrum Master'),
+    rolproyecto = forms.ModelMultipleChoiceField(Group.objects.all().filter(rolproyecto__es_rol_proyecto=True).exclude(name='Scrum Master'), 
             widget=forms.CheckboxSelectMultiple, required=True)
 
     class Meta:
@@ -219,7 +219,7 @@ class RolMiembroForm(forms.ModelForm):
         roles = kwargs['initial']['rolproyecto']
         user_string = kwargs['initial']['user']
         kwargs.pop('initial')
-
+        
         self.fields['rolproyecto'] = forms.ModelMultipleChoiceField(Group.objects.all().filter(rolproyecto__es_rol_proyecto=True).exclude(name='Scrum Master'),
                 widget=forms.CheckboxSelectMultiple, required=False)
 
