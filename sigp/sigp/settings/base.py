@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from unipath import Path
 BASE_DIR = Path(__file__).ancestor(3)
+import djcelery
+djcelery.setup_loader()
 
 
 
@@ -35,6 +37,7 @@ INSTALLED_APPS = (
     'apps.flujos',
     'apps.user_stories',
     'apps.sprints',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +62,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 LOGIN_URL = '/login/'
 

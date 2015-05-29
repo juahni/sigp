@@ -1,4 +1,4 @@
-from .base import *
+from base import *
 
 DEBUG = True
 
@@ -10,7 +10,7 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sigp-prueba',
+        'NAME': 'prueba',
         'USER': 'sigp',
         'PASSWORD': 'sigp',
         'HOST': 'localhost',
