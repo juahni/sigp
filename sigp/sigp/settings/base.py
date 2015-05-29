@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from unipath import Path
 BASE_DIR = Path(__file__).ancestor(3)
 
+import djcelery
+djcelery.setup_loader()
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,6 +38,7 @@ INSTALLED_APPS = (
     'apps.flujos',
     'apps.user_stories',
     'apps.sprints',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (

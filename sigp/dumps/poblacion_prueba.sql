@@ -292,7 +292,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: auth_group; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_group (
@@ -301,10 +301,10 @@ CREATE TABLE auth_group (
 );
 
 
-ALTER TABLE auth_group OWNER TO fran;
+ALTER TABLE auth_group OWNER TO sigp;
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_group_id_seq
@@ -315,17 +315,17 @@ CREATE SEQUENCE auth_group_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_group_id_seq OWNER TO fran;
+ALTER TABLE auth_group_id_seq OWNER TO sigp;
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
 
 
 --
--- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_group_permissions (
@@ -335,10 +335,10 @@ CREATE TABLE auth_group_permissions (
 );
 
 
-ALTER TABLE auth_group_permissions OWNER TO fran;
+ALTER TABLE auth_group_permissions OWNER TO sigp;
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_group_permissions_id_seq
@@ -349,17 +349,17 @@ CREATE SEQUENCE auth_group_permissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_group_permissions_id_seq OWNER TO fran;
+ALTER TABLE auth_group_permissions_id_seq OWNER TO sigp;
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
 
 
 --
--- Name: auth_permission; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_permission (
@@ -370,10 +370,10 @@ CREATE TABLE auth_permission (
 );
 
 
-ALTER TABLE auth_permission OWNER TO fran;
+ALTER TABLE auth_permission OWNER TO sigp;
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_permission_id_seq
@@ -384,17 +384,17 @@ CREATE SEQUENCE auth_permission_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_permission_id_seq OWNER TO fran;
+ALTER TABLE auth_permission_id_seq OWNER TO sigp;
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
 
 
 --
--- Name: auth_user; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_user (
@@ -412,10 +412,10 @@ CREATE TABLE auth_user (
 );
 
 
-ALTER TABLE auth_user OWNER TO fran;
+ALTER TABLE auth_user OWNER TO sigp;
 
 --
--- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_user_groups (
@@ -425,10 +425,10 @@ CREATE TABLE auth_user_groups (
 );
 
 
-ALTER TABLE auth_user_groups OWNER TO fran;
+ALTER TABLE auth_user_groups OWNER TO sigp;
 
 --
--- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_user_groups_id_seq
@@ -439,17 +439,17 @@ CREATE SEQUENCE auth_user_groups_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_user_groups_id_seq OWNER TO fran;
+ALTER TABLE auth_user_groups_id_seq OWNER TO sigp;
 
 --
--- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
 
 
 --
--- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_user_id_seq
@@ -460,17 +460,17 @@ CREATE SEQUENCE auth_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_user_id_seq OWNER TO fran;
+ALTER TABLE auth_user_id_seq OWNER TO sigp;
 
 --
--- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
 
 
 --
--- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE auth_user_user_permissions (
@@ -480,10 +480,10 @@ CREATE TABLE auth_user_user_permissions (
 );
 
 
-ALTER TABLE auth_user_user_permissions OWNER TO fran;
+ALTER TABLE auth_user_user_permissions OWNER TO sigp;
 
 --
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE auth_user_user_permissions_id_seq
@@ -494,17 +494,17 @@ CREATE SEQUENCE auth_user_user_permissions_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_user_user_permissions_id_seq OWNER TO fran;
+ALTER TABLE auth_user_user_permissions_id_seq OWNER TO sigp;
 
 --
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
 
 
 --
--- Name: clientes_cliente; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE clientes_cliente (
@@ -517,10 +517,10 @@ CREATE TABLE clientes_cliente (
 );
 
 
-ALTER TABLE clientes_cliente OWNER TO fran;
+ALTER TABLE clientes_cliente OWNER TO sigp;
 
 --
--- Name: clientes_cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: clientes_cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE clientes_cliente_id_seq
@@ -531,17 +531,17 @@ CREATE SEQUENCE clientes_cliente_id_seq
     CACHE 1;
 
 
-ALTER TABLE clientes_cliente_id_seq OWNER TO fran;
+ALTER TABLE clientes_cliente_id_seq OWNER TO sigp;
 
 --
--- Name: clientes_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: clientes_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE clientes_cliente_id_seq OWNED BY clientes_cliente.id;
 
 
 --
--- Name: django_admin_log; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE django_admin_log (
@@ -557,10 +557,10 @@ CREATE TABLE django_admin_log (
 );
 
 
-ALTER TABLE django_admin_log OWNER TO fran;
+ALTER TABLE django_admin_log OWNER TO sigp;
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE django_admin_log_id_seq
@@ -571,17 +571,17 @@ CREATE SEQUENCE django_admin_log_id_seq
     CACHE 1;
 
 
-ALTER TABLE django_admin_log_id_seq OWNER TO fran;
+ALTER TABLE django_admin_log_id_seq OWNER TO sigp;
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
 
 
 --
--- Name: django_content_type; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE django_content_type (
@@ -592,10 +592,10 @@ CREATE TABLE django_content_type (
 );
 
 
-ALTER TABLE django_content_type OWNER TO fran;
+ALTER TABLE django_content_type OWNER TO sigp;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE django_content_type_id_seq
@@ -606,17 +606,17 @@ CREATE SEQUENCE django_content_type_id_seq
     CACHE 1;
 
 
-ALTER TABLE django_content_type_id_seq OWNER TO fran;
+ALTER TABLE django_content_type_id_seq OWNER TO sigp;
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
 
 
 --
--- Name: django_migrations; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE django_migrations (
@@ -627,10 +627,10 @@ CREATE TABLE django_migrations (
 );
 
 
-ALTER TABLE django_migrations OWNER TO fran;
+ALTER TABLE django_migrations OWNER TO sigp;
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE django_migrations_id_seq
@@ -641,17 +641,17 @@ CREATE SEQUENCE django_migrations_id_seq
     CACHE 1;
 
 
-ALTER TABLE django_migrations_id_seq OWNER TO fran;
+ALTER TABLE django_migrations_id_seq OWNER TO sigp;
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
 
 
 --
--- Name: django_session; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_session; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE django_session (
@@ -661,10 +661,10 @@ CREATE TABLE django_session (
 );
 
 
-ALTER TABLE django_session OWNER TO fran;
+ALTER TABLE django_session OWNER TO sigp;
 
 --
--- Name: flujos_actividad; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_actividad (
@@ -674,10 +674,10 @@ CREATE TABLE flujos_actividad (
 );
 
 
-ALTER TABLE flujos_actividad OWNER TO fran;
+ALTER TABLE flujos_actividad OWNER TO sigp;
 
 --
--- Name: flujos_actividad_estados; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_estados; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_actividad_estados (
@@ -687,10 +687,10 @@ CREATE TABLE flujos_actividad_estados (
 );
 
 
-ALTER TABLE flujos_actividad_estados OWNER TO fran;
+ALTER TABLE flujos_actividad_estados OWNER TO sigp;
 
 --
--- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_actividad_estados_id_seq
@@ -701,17 +701,17 @@ CREATE SEQUENCE flujos_actividad_estados_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_actividad_estados_id_seq OWNER TO fran;
+ALTER TABLE flujos_actividad_estados_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_actividad_estados_id_seq OWNED BY flujos_actividad_estados.id;
 
 
 --
--- Name: flujos_actividad_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_actividad_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_actividad_id_seq
@@ -722,17 +722,17 @@ CREATE SEQUENCE flujos_actividad_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_actividad_id_seq OWNER TO fran;
+ALTER TABLE flujos_actividad_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_actividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_actividad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_actividad_id_seq OWNED BY flujos_actividad.id;
 
 
 --
--- Name: flujos_actividadflujo; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_actividadflujo (
@@ -742,10 +742,10 @@ CREATE TABLE flujos_actividadflujo (
 );
 
 
-ALTER TABLE flujos_actividadflujo OWNER TO fran;
+ALTER TABLE flujos_actividadflujo OWNER TO sigp;
 
 --
--- Name: flujos_actividadflujo_estados; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_estados; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_actividadflujo_estados (
@@ -755,10 +755,10 @@ CREATE TABLE flujos_actividadflujo_estados (
 );
 
 
-ALTER TABLE flujos_actividadflujo_estados OWNER TO fran;
+ALTER TABLE flujos_actividadflujo_estados OWNER TO sigp;
 
 --
--- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_actividadflujo_estados_id_seq
@@ -769,17 +769,17 @@ CREATE SEQUENCE flujos_actividadflujo_estados_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_actividadflujo_estados_id_seq OWNER TO fran;
+ALTER TABLE flujos_actividadflujo_estados_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_actividadflujo_estados_id_seq OWNED BY flujos_actividadflujo_estados.id;
 
 
 --
--- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_actividadflujo_id_seq
@@ -790,17 +790,17 @@ CREATE SEQUENCE flujos_actividadflujo_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_actividadflujo_id_seq OWNER TO fran;
+ALTER TABLE flujos_actividadflujo_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_actividadflujo_id_seq OWNED BY flujos_actividadflujo.id;
 
 
 --
--- Name: flujos_estado; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_estado; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_estado (
@@ -809,10 +809,10 @@ CREATE TABLE flujos_estado (
 );
 
 
-ALTER TABLE flujos_estado OWNER TO fran;
+ALTER TABLE flujos_estado OWNER TO sigp;
 
 --
--- Name: flujos_estado_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_estado_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_estado_id_seq
@@ -823,17 +823,17 @@ CREATE SEQUENCE flujos_estado_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_estado_id_seq OWNER TO fran;
+ALTER TABLE flujos_estado_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_estado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_estado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_estado_id_seq OWNED BY flujos_estado.id;
 
 
 --
--- Name: flujos_flujo; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_flujo (
@@ -843,10 +843,10 @@ CREATE TABLE flujos_flujo (
 );
 
 
-ALTER TABLE flujos_flujo OWNER TO fran;
+ALTER TABLE flujos_flujo OWNER TO sigp;
 
 --
--- Name: flujos_flujo_actividades; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_actividades; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_flujo_actividades (
@@ -856,10 +856,10 @@ CREATE TABLE flujos_flujo_actividades (
 );
 
 
-ALTER TABLE flujos_flujo_actividades OWNER TO fran;
+ALTER TABLE flujos_flujo_actividades OWNER TO sigp;
 
 --
--- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_flujo_actividades_id_seq
@@ -870,17 +870,17 @@ CREATE SEQUENCE flujos_flujo_actividades_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_flujo_actividades_id_seq OWNER TO fran;
+ALTER TABLE flujos_flujo_actividades_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_flujo_actividades_id_seq OWNED BY flujos_flujo_actividades.id;
 
 
 --
--- Name: flujos_flujo_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_flujo_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_flujo_id_seq
@@ -891,17 +891,17 @@ CREATE SEQUENCE flujos_flujo_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_flujo_id_seq OWNER TO fran;
+ALTER TABLE flujos_flujo_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_flujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_flujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_flujo_id_seq OWNED BY flujos_flujo.id;
 
 
 --
--- Name: flujos_plantillaflujo; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_plantillaflujo (
@@ -910,10 +910,10 @@ CREATE TABLE flujos_plantillaflujo (
 );
 
 
-ALTER TABLE flujos_plantillaflujo OWNER TO fran;
+ALTER TABLE flujos_plantillaflujo OWNER TO sigp;
 
 --
--- Name: flujos_plantillaflujo_actividades; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_actividades; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE flujos_plantillaflujo_actividades (
@@ -923,10 +923,10 @@ CREATE TABLE flujos_plantillaflujo_actividades (
 );
 
 
-ALTER TABLE flujos_plantillaflujo_actividades OWNER TO fran;
+ALTER TABLE flujos_plantillaflujo_actividades OWNER TO sigp;
 
 --
--- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_plantillaflujo_actividades_id_seq
@@ -937,17 +937,17 @@ CREATE SEQUENCE flujos_plantillaflujo_actividades_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_plantillaflujo_actividades_id_seq OWNER TO fran;
+ALTER TABLE flujos_plantillaflujo_actividades_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_plantillaflujo_actividades_id_seq OWNED BY flujos_plantillaflujo_actividades.id;
 
 
 --
--- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE flujos_plantillaflujo_id_seq
@@ -958,17 +958,17 @@ CREATE SEQUENCE flujos_plantillaflujo_id_seq
     CACHE 1;
 
 
-ALTER TABLE flujos_plantillaflujo_id_seq OWNER TO fran;
+ALTER TABLE flujos_plantillaflujo_id_seq OWNER TO sigp;
 
 --
--- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE flujos_plantillaflujo_id_seq OWNED BY flujos_plantillaflujo.id;
 
 
 --
--- Name: proyectos_proyecto; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE proyectos_proyecto (
@@ -985,10 +985,10 @@ CREATE TABLE proyectos_proyecto (
 );
 
 
-ALTER TABLE proyectos_proyecto OWNER TO fran;
+ALTER TABLE proyectos_proyecto OWNER TO sigp;
 
 --
--- Name: proyectos_proyecto_equipo; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_equipo; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE proyectos_proyecto_equipo (
@@ -998,10 +998,10 @@ CREATE TABLE proyectos_proyecto_equipo (
 );
 
 
-ALTER TABLE proyectos_proyecto_equipo OWNER TO fran;
+ALTER TABLE proyectos_proyecto_equipo OWNER TO sigp;
 
 --
--- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE proyectos_proyecto_equipo_id_seq
@@ -1012,17 +1012,17 @@ CREATE SEQUENCE proyectos_proyecto_equipo_id_seq
     CACHE 1;
 
 
-ALTER TABLE proyectos_proyecto_equipo_id_seq OWNER TO fran;
+ALTER TABLE proyectos_proyecto_equipo_id_seq OWNER TO sigp;
 
 --
--- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE proyectos_proyecto_equipo_id_seq OWNED BY proyectos_proyecto_equipo.id;
 
 
 --
--- Name: proyectos_proyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE proyectos_proyecto_id_seq
@@ -1033,17 +1033,17 @@ CREATE SEQUENCE proyectos_proyecto_id_seq
     CACHE 1;
 
 
-ALTER TABLE proyectos_proyecto_id_seq OWNER TO fran;
+ALTER TABLE proyectos_proyecto_id_seq OWNER TO sigp;
 
 --
--- Name: proyectos_proyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE proyectos_proyecto_id_seq OWNED BY proyectos_proyecto.id;
 
 
 --
--- Name: roles_proyecto_rolproyecto; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE roles_proyecto_rolproyecto (
@@ -1053,10 +1053,10 @@ CREATE TABLE roles_proyecto_rolproyecto (
 );
 
 
-ALTER TABLE roles_proyecto_rolproyecto OWNER TO fran;
+ALTER TABLE roles_proyecto_rolproyecto OWNER TO sigp;
 
 --
--- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE roles_proyecto_rolproyecto_id_seq
@@ -1067,17 +1067,17 @@ CREATE SEQUENCE roles_proyecto_rolproyecto_id_seq
     CACHE 1;
 
 
-ALTER TABLE roles_proyecto_rolproyecto_id_seq OWNER TO fran;
+ALTER TABLE roles_proyecto_rolproyecto_id_seq OWNER TO sigp;
 
 --
--- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE roles_proyecto_rolproyecto_id_seq OWNED BY roles_proyecto_rolproyecto.id;
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_proyecto; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE roles_proyecto_rolproyecto_proyecto (
@@ -1089,10 +1089,10 @@ CREATE TABLE roles_proyecto_rolproyecto_proyecto (
 );
 
 
-ALTER TABLE roles_proyecto_rolproyecto_proyecto OWNER TO fran;
+ALTER TABLE roles_proyecto_rolproyecto_proyecto OWNER TO sigp;
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE roles_proyecto_rolproyecto_proyecto_id_seq
@@ -1103,17 +1103,17 @@ CREATE SEQUENCE roles_proyecto_rolproyecto_proyecto_id_seq
     CACHE 1;
 
 
-ALTER TABLE roles_proyecto_rolproyecto_proyecto_id_seq OWNER TO fran;
+ALTER TABLE roles_proyecto_rolproyecto_proyecto_id_seq OWNER TO sigp;
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE roles_proyecto_rolproyecto_proyecto_id_seq OWNED BY roles_proyecto_rolproyecto_proyecto.id;
 
 
 --
--- Name: sprints_sprint; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: sprints_sprint; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE sprints_sprint (
@@ -1125,10 +1125,10 @@ CREATE TABLE sprints_sprint (
 );
 
 
-ALTER TABLE sprints_sprint OWNER TO fran;
+ALTER TABLE sprints_sprint OWNER TO sigp;
 
 --
--- Name: sprints_sprint_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: sprints_sprint_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE sprints_sprint_id_seq
@@ -1139,17 +1139,17 @@ CREATE SEQUENCE sprints_sprint_id_seq
     CACHE 1;
 
 
-ALTER TABLE sprints_sprint_id_seq OWNER TO fran;
+ALTER TABLE sprints_sprint_id_seq OWNER TO sigp;
 
 --
--- Name: sprints_sprint_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: sprints_sprint_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE sprints_sprint_id_seq OWNED BY sprints_sprint.id;
 
 
 --
--- Name: user_stories_archivo; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_archivo; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE user_stories_archivo (
@@ -1159,10 +1159,10 @@ CREATE TABLE user_stories_archivo (
 );
 
 
-ALTER TABLE user_stories_archivo OWNER TO fran;
+ALTER TABLE user_stories_archivo OWNER TO sigp;
 
 --
--- Name: user_stories_archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE user_stories_archivo_id_seq
@@ -1173,17 +1173,17 @@ CREATE SEQUENCE user_stories_archivo_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_stories_archivo_id_seq OWNER TO fran;
+ALTER TABLE user_stories_archivo_id_seq OWNER TO sigp;
 
 --
--- Name: user_stories_archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE user_stories_archivo_id_seq OWNED BY user_stories_archivo.id;
 
 
 --
--- Name: user_stories_historialuserstory; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_historialuserstory; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE user_stories_historialuserstory (
@@ -1197,10 +1197,10 @@ CREATE TABLE user_stories_historialuserstory (
 );
 
 
-ALTER TABLE user_stories_historialuserstory OWNER TO fran;
+ALTER TABLE user_stories_historialuserstory OWNER TO sigp;
 
 --
--- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE user_stories_historialuserstory_id_seq
@@ -1211,17 +1211,17 @@ CREATE SEQUENCE user_stories_historialuserstory_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_stories_historialuserstory_id_seq OWNER TO fran;
+ALTER TABLE user_stories_historialuserstory_id_seq OWNER TO sigp;
 
 --
--- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE user_stories_historialuserstory_id_seq OWNED BY user_stories_historialuserstory.id;
 
 
 --
--- Name: user_stories_tarea; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE user_stories_tarea (
@@ -1239,10 +1239,10 @@ CREATE TABLE user_stories_tarea (
 );
 
 
-ALTER TABLE user_stories_tarea OWNER TO fran;
+ALTER TABLE user_stories_tarea OWNER TO sigp;
 
 --
--- Name: user_stories_tarea_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: user_stories_tarea_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE user_stories_tarea_id_seq
@@ -1253,17 +1253,17 @@ CREATE SEQUENCE user_stories_tarea_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_stories_tarea_id_seq OWNER TO fran;
+ALTER TABLE user_stories_tarea_id_seq OWNER TO sigp;
 
 --
--- Name: user_stories_tarea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: user_stories_tarea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE user_stories_tarea_id_seq OWNED BY user_stories_tarea.id;
 
 
 --
--- Name: user_stories_userstory; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE user_stories_userstory (
@@ -1282,10 +1282,10 @@ CREATE TABLE user_stories_userstory (
 );
 
 
-ALTER TABLE user_stories_userstory OWNER TO fran;
+ALTER TABLE user_stories_userstory OWNER TO sigp;
 
 --
--- Name: user_stories_userstory_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: user_stories_userstory_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE user_stories_userstory_id_seq
@@ -1296,17 +1296,17 @@ CREATE SEQUENCE user_stories_userstory_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_stories_userstory_id_seq OWNER TO fran;
+ALTER TABLE user_stories_userstory_id_seq OWNER TO sigp;
 
 --
--- Name: user_stories_userstory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: user_stories_userstory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE user_stories_userstory_id_seq OWNED BY user_stories_userstory.id;
 
 
 --
--- Name: user_stories_userstorydetalle; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstorydetalle; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE user_stories_userstorydetalle (
@@ -1317,10 +1317,10 @@ CREATE TABLE user_stories_userstorydetalle (
 );
 
 
-ALTER TABLE user_stories_userstorydetalle OWNER TO fran;
+ALTER TABLE user_stories_userstorydetalle OWNER TO sigp;
 
 --
--- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE user_stories_userstorydetalle_id_seq
@@ -1331,17 +1331,17 @@ CREATE SEQUENCE user_stories_userstorydetalle_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_stories_userstorydetalle_id_seq OWNER TO fran;
+ALTER TABLE user_stories_userstorydetalle_id_seq OWNER TO sigp;
 
 --
--- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE user_stories_userstorydetalle_id_seq OWNED BY user_stories_userstorydetalle.id;
 
 
 --
--- Name: usuarios_usuario; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE usuarios_usuario (
@@ -1352,10 +1352,10 @@ CREATE TABLE usuarios_usuario (
 );
 
 
-ALTER TABLE usuarios_usuario OWNER TO fran;
+ALTER TABLE usuarios_usuario OWNER TO sigp;
 
 --
--- Name: usuarios_usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE usuarios_usuario_id_seq
@@ -1366,17 +1366,17 @@ CREATE SEQUENCE usuarios_usuario_id_seq
     CACHE 1;
 
 
-ALTER TABLE usuarios_usuario_id_seq OWNER TO fran;
+ALTER TABLE usuarios_usuario_id_seq OWNER TO sigp;
 
 --
--- Name: usuarios_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE usuarios_usuario_id_seq OWNED BY usuarios_usuario.id;
 
 
 --
--- Name: usuarios_usuario_rolesproyecto; Type: TABLE; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_rolesproyecto; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE TABLE usuarios_usuario_rolesproyecto (
@@ -1386,10 +1386,10 @@ CREATE TABLE usuarios_usuario_rolesproyecto (
 );
 
 
-ALTER TABLE usuarios_usuario_rolesproyecto OWNER TO fran;
+ALTER TABLE usuarios_usuario_rolesproyecto OWNER TO sigp;
 
 --
--- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: fran
+-- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
 --
 
 CREATE SEQUENCE usuarios_usuario_rolesproyecto_id_seq
@@ -1400,254 +1400,253 @@ CREATE SEQUENCE usuarios_usuario_rolesproyecto_id_seq
     CACHE 1;
 
 
-ALTER TABLE usuarios_usuario_rolesproyecto_id_seq OWNER TO fran;
+ALTER TABLE usuarios_usuario_rolesproyecto_id_seq OWNER TO sigp;
 
 --
--- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fran
+-- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
 --
 
 ALTER SEQUENCE usuarios_usuario_rolesproyecto_id_seq OWNED BY usuarios_usuario_rolesproyecto.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY clientes_cliente ALTER COLUMN id SET DEFAULT nextval('clientes_cliente_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividad ALTER COLUMN id SET DEFAULT nextval('flujos_actividad_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividad_estados ALTER COLUMN id SET DEFAULT nextval('flujos_actividad_estados_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividadflujo ALTER COLUMN id SET DEFAULT nextval('flujos_actividadflujo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividadflujo_estados ALTER COLUMN id SET DEFAULT nextval('flujos_actividadflujo_estados_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_estado ALTER COLUMN id SET DEFAULT nextval('flujos_estado_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_flujo ALTER COLUMN id SET DEFAULT nextval('flujos_flujo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_flujo_actividades ALTER COLUMN id SET DEFAULT nextval('flujos_flujo_actividades_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo ALTER COLUMN id SET DEFAULT nextval('flujos_plantillaflujo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo_actividades ALTER COLUMN id SET DEFAULT nextval('flujos_plantillaflujo_actividades_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto ALTER COLUMN id SET DEFAULT nextval('proyectos_proyecto_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto_equipo ALTER COLUMN id SET DEFAULT nextval('proyectos_proyecto_equipo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto ALTER COLUMN id SET DEFAULT nextval('roles_proyecto_rolproyecto_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto ALTER COLUMN id SET DEFAULT nextval('roles_proyecto_rolproyecto_proyecto_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY sprints_sprint ALTER COLUMN id SET DEFAULT nextval('sprints_sprint_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_archivo ALTER COLUMN id SET DEFAULT nextval('user_stories_archivo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_historialuserstory ALTER COLUMN id SET DEFAULT nextval('user_stories_historialuserstory_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea ALTER COLUMN id SET DEFAULT nextval('user_stories_tarea_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstory ALTER COLUMN id SET DEFAULT nextval('user_stories_userstory_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle ALTER COLUMN id SET DEFAULT nextval('user_stories_userstorydetalle_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY usuarios_usuario ALTER COLUMN id SET DEFAULT nextval('usuarios_usuario_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: fran
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY usuarios_usuario_rolesproyecto ALTER COLUMN id SET DEFAULT nextval('usuarios_usuario_rolesproyecto_id_seq'::regclass);
 
 
 --
--- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_group (id, name) FROM stdin;
-1	Administrador de Sistema
-2	Scrum Master
-3	Product Owner
-4	Desarrollador
-5	Developer
+1	Admin
+2	Product Owner
+3	Scrum Master
+4	Developer
 \.
 
 
 --
--- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_group_id_seq', 5, true);
+SELECT pg_catalog.setval('auth_group_id_seq', 4, true);
 
 
 --
--- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
@@ -1784,51 +1783,18 @@ COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
 165	4	65
 166	4	66
 167	4	67
-168	5	28
-169	5	29
-170	5	30
-171	5	31
-172	5	32
-173	5	37
-174	5	38
-175	5	39
-176	5	40
-177	5	41
-178	5	42
-179	5	43
-180	5	44
-181	5	45
-182	5	46
-183	5	47
-184	5	48
-185	5	49
-186	5	50
-187	5	51
-188	5	52
-189	5	53
-190	5	54
-191	5	55
-192	5	56
-193	5	57
-194	5	58
-195	5	59
-196	5	63
-197	5	64
-198	5	65
-199	5	66
-200	5	67
 \.
 
 
 --
--- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_group_permissions_id_seq', 200, true);
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 167, true);
 
 
 --
--- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
@@ -1903,58 +1869,56 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 
 
 --
--- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('auth_permission_id_seq', 67, true);
 
 
 --
--- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-6	pbkdf2_sha256$15000$7xXjhGH9kpi6$PJUe9rt9/1mwgM1PsfUhSeSLIahjiszhf5YveY78r5k=	2015-05-14 19:54:01.824584-04	f	maria	maria	callas	maria@gmail.com	f	t	2015-05-14 17:26:44.237906-04
-3	pbkdf2_sha256$15000$Bz3aOVsZ3Hn3$GrEs+TIwBHHzw4O5Tiy2L8xFWmwtbsntR0++oa6WTzg=	2015-05-16 15:18:39.91356-04	f	romina	romina	diaz de bedoya	rodibe86@gmail.com	f	t	2015-05-14 15:18:37.321952-04
-4	pbkdf2_sha256$15000$vflBvaxIyCA2$DNMYk/f780bNaPm69hGPbz0iBEKTtY2hQjC36Y7h9cA=	2015-05-16 15:32:22.560431-04	f	marcos	Marcos	gonzalez	marcos@gmail.com	f	t	2015-05-14 15:40:07.250186-04
-2	pbkdf2_sha256$15000$WvXv9aprcx2y$3Sj5Yl2IovxLGQjrWMAF47u/E3ITVbGiMoS0kyZjcj8=	2015-05-16 15:34:48.436931-04	f	juani	juani	maldonado	juahni@gmail.com	f	t	2015-05-14 15:18:02.275179-04
-1	pbkdf2_sha256$15000$OYwVqGR8FXEa$94TjpznRFLm2+vh9QMKZh+Q1hENhjKLbaKtch7DFVXw=	2015-05-14 16:00:15.113343-04	t	fran			rucontra@gmail.com	t	t	2015-05-14 15:12:20.327951-04
-5	pbkdf2_sha256$15000$k4npwHmTcBDL$tNv0c9G6SCiXh9wF0DihFsTEtuP/grm+8y1AcTcKIp0=	2015-05-16 14:55:37.704017-04	f	miguel	miguel	carrizosa	miguel@gmail.com	f	t	2015-05-14 17:26:02.79918-04
+5	pbkdf2_sha256$15000$GsKjHS4yH2xX$X6HGvs6PJDXGa9de6kOl0fWN5X8bkIeRYMCeBKFvPOI=	2015-05-18 01:15:45.077332-04	f	jose	jose	perez	jose@gmail.com	f	t	2015-05-18 01:15:45.077397-04
+7	pbkdf2_sha256$15000$N249dTuQ2kXI$yUjq+8C85t0LQqXivHzfamPaf+DxJxhCckkzhPf38QY=	2015-05-18 01:17:28.619229-04	f	luis	luis	galeano	luis.galeano@gmail.com	f	t	2015-05-18 01:17:28.6193-04
+6	pbkdf2_sha256$15000$dhsELjiVmpmd$xVCrJE03jyZrispqM+lji4NqVfRU0BCNzz4cc7ZrFoc=	2015-05-18 01:37:20.745497-04	f	maria	maria	martinez	maria@gmail.com	f	t	2015-05-18 01:16:36.588296-04
+1	pbkdf2_sha256$15000$I3qi4YUxRvkv$V1k+I9jh5ZOeegMJZ/1FgTZ+t9x7OuQtZjJYSNQUPgA=	2015-05-18 13:41:37.755777-04	t	romina			rodibe86@gmail.com	t	t	2015-05-18 01:08:22.678534-04
+4	pbkdf2_sha256$15000$FR2fvUCfiJeM$oitqmedktEVc4ubhxmKpl8AekOOchGJmu7f915by/Tg=	2015-05-18 14:01:26.589753-04	f	mario	mario	benitez	fr_vc@hotmail.com	f	t	2015-05-18 01:13:40.091415-04
+3	pbkdf2_sha256$15000$rylWkdOsQVTA$qW4eYJUQT9+QDhHQ21Sljl8S8RBatmHxol3QiMgOqu8=	2015-05-18 14:03:54.415126-04	f	juana	juani	maldonado	juahni@gmail.com	f	t	2015-05-18 01:12:36.02391-04
+2	pbkdf2_sha256$15000$O9Ld4vbEYXv7$RW7L19c479/AA468jVzhs/2Rb2L7ZRlmSRA+nE/CspA=	2015-05-18 15:26:13.775571-04	f	francisco	francisco	velloso	rucontra@gmail.com	f	t	2015-05-18 01:11:51.11435-04
 \.
 
 
 --
--- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_user_groups (id, user_id, group_id) FROM stdin;
-1	2	1
-2	2	2
-5	3	3
-7	4	5
-8	5	5
-9	6	5
-10	3	5
-11	4	3
+1	2	3
+2	6	2
+3	3	4
+4	4	4
+5	4	2
 \.
 
 
 --
--- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_user_groups_id_seq', 11, true);
-
-
---
--- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
---
-
-SELECT pg_catalog.setval('auth_user_id_seq', 6, true);
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 5, true);
 
 
 --
--- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: fran
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 7, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
@@ -1962,31 +1926,32 @@ COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 
 
 --
--- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 
 
 --
--- Data for Name: clientes_cliente; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: clientes_cliente; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY clientes_cliente (id, nombre, descripcion, "correoElectronico", telefono, direccion) FROM stdin;
-1	jose	ninguna	jose.perez@gmail.com	23444	eusebio ayala
-2	mario	ninguna	mario@gmail.com	333333	españa
+1	tigo	empresa telefonica	mail@tigo.com.py	9041000	mcal lopez
+2	nike	empresa deportiva	usuario@nike.com.py	852456	peru
+3	mspbs	ministerio publico	mail@mspbs.gov.py	225209	brasil
 \.
 
 
 --
--- Name: clientes_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: clientes_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('clientes_cliente_id_seq', 2, true);
+SELECT pg_catalog.setval('clientes_cliente_id_seq', 3, true);
 
 
 --
--- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
@@ -1994,14 +1959,14 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 
 
 --
--- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('django_admin_log_id_seq', 1, false);
 
 
 --
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY django_content_type (id, name, app_label, model) FROM stdin;
@@ -2031,67 +1996,67 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 
 
 --
--- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
 
 
 --
--- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2015-05-14 15:10:41.345912-04
-2	auth	0001_initial	2015-05-14 15:10:42.454124-04
-3	admin	0001_initial	2015-05-14 15:10:42.888657-04
-4	auth	0002_auto_20150427_1759	2015-05-14 15:10:42.997898-04
-5	auth	0003_auto_20150503_2025	2015-05-14 15:10:43.109049-04
-6	auth	0004_auto_20150503_2253	2015-05-14 15:10:43.231101-04
-7	clientes	0001_initial	2015-05-14 15:10:43.552333-04
-8	proyectos	0001_initial	2015-05-14 15:10:44.084835-04
-9	flujos	0001_initial	2015-05-14 15:10:45.482808-04
-10	roles_proyecto	0001_initial	2015-05-14 15:10:45.871906-04
-11	sessions	0001_initial	2015-05-14 15:10:46.095501-04
-12	sprints	0001_initial	2015-05-14 15:10:46.270918-04
-13	user_stories	0001_initial	2015-05-14 15:10:47.545774-04
-14	usuarios	0001_initial	2015-05-14 15:10:47.92366-04
-15	user_stories	0002_auto_20150516_1217	2015-05-16 12:17:50.056605-04
+1	contenttypes	0001_initial	2015-05-16 21:15:09.311923-04
+2	auth	0001_initial	2015-05-16 21:15:10.404988-04
+3	admin	0001_initial	2015-05-16 21:15:10.696847-04
+4	auth	0002_auto_20150504_0142	2015-05-16 21:15:10.808054-04
+5	clientes	0001_initial	2015-05-16 21:15:11.11877-04
+6	proyectos	0001_initial	2015-05-16 21:15:11.651996-04
+7	flujos	0001_initial	2015-05-16 21:15:13.000741-04
+8	roles_proyecto	0001_initial	2015-05-16 21:15:13.415254-04
+9	sessions	0001_initial	2015-05-16 21:15:13.636912-04
+10	sprints	0001_initial	2015-05-16 21:15:13.849365-04
+11	user_stories	0001_initial	2015-05-16 21:15:15.140232-04
+12	user_stories	0002_auto_20150516_1330	2015-05-16 21:15:16.247332-04
+13	usuarios	0001_initial	2015-05-16 21:15:16.655232-04
 \.
 
 
 --
--- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 15, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 13, true);
 
 
 --
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-nzmr1knvmy7goe91ben2zbxcs6aed4a8	NDA3NTRhZGJhODEyZGRiYjhmZDZlNDM2YWI2YjU0ZTUyMDRmYjU4ZTp7Il9hdXRoX3VzZXJfaGFzaCI6Ijk1MDJiY2YxM2Q2ZGIwMDhiNmUwNDM4YWNmMGViYzMyOWE2Njk1M2UiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjN9	2015-05-28 15:52:34.712681-04
-v3ngw7m9al44zxa8yosnyv8su82dzfjj	NGNhNDA1NjI2MGMyMzBiMThhMjEzMDgxNTllMTdlNDRkZjRiZDZiMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjU3Y2M0YWRmNTcwNzJhZDRjYTllZThhMDEzNTlkNzE1YTZiMTRkYjgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-05-30 15:34:48.482077-04
-q4tmgnnswsab6momx5175sgp0huokq0e	NGNhNDA1NjI2MGMyMzBiMThhMjEzMDgxNTllMTdlNDRkZjRiZDZiMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjU3Y2M0YWRmNTcwNzJhZDRjYTllZThhMDEzNTlkNzE1YTZiMTRkYjgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-05-28 19:55:39.171976-04
+fu6bqntqrvnkxmskl20f78p3iuv56fca	YjNjNjgwYzg2ZWFjZWY4NzAxYjE0ZmZlNzQyZTk2ZDRmZTc2ZWNkMTp7fQ==	2015-06-01 01:53:07.093527-04
+htwab47eayvb3gx65un7fmwh50ihdylb	M2Q1NDNmZDU2OThkMDg3NWFlMzU5OGNlNWMxZTNiMzI3YTkxZGJiYzp7Il9hdXRoX3VzZXJfaGFzaCI6ImM2NTNhNGIxZmNjNjA4MTUxNTUwM2UyYTQzYjhkNDNlNjM2MTRkMTYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-06-01 12:37:16.437208-04
+0aep41vwrhgonbmr8z0d36xjpfv0h8jy	YjNjNjgwYzg2ZWFjZWY4NzAxYjE0ZmZlNzQyZTk2ZDRmZTc2ZWNkMTp7fQ==	2015-06-01 13:02:52.302533-04
+s4y2ggy81kyk5t0lcinknall17uq619i	M2Q1NDNmZDU2OThkMDg3NWFlMzU5OGNlNWMxZTNiMzI3YTkxZGJiYzp7Il9hdXRoX3VzZXJfaGFzaCI6ImM2NTNhNGIxZmNjNjA4MTUxNTUwM2UyYTQzYjhkNDNlNjM2MTRkMTYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-06-01 15:26:13.8199-04
 \.
 
 
 --
--- Data for Name: flujos_actividad; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_actividad; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_actividad (id, nombre, orden) FROM stdin;
-1	actividad 1	0
-2	actividad 2	0
-3	suma	0
-4	resta	0
+1	analisis	0
+2	diseño	0
+3	desarrollo	0
+4	testeo	0
+5	piloto	0
 \.
 
 
 --
--- Data for Name: flujos_actividad_estados; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_actividad_estados; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
@@ -2107,25 +2072,28 @@ COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
 10	4	10
 11	4	11
 12	4	12
+13	5	13
+14	5	14
+15	5	15
 \.
 
 
 --
--- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 12, true);
-
-
---
--- Name: flujos_actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
---
-
-SELECT pg_catalog.setval('flujos_actividad_id_seq', 4, true);
+SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 15, true);
 
 
 --
--- Data for Name: flujos_actividadflujo; Type: TABLE DATA; Schema: public; Owner: fran
+-- Name: flujos_actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('flujos_actividad_id_seq', 5, true);
+
+
+--
+-- Data for Name: flujos_actividadflujo; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_actividadflujo (id, nombre, orden) FROM stdin;
@@ -2133,7 +2101,7 @@ COPY flujos_actividadflujo (id, nombre, orden) FROM stdin;
 
 
 --
--- Data for Name: flujos_actividadflujo_estados; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_actividadflujo_estados; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_actividadflujo_estados (id, actividadflujo_id, estado_id) FROM stdin;
@@ -2141,21 +2109,21 @@ COPY flujos_actividadflujo_estados (id, actividadflujo_id, estado_id) FROM stdin
 
 
 --
--- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('flujos_actividadflujo_estados_id_seq', 1, false);
 
 
 --
--- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_actividadflujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('flujos_actividadflujo_id_seq', 1, false);
 
 
 --
--- Data for Name: flujos_estado; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_estado; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_estado (id, nombre) FROM stdin;
@@ -2171,54 +2139,60 @@ COPY flujos_estado (id, nombre) FROM stdin;
 10	To do
 11	Doing
 12	Done
+13	To do
+14	Doing
+15	Done
 \.
 
 
 --
--- Name: flujos_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_estado_id_seq', 12, true);
+SELECT pg_catalog.setval('flujos_estado_id_seq', 15, true);
 
 
 --
--- Data for Name: flujos_flujo; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_flujo; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_flujo (id, nombre, proyecto_id) FROM stdin;
-1	flujo 1	3
-2	flujo 2	\N
+1	Flujo 1	2
+2	Flujo 2	2
 \.
 
 
 --
--- Data for Name: flujos_flujo_actividades; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_flujo_actividades; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_flujo_actividades (id, flujo_id, actividad_id) FROM stdin;
 1	1	1
 2	1	2
-3	2	3
-4	2	4
+3	2	1
+4	2	2
+5	2	3
+6	2	4
+7	2	5
 \.
 
 
 --
--- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 4, true);
+SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 7, true);
 
 
 --
--- Name: flujos_flujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_flujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('flujos_flujo_id_seq', 2, true);
 
 
 --
--- Data for Name: flujos_plantillaflujo; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_plantillaflujo; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_plantillaflujo (id, nombre) FROM stdin;
@@ -2226,7 +2200,7 @@ COPY flujos_plantillaflujo (id, nombre) FROM stdin;
 
 
 --
--- Data for Name: flujos_plantillaflujo_actividades; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: flujos_plantillaflujo_actividades; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY flujos_plantillaflujo_actividades (id, plantillaflujo_id, actividadflujo_id) FROM stdin;
@@ -2234,354 +2208,307 @@ COPY flujos_plantillaflujo_actividades (id, plantillaflujo_id, actividadflujo_id
 
 
 --
--- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('flujos_plantillaflujo_actividades_id_seq', 1, false);
 
 
 --
--- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: flujos_plantillaflujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('flujos_plantillaflujo_id_seq', 1, false);
 
 
 --
--- Data for Name: proyectos_proyecto; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: proyectos_proyecto; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY proyectos_proyecto (id, codigo, nombre_corto, nombre_largo, fecha_inicio, fecha_fin, cancelado, estado, cliente_id, scrum_master_id) FROM stdin;
-1	p	proyecto 1	proyecto de software	2015-05-14	2015-07-05	f	Activo	1	2
-2	p-1	proyecto 2	proyecto de calculadora	2015-05-16	2015-06-07	f	Activo	2	2
-3	p-2	proyecto 3	proyecto de software	2015-05-16	2015-06-07	f	Activo	1	2
+1	s	SGA	Sistema de Gestion Ambulatoria	2015-05-18	2015-06-30	f	No iniciado	3	2
+2	s-1	SGS	Sistema de Gestion Stock	2015-05-18	2015-07-24	f	Activo	2	2
+3	s-2	SIGP	Proyecto de Software SIGP	2015-05-18	2015-06-07	f	Activo	1	2
+4	p	Proyecto Prueba	Proyecto de Software	2015-05-18	2015-06-07	f	Activo	1	2
 \.
 
 
 --
--- Data for Name: proyectos_proyecto_equipo; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: proyectos_proyecto_equipo; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY proyectos_proyecto_equipo (id, proyecto_id, user_id) FROM stdin;
 1	1	2
-2	1	3
-3	1	4
-4	1	5
-5	1	6
-6	2	2
-7	2	3
-8	2	4
-9	2	5
-10	3	2
-11	3	3
-12	3	4
+2	2	2
+3	2	6
+4	2	3
+5	2	4
+6	3	2
+7	3	3
+8	3	4
+9	4	2
+10	4	3
+11	4	4
 \.
 
 
 --
--- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 12, true);
-
-
---
--- Name: proyectos_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
---
-
-SELECT pg_catalog.setval('proyectos_proyecto_id_seq', 3, true);
+SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 11, true);
 
 
 --
--- Data for Name: roles_proyecto_rolproyecto; Type: TABLE DATA; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('proyectos_proyecto_id_seq', 4, true);
+
+
+--
+-- Data for Name: roles_proyecto_rolproyecto; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY roles_proyecto_rolproyecto (id, es_rol_proyecto, group_id) FROM stdin;
 1	t	2
 2	t	3
 3	t	4
-4	t	5
 \.
 
 
 --
--- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 4, true);
+SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 3, true);
 
 
 --
--- Data for Name: roles_proyecto_rolproyecto_proyecto; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: roles_proyecto_rolproyecto_proyecto; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY roles_proyecto_rolproyecto_proyecto (id, horas_developer, proyecto_id, rol_proyecto_id, user_id) FROM stdin;
-2	0	1	1	2
-5	0	1	2	3
-7	12	1	4	4
-8	200	1	4	5
-9	200	1	4	6
-11	0	2	1	2
-13	0	2	2	4
-12	8	2	4	3
-14	6	2	4	5
-16	0	3	1	2
-17	0	3	2	3
-18	8	3	4	4
+1	0	1	2	2
+3	0	2	2	2
+4	0	2	1	6
+6	4	2	3	4
+5	4	2	3	3
+10	0	3	1	4
+9	8	3	3	3
+13	0	3	2	2
+14	0	4	2	2
+16	0	4	1	4
+15	8	4	3	3
 \.
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 18, true);
+SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 16, true);
 
 
 --
--- Data for Name: sprints_sprint; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: sprints_sprint; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY sprints_sprint (id, nombre, duracion, estado, proyecto_id) FROM stdin;
-1	Sprint 1	13	No Iniciado	1
-2	Sprint 2	22	Finalizado	1
-5	Sprint 2	7	No iniciado	2
-3	Sprint 3	23	Finalizado	1
-4	Sprint 1	6	Finalizado	2
-6	Sprint nuevo	15	Activo	3
+2	Iteracion 1	10	No iniciado	2
+3	Iteracion 2	10	No iniciado	2
+4	Iteracion 3	10	No iniciado	2
+5	Iteracion 4	10	No iniciado	2
+1	Relevar Datos	10	Activo	2
+6	Sprint 1	15	No iniciado	3
+7	Sprint 1	7	Activo	4
 \.
 
 
 --
--- Name: sprints_sprint_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: sprints_sprint_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('sprints_sprint_id_seq', 6, true);
+SELECT pg_catalog.setval('sprints_sprint_id_seq', 7, true);
 
 
 --
--- Data for Name: user_stories_archivo; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: user_stories_archivo; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY user_stories_archivo (id, archivo, user_story_id) FROM stdin;
-1	user-stories/22105_10152952885174542_7831517492275731888_n.jpg	4
+1	user-stories/figuras_geometricas-1280x800.jpg	1
 \.
 
 
 --
--- Name: user_stories_archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: user_stories_archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
 SELECT pg_catalog.setval('user_stories_archivo_id_seq', 1, true);
 
 
 --
--- Data for Name: user_stories_historialuserstory; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: user_stories_historialuserstory; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY user_stories_historialuserstory (id, operacion, campo, valor, fecha, user_story_id, usuario_id) FROM stdin;
-1	creado			2015-05-14 15:48:44.539894-04	1	3
-2	modificado	valor de negocio	4	2015-05-14 15:52:57.301106-04	1	3
-3	modificado	prioridad	4	2015-05-14 15:53:53.863078-04	1	2
-4	modificado	valor tecnico	4	2015-05-14 15:53:53.872352-04	1	2
-5	modificado	estimacion	10	2015-05-14 15:53:53.883469-04	1	2
-6	modificado	flujo	flujo 1	2015-05-14 15:53:53.894823-04	1	2
-7	modificado	desarrollador	marcos	2015-05-14 16:16:36.667906-04	1	2
-8	modificado	sprint	Sprint 2	2015-05-14 16:16:36.677616-04	1	2
-9	modificado	estado	Activo	2015-05-14 16:16:36.688655-04	1	2
-10	modificado	estimacion	12	2015-05-14 17:36:41.494067-04	1	2
-11	creado			2015-05-14 17:45:26.754643-04	2	3
-12	creado			2015-05-14 17:45:47.944042-04	3	3
-13	modificado	valor de negocio	5	2015-05-14 17:46:16.907518-04	3	3
-14	modificado	desarrollador	miguel	2015-05-14 17:47:29.904133-04	1	2
-15	modificado	desarrollador	marcos	2015-05-14 17:47:58.918251-04	1	2
-16	modificado	prioridad	4	2015-05-14 17:49:07.31681-04	2	2
-17	modificado	valor tecnico	3	2015-05-14 17:49:07.32636-04	2	2
-18	modificado	estimacion	8	2015-05-14 17:49:07.33745-04	2	2
-19	modificado	flujo	flujo 1	2015-05-14 17:49:07.34857-04	2	2
-20	modificado	prioridad	1	2015-05-14 17:50:14.575728-04	3	2
-21	modificado	valor tecnico	3	2015-05-14 17:50:14.586051-04	3	2
-22	modificado	estimacion	100	2015-05-14 17:50:14.59705-04	3	2
-23	modificado	flujo	flujo 1	2015-05-14 17:50:14.608643-04	3	2
-24	modificado	desarrollador	miguel	2015-05-14 18:00:53.200921-04	2	2
-25	modificado	sprint	Sprint 1	2015-05-14 18:00:53.208942-04	2	2
-26	modificado	estado	Activo	2015-05-14 18:00:53.220218-04	2	2
-27	modificado	desarrollador	maria	2015-05-14 19:49:53.631431-04	3	2
-28	modificado	sprint	Sprint 3	2015-05-14 19:49:53.674553-04	3	2
-29	modificado	estado	Activo	2015-05-14 19:49:53.686027-04	3	2
-30	creado			2015-05-16 12:27:38.102313-04	4	4
-31	modificado	prioridad	3	2015-05-16 12:28:41.742973-04	4	2
-32	modificado	valor tecnico	5	2015-05-16 12:28:41.752925-04	4	2
-33	modificado	estimacion	40	2015-05-16 12:28:41.763999-04	4	2
-34	modificado	flujo	flujo 2	2015-05-16 12:28:41.77509-04	4	2
-35	modificado	desarrollador	romina	2015-05-16 12:30:48.979476-04	4	2
-36	modificado	sprint	Sprint 1	2015-05-16 12:30:48.988472-04	4	2
-37	modificado	estado	Activo	2015-05-16 12:30:48.99957-04	4	2
-38	creado			2015-05-16 15:12:10.768293-04	5	3
-39	modificado	prioridad	5	2015-05-16 15:13:22.647645-04	5	2
-40	modificado	valor tecnico	5	2015-05-16 15:13:22.655587-04	5	2
-41	modificado	estimacion	120	2015-05-16 15:13:22.666641-04	5	2
-42	modificado	flujo	flujo 1	2015-05-16 15:13:22.677809-04	5	2
-43	modificado	desarrollador	marcos	2015-05-16 15:13:45.825374-04	5	2
-44	modificado	sprint	Sprint nuevo	2015-05-16 15:13:45.835131-04	5	2
-45	modificado	estado	Activo	2015-05-16 15:13:45.846098-04	5	2
+1	creado			2015-05-18 01:41:25.266436-04	1	6
+2	modificado	nombre	propuesta	2015-05-18 01:41:47.276048-04	1	6
+3	creado			2015-05-18 01:44:40.862894-04	2	6
+4	modificado	nombre	login-logout	2015-05-18 01:46:12.56831-04	2	6
+5	modificado	nombre	login-logout	2015-05-18 01:46:32.354535-04	2	6
+6	modificado	descripcion	Pantalla de Ingreso y Egreso	2015-05-18 01:46:32.408018-04	2	6
+7	modificado	prioridad	10	2015-05-18 01:48:07.129223-04	1	2
+8	modificado	valor tecnico	5	2015-05-18 01:48:07.137129-04	1	2
+9	modificado	estimacion	16	2015-05-18 01:48:07.14833-04	1	2
+10	modificado	flujo	Flujo 1	2015-05-18 01:48:07.159689-04	1	2
+11	modificado	prioridad	2	2015-05-18 01:48:55.520535-04	2	2
+12	modificado	valor tecnico	6	2015-05-18 01:48:55.528017-04	2	2
+13	modificado	estimacion	10	2015-05-18 01:48:55.538953-04	2	2
+14	modificado	flujo	Flujo 2	2015-05-18 01:48:55.550421-04	2	2
+15	modificado	desarrollador	juana	2015-05-18 01:50:02.609983-04	1	2
+16	modificado	sprint	Relevar Datos	2015-05-18 01:50:02.619695-04	1	2
+17	modificado	estado	Activo	2015-05-18 01:50:02.630914-04	1	2
+18	modificado	desarrollador	mario	2015-05-18 01:51:02.705925-04	1	2
+19	modificado	estimacion	40	2015-05-18 01:52:48.205129-04	2	2
+20	creado			2015-05-18 13:48:19.586404-04	3	4
+21	modificado	prioridad	4	2015-05-18 13:48:59.460596-04	3	2
+22	modificado	valor tecnico	5	2015-05-18 13:48:59.470618-04	3	2
+23	modificado	estimacion	20	2015-05-18 13:48:59.481731-04	3	2
+24	modificado	flujo	Flujo 1	2015-05-18 13:48:59.493339-04	3	2
+25	modificado	desarrollador	juana	2015-05-18 13:49:33.876203-04	3	2
+26	modificado	sprint	Sprint 1	2015-05-18 13:49:33.886622-04	3	2
+27	modificado	estado	Activo	2015-05-18 13:49:33.897573-04	3	2
+28	creado			2015-05-18 14:01:45.264634-04	4	4
+29	modificado	prioridad	4	2015-05-18 14:02:21.973711-04	4	2
+30	modificado	valor tecnico	5	2015-05-18 14:02:21.983572-04	4	2
+31	modificado	estimacion	20	2015-05-18 14:02:21.994215-04	4	2
+32	modificado	flujo	Flujo 1	2015-05-18 14:02:22.005322-04	4	2
+33	modificado	desarrollador	juana	2015-05-18 14:02:50.190979-04	4	2
+34	modificado	sprint	Sprint 1	2015-05-18 14:02:50.200306-04	4	2
+35	modificado	estado	Activo	2015-05-18 14:02:50.211177-04	4	2
 \.
 
 
 --
--- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 45, true);
+SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 35, true);
 
 
 --
--- Data for Name: user_stories_tarea; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: user_stories_tarea; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id, estado_id, flujo_id, sprint_id, user_story_id, tipo, usuario_id) FROM stdin;
-1	tarea 1	2	2015-05-14 17:17:19.818069-04	1	1	1	2	1	Cambio de Estado	1
-2	Cambio de estado: To do -> Doing	0	2015-05-14 17:18:42.113175-04	1	2	1	2	1	Cambio de Estado	1
-3	Cambio de estado: Doing -> Done	0	2015-05-14 17:40:13.695968-04	1	3	1	2	1	Cambio de Estado	1
-4	Cambio de actividad: actividad 1 -> actividad 2	0	2015-05-14 17:40:13.720773-04	2	4	1	2	1	Cambio de Estado	1
-5	Cambio de estado: To do -> Doing	0	2015-05-14 17:40:15.814241-04	2	5	1	2	1	Cambio de Estado	1
-6	Cambio de estado: Doing -> Done	0	2015-05-14 17:40:17.922212-04	2	6	1	2	1	Cambio de Estado	1
-7	Finalizar user story	0	2015-05-14 17:40:17.937286-04	2	6	1	2	1	Cambio de Estado	1
-8	Aprobar user story	0	2015-05-14 17:40:51.538027-04	2	6	1	2	1	Cambio de Estado	1
-9	tarea1	23	2015-05-14 19:54:42.496857-04	1	1	1	3	3	Cambio de Estado	1
-10	tarea 	30	2015-05-14 19:55:02.89217-04	1	1	1	3	3	Cambio de Estado	1
-11	Cambio de estado: To do -> Doing	0	2015-05-14 19:55:26.664369-04	1	2	1	3	3	Cambio de Estado	1
-12	Cambio de estado: Doing -> Done	0	2015-05-14 19:55:28.458557-04	1	3	1	3	3	Cambio de Estado	1
-13	Cambio de actividad: actividad 1 -> actividad 2	0	2015-05-14 19:55:28.480576-04	2	4	1	3	3	Cambio de Estado	1
-14	Cambio de estado: To do -> Doing	0	2015-05-14 19:55:30.489439-04	2	5	1	3	3	Cambio de Estado	1
-15	Cambio de estado: Doing -> Done	0	2015-05-14 19:55:32.112162-04	2	6	1	3	3	Cambio de Estado	1
-16	Finalizar user story	0	2015-05-14 19:55:32.131934-04	2	6	1	3	3	Cambio de Estado	1
-17	tarea1	4	2015-05-16 12:32:31.36272-04	3	7	2	4	4	Registro de Tarea	2
-18	tarea2	5	2015-05-16 12:32:57.529182-04	3	7	2	4	4	Registro de Tarea	2
-19	tarea 3	6	2015-05-16 12:33:58.810458-04	3	7	2	4	4	Registro de Tarea	3
-20	Adjuntar archivo	0	2015-05-16 12:34:34.828539-04	3	7	2	4	4	Registro de Tarea	3
-21	Cambio de estado: To do -> Doing	0	2015-05-16 12:34:55.877203-04	3	8	2	4	4	Cambio de Estado	3
-22	Cambio de estado: To do -> Doing	0	2015-05-16 12:41:40.2752-04	3	8	2	4	4	Cambio de Estado	3
-23	tarea 4	2	2015-05-16 12:42:29.508311-04	3	7	2	4	4	Registro de Tarea	3
-24	Cambio de estado: To do -> Doing	0	2015-05-16 12:43:07.300523-04	3	8	2	4	4	Cambio de Estado	3
-25	Cambio de estado: To do -> Doing	0	2015-05-16 12:49:38.088097-04	3	8	2	4	4	Cambio de Estado	3
-26	Cambio de estado: To do -> Doing	0	2015-05-16 13:11:10.609962-04	3	8	2	4	4	Cambio de Estado	3
-27	Cambio de estado: Doing -> Done	0	2015-05-16 13:11:13.430005-04	3	9	2	4	4	Cambio de Estado	3
-28	Cambio de actividad: suma -> resta	0	2015-05-16 13:11:13.458077-04	4	10	2	4	4	Cambio de Estado	3
-29	Cambio de estado: To do -> Doing	0	2015-05-16 13:11:23.004799-04	4	11	2	4	4	Cambio de Estado	3
-30	Cambio de estado: Doing -> Done	0	2015-05-16 13:11:24.686189-04	4	12	2	4	4	Cambio de Estado	3
-31	Finalizar user story	0	2015-05-16 13:11:24.702467-04	4	12	2	4	4	Cambio de Estado	3
-32	Aprobar user story	0	2015-05-16 14:44:07.379326-04	4	12	2	4	4	Cambio de Estado	2
-33	tarea 1 login	60	2015-05-16 15:17:55.799414-04	1	1	1	6	5	Registro de Tarea	2
-34	tarea 2 logout	60	2015-05-16 15:18:10.020094-04	1	1	1	6	5	Registro de Tarea	2
-35	Cambio de estado: To do -> Doing	0	2015-05-16 15:27:54.527668-04	1	2	1	6	5	Cambio de Estado	4
-36	Cambio de estado: Doing -> Done	0	2015-05-16 15:28:08.773615-04	1	3	1	6	5	Cambio de Estado	4
-37	Cambio de actividad: actividad 1 -> actividad 2	0	2015-05-16 15:28:08.812087-04	2	4	1	6	5	Cambio de Estado	4
-38	Cambio de estado: To do -> Doing	0	2015-05-16 15:28:26.313687-04	2	5	1	6	5	Cambio de Estado	4
-39	Cambio de estado: Doing -> Done	0	2015-05-16 15:28:28.7909-04	2	6	1	6	5	Cambio de Estado	4
-40	Finalizar user story	0	2015-05-16 15:28:28.85565-04	2	6	1	6	5	Cambio de Estado	4
-41	Revertir: - Estado: Done -> To do	0	2015-05-16 15:32:07.647819-04	2	4	1	6	5	Cambio de Estado	2
-42	Cambio de estado: To do -> Doing	0	2015-05-16 15:32:30.745442-04	2	5	1	6	5	Cambio de Estado	4
-43	Cambio de estado: Doing -> Done	0	2015-05-16 15:32:32.43878-04	2	6	1	6	5	Cambio de Estado	4
-44	Finalizar user story	0	2015-05-16 15:32:32.456714-04	2	6	1	6	5	Cambio de Estado	4
-45	Aprobar user story	0	2015-05-16 15:35:07.804801-04	2	6	1	6	5	Cambio de Estado	2
+1	tarea 1	12	2015-05-18 13:12:48.734613-04	1	1	1	1	1	Registro de Tarea	2
+2	Adjuntar archivo	0	2015-05-18 13:15:41.383135-04	1	1	1	1	1	Registro de Tarea	4
+3	Cambio de estado: To do -> Doing	0	2015-05-18 13:15:57.192408-04	1	2	1	1	1	Cambio de Estado	4
+4	Cambio de estado: Doing -> Done	0	2015-05-18 13:15:59.598743-04	1	3	1	1	1	Cambio de Estado	4
+5	Cambio de actividad: analisis -> diseño	0	2015-05-18 13:15:59.643403-04	2	4	1	1	1	Cambio de Estado	4
+6	Cambio de estado: To do -> Doing	0	2015-05-18 13:16:02.012299-04	2	5	1	1	1	Cambio de Estado	4
+7	tarea de diseño	5	2015-05-18 13:16:22.5424-04	2	5	1	1	1	Registro de Tarea	4
+8	tarea 1	2	2015-05-18 14:03:30.102813-04	1	1	1	7	4	Registro de Tarea	2
+9	tarea 2	4	2015-05-18 14:04:21.581388-04	1	1	1	7	4	Registro de Tarea	3
+10	Cambio de estado: To do -> Doing	0	2015-05-18 14:04:23.563118-04	1	2	1	7	4	Cambio de Estado	3
+11	Cambio de estado: Doing -> Done	0	2015-05-18 14:04:25.890093-04	1	3	1	7	4	Cambio de Estado	3
+12	Cambio de actividad: analisis -> diseño	0	2015-05-18 14:04:25.944419-04	2	4	1	7	4	Cambio de Estado	3
+13	Cambio de estado: To do -> Doing	0	2015-05-18 14:04:28.023198-04	2	5	1	7	4	Cambio de Estado	3
+14	Cambio de estado: Doing -> Done	0	2015-05-18 14:04:29.698723-04	2	6	1	7	4	Cambio de Estado	3
+15	Finalizar user story	0	2015-05-18 14:04:29.750797-04	2	6	1	7	4	Cambio de Estado	3
+16	Aprobar user story	0	2015-05-18 15:22:22.305545-04	2	6	1	7	4	Cambio de Estado	2
 \.
 
 
 --
--- Name: user_stories_tarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: user_stories_tarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_tarea_id_seq', 45, true);
+SELECT pg_catalog.setval('user_stories_tarea_id_seq', 16, true);
 
 
 --
--- Data for Name: user_stories_userstory; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: user_stories_userstory; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY user_stories_userstory (id, nombre, descripcion, valor_negocio, prioridad, valor_tecnico, estimacion, estado, flujo_id, proyecto_id, sprint_id, usuario_id) FROM stdin;
-1	history 1	ninguna	4	4	4	12	Aprobado	1	1	2	4
-2	history 2	3	4	4	3	8	Activo	1	1	1	5
-3	history 3	ninguna	5	1	3	100	Finalizado	1	1	3	6
-4	history 1	ninguna	5	3	5	40	Aprobado	2	2	4	3
-5	history 1	ninguna	5	5	5	120	Aprobado	1	3	6	4
+2	login-logout	Pantalla de Ingreso y Egreso	4	2	6	40	No asignado	2	2	\N	\N
+1	propuesta	propuesta de desarrollo y planificacion	10	10	5	16	Activo	1	2	1	4
+3	history 1	ninguna	5	4	5	20	Activo	1	3	6	3
+4	history 1	ninguna	4	4	5	20	Aprobado	1	4	7	3
 \.
 
 
 --
--- Name: user_stories_userstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: user_stories_userstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_userstory_id_seq', 5, true);
+SELECT pg_catalog.setval('user_stories_userstory_id_seq', 4, true);
 
 
 --
--- Data for Name: user_stories_userstorydetalle; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: user_stories_userstorydetalle; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY user_stories_userstorydetalle (id, actividad_id, estado_id, user_story_id) FROM stdin;
-1	2	6	1
-2	1	1	2
-3	2	6	3
-4	4	12	4
-5	2	6	5
+1	2	5	1
+2	1	1	3
+3	2	6	4
 \.
 
 
 --
--- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 5, true);
+SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 3, true);
 
 
 --
--- Data for Name: usuarios_usuario; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: usuarios_usuario; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY usuarios_usuario (id, telefono, direccion, user_id) FROM stdin;
-1	98878	españa	2
-5	88222	españa	6
-4	7229292	españa	5
-2	9877666	eusebio ayala	3
-3	8755	españa	4
+1	654321	choferes	2
+4	987562	brasilia	5
+6	856214	kennedy	7
+5	985621	pettirossi	6
+3	741852	españa	4
+2	987562	eusebio ayala	3
 \.
 
 
 --
--- Name: usuarios_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_id_seq', 5, true);
+SELECT pg_catalog.setval('usuarios_usuario_id_seq', 6, true);
 
 
 --
--- Data for Name: usuarios_usuario_rolesproyecto; Type: TABLE DATA; Schema: public; Owner: fran
+-- Data for Name: usuarios_usuario_rolesproyecto; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY usuarios_usuario_rolesproyecto (id, usuario_id, rolproyecto_id) FROM stdin;
-1	1	1
-2	2	3
-3	3	3
-4	2	2
-5	1	2
-6	3	4
-7	4	4
-8	5	4
-9	2	4
-10	3	2
+1	1	2
+2	5	1
+3	2	3
+4	3	3
+5	3	1
 \.
 
 
 --
--- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fran
+-- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 10, true);
+SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 5, true);
 
 
 --
--- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_group
@@ -2589,7 +2516,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_group_permissions
@@ -2597,7 +2524,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_group_permissions
@@ -2605,7 +2532,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_group
@@ -2613,7 +2540,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_permission
@@ -2621,7 +2548,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_permission
@@ -2629,7 +2556,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- Name: auth_user_email_15154ca621be1b41_uniq; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_email_15154ca621be1b41_uniq; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user
@@ -2637,7 +2564,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user_groups
@@ -2645,7 +2572,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user_groups
@@ -2653,7 +2580,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user
@@ -2661,7 +2588,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user_user_permissions
@@ -2669,7 +2596,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user_user_permissions
@@ -2677,7 +2604,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY auth_user
@@ -2685,7 +2612,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- Name: clientes_cliente_correoElectronico_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente_correoElectronico_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY clientes_cliente
@@ -2693,7 +2620,7 @@ ALTER TABLE ONLY clientes_cliente
 
 
 --
--- Name: clientes_cliente_nombre_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente_nombre_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY clientes_cliente
@@ -2701,7 +2628,7 @@ ALTER TABLE ONLY clientes_cliente
 
 
 --
--- Name: clientes_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY clientes_cliente
@@ -2709,7 +2636,7 @@ ALTER TABLE ONLY clientes_cliente
 
 
 --
--- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY django_admin_log
@@ -2717,7 +2644,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY django_content_type
@@ -2725,7 +2652,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY django_content_type
@@ -2733,7 +2660,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY django_migrations
@@ -2741,7 +2668,7 @@ ALTER TABLE ONLY django_migrations
 
 
 --
--- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY django_session
@@ -2749,7 +2676,7 @@ ALTER TABLE ONLY django_session
 
 
 --
--- Name: flujos_actividad_estados_actividad_id_estado_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_estados_actividad_id_estado_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividad_estados
@@ -2757,7 +2684,7 @@ ALTER TABLE ONLY flujos_actividad_estados
 
 
 --
--- Name: flujos_actividad_estados_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_estados_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividad_estados
@@ -2765,7 +2692,7 @@ ALTER TABLE ONLY flujos_actividad_estados
 
 
 --
--- Name: flujos_actividad_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividad
@@ -2773,7 +2700,7 @@ ALTER TABLE ONLY flujos_actividad
 
 
 --
--- Name: flujos_actividadflujo_estados_actividadflujo_id_estado_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_estados_actividadflujo_id_estado_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividadflujo_estados
@@ -2781,7 +2708,7 @@ ALTER TABLE ONLY flujos_actividadflujo_estados
 
 
 --
--- Name: flujos_actividadflujo_estados_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_estados_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividadflujo_estados
@@ -2789,7 +2716,7 @@ ALTER TABLE ONLY flujos_actividadflujo_estados
 
 
 --
--- Name: flujos_actividadflujo_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_actividadflujo
@@ -2797,7 +2724,7 @@ ALTER TABLE ONLY flujos_actividadflujo
 
 
 --
--- Name: flujos_estado_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_estado_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_estado
@@ -2805,7 +2732,7 @@ ALTER TABLE ONLY flujos_estado
 
 
 --
--- Name: flujos_flujo_actividades_flujo_id_actividad_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_actividades_flujo_id_actividad_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_flujo_actividades
@@ -2813,7 +2740,7 @@ ALTER TABLE ONLY flujos_flujo_actividades
 
 
 --
--- Name: flujos_flujo_actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_flujo_actividades
@@ -2821,7 +2748,7 @@ ALTER TABLE ONLY flujos_flujo_actividades
 
 
 --
--- Name: flujos_flujo_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_flujo
@@ -2829,7 +2756,7 @@ ALTER TABLE ONLY flujos_flujo
 
 
 --
--- Name: flujos_plantillaflujo_activid_plantillaflujo_id_actividadfl_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_activid_plantillaflujo_id_actividadfl_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo_actividades
@@ -2837,7 +2764,7 @@ ALTER TABLE ONLY flujos_plantillaflujo_actividades
 
 
 --
--- Name: flujos_plantillaflujo_actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_actividades_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo_actividades
@@ -2845,7 +2772,7 @@ ALTER TABLE ONLY flujos_plantillaflujo_actividades
 
 
 --
--- Name: flujos_plantillaflujo_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo
@@ -2853,7 +2780,7 @@ ALTER TABLE ONLY flujos_plantillaflujo
 
 
 --
--- Name: proyectos_proyecto_codigo_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_codigo_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY proyectos_proyecto
@@ -2861,7 +2788,7 @@ ALTER TABLE ONLY proyectos_proyecto
 
 
 --
--- Name: proyectos_proyecto_equipo_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_equipo_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY proyectos_proyecto_equipo
@@ -2869,7 +2796,7 @@ ALTER TABLE ONLY proyectos_proyecto_equipo
 
 
 --
--- Name: proyectos_proyecto_equipo_proyecto_id_user_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_equipo_proyecto_id_user_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY proyectos_proyecto_equipo
@@ -2877,7 +2804,7 @@ ALTER TABLE ONLY proyectos_proyecto_equipo
 
 
 --
--- Name: proyectos_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY proyectos_proyecto
@@ -2885,7 +2812,7 @@ ALTER TABLE ONLY proyectos_proyecto
 
 
 --
--- Name: roles_proyecto_rolproyecto_group_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_group_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto
@@ -2893,7 +2820,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto
 
 
 --
--- Name: roles_proyecto_rolproyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto
@@ -2901,7 +2828,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_proyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
@@ -2909,7 +2836,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
 
 
 --
--- Name: sprints_sprint_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: sprints_sprint_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY sprints_sprint
@@ -2917,7 +2844,7 @@ ALTER TABLE ONLY sprints_sprint
 
 
 --
--- Name: user_stories_archivo_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_archivo_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_archivo
@@ -2925,7 +2852,7 @@ ALTER TABLE ONLY user_stories_archivo
 
 
 --
--- Name: user_stories_historialuserstory_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_historialuserstory_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_historialuserstory
@@ -2933,7 +2860,7 @@ ALTER TABLE ONLY user_stories_historialuserstory
 
 
 --
--- Name: user_stories_tarea_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -2941,7 +2868,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stories_userstory_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_userstory
@@ -2949,7 +2876,7 @@ ALTER TABLE ONLY user_stories_userstory
 
 
 --
--- Name: user_stories_userstorydetalle_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstorydetalle_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle
@@ -2957,7 +2884,7 @@ ALTER TABLE ONLY user_stories_userstorydetalle
 
 
 --
--- Name: user_stories_userstorydetalle_user_story_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstorydetalle_user_story_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle
@@ -2965,7 +2892,7 @@ ALTER TABLE ONLY user_stories_userstorydetalle
 
 
 --
--- Name: usuarios_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY usuarios_usuario
@@ -2973,7 +2900,7 @@ ALTER TABLE ONLY usuarios_usuario
 
 
 --
--- Name: usuarios_usuario_rolesproyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_rolesproyecto_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY usuarios_usuario_rolesproyecto
@@ -2981,7 +2908,7 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto
 
 
 --
--- Name: usuarios_usuario_rolesproyecto_usuario_id_rolproyecto_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_rolesproyecto_usuario_id_rolproyecto_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY usuarios_usuario_rolesproyecto
@@ -2989,7 +2916,7 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto
 
 
 --
--- Name: usuarios_usuario_user_id_key; Type: CONSTRAINT; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_user_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
 ALTER TABLE ONLY usuarios_usuario
@@ -2997,357 +2924,357 @@ ALTER TABLE ONLY usuarios_usuario
 
 
 --
--- Name: auth_group_name_253ae2a6331666e8_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_name_253ae2a6331666e8_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_group_name_253ae2a6331666e8_like ON auth_group USING btree (name varchar_pattern_ops);
 
 
 --
--- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
 
 
 --
--- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
 
 
 --
--- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
 
 
 --
--- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
 
 
 --
--- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
 
 
 --
--- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
 
 
 --
--- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
 
 
 --
--- Name: auth_user_username_51b3b110094b8aae_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: auth_user_username_51b3b110094b8aae_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX auth_user_username_51b3b110094b8aae_like ON auth_user USING btree (username varchar_pattern_ops);
 
 
 --
--- Name: clientes_cliente_correoElectronico_2110c99edabb0fe5_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente_correoElectronico_2110c99edabb0fe5_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX "clientes_cliente_correoElectronico_2110c99edabb0fe5_like" ON clientes_cliente USING btree ("correoElectronico" varchar_pattern_ops);
 
 
 --
--- Name: clientes_cliente_nombre_639d2387d43b55e6_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: clientes_cliente_nombre_639d2387d43b55e6_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX clientes_cliente_nombre_639d2387d43b55e6_like ON clientes_cliente USING btree (nombre varchar_pattern_ops);
 
 
 --
--- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
 
 
 --
--- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
 
 
 --
--- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
 
 
 --
--- Name: django_session_session_key_461cfeaa630ca218_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: django_session_session_key_461cfeaa630ca218_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
 
 
 --
--- Name: flujos_actividad_estados_2c189993; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_estados_2c189993; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_actividad_estados_2c189993 ON flujos_actividad_estados USING btree (estado_id);
 
 
 --
--- Name: flujos_actividad_estados_6f919ae9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividad_estados_6f919ae9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_actividad_estados_6f919ae9 ON flujos_actividad_estados USING btree (actividad_id);
 
 
 --
--- Name: flujos_actividadflujo_estados_2c189993; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_estados_2c189993; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_actividadflujo_estados_2c189993 ON flujos_actividadflujo_estados USING btree (estado_id);
 
 
 --
--- Name: flujos_actividadflujo_estados_7f6a2a87; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_actividadflujo_estados_7f6a2a87; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_actividadflujo_estados_7f6a2a87 ON flujos_actividadflujo_estados USING btree (actividadflujo_id);
 
 
 --
--- Name: flujos_flujo_actividades_6f919ae9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_actividades_6f919ae9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_flujo_actividades_6f919ae9 ON flujos_flujo_actividades USING btree (actividad_id);
 
 
 --
--- Name: flujos_flujo_actividades_bd1d5624; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_actividades_bd1d5624; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_flujo_actividades_bd1d5624 ON flujos_flujo_actividades USING btree (flujo_id);
 
 
 --
--- Name: flujos_flujo_f543c3f9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_flujo_f543c3f9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_flujo_f543c3f9 ON flujos_flujo USING btree (proyecto_id);
 
 
 --
--- Name: flujos_plantillaflujo_actividades_7f6a2a87; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_actividades_7f6a2a87; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_plantillaflujo_actividades_7f6a2a87 ON flujos_plantillaflujo_actividades USING btree (actividadflujo_id);
 
 
 --
--- Name: flujos_plantillaflujo_actividades_a02ffdac; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: flujos_plantillaflujo_actividades_a02ffdac; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX flujos_plantillaflujo_actividades_a02ffdac ON flujos_plantillaflujo_actividades USING btree (plantillaflujo_id);
 
 
 --
--- Name: proyectos_proyecto_10684222; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_10684222; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX proyectos_proyecto_10684222 ON proyectos_proyecto USING btree (scrum_master_id);
 
 
 --
--- Name: proyectos_proyecto_4a860110; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_4a860110; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX proyectos_proyecto_4a860110 ON proyectos_proyecto USING btree (cliente_id);
 
 
 --
--- Name: proyectos_proyecto_codigo_772fb54b0ab6e422_like; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_codigo_772fb54b0ab6e422_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX proyectos_proyecto_codigo_772fb54b0ab6e422_like ON proyectos_proyecto USING btree (codigo varchar_pattern_ops);
 
 
 --
--- Name: proyectos_proyecto_equipo_e8701ad4; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_equipo_e8701ad4; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX proyectos_proyecto_equipo_e8701ad4 ON proyectos_proyecto_equipo USING btree (user_id);
 
 
 --
--- Name: proyectos_proyecto_equipo_f543c3f9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: proyectos_proyecto_equipo_f543c3f9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX proyectos_proyecto_equipo_f543c3f9 ON proyectos_proyecto_equipo USING btree (proyecto_id);
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_19476b16; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_proyecto_19476b16; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX roles_proyecto_rolproyecto_proyecto_19476b16 ON roles_proyecto_rolproyecto_proyecto USING btree (rol_proyecto_id);
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_e8701ad4; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_proyecto_e8701ad4; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX roles_proyecto_rolproyecto_proyecto_e8701ad4 ON roles_proyecto_rolproyecto_proyecto USING btree (user_id);
 
 
 --
--- Name: roles_proyecto_rolproyecto_proyecto_f543c3f9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: roles_proyecto_rolproyecto_proyecto_f543c3f9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX roles_proyecto_rolproyecto_proyecto_f543c3f9 ON roles_proyecto_rolproyecto_proyecto USING btree (proyecto_id);
 
 
 --
--- Name: sprints_sprint_f543c3f9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: sprints_sprint_f543c3f9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX sprints_sprint_f543c3f9 ON sprints_sprint USING btree (proyecto_id);
 
 
 --
--- Name: user_stories_archivo_8fde7968; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_archivo_8fde7968; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_archivo_8fde7968 ON user_stories_archivo USING btree (user_story_id);
 
 
 --
--- Name: user_stories_historialuserstory_8fde7968; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_historialuserstory_8fde7968; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_historialuserstory_8fde7968 ON user_stories_historialuserstory USING btree (user_story_id);
 
 
 --
--- Name: user_stories_historialuserstory_abfe0f96; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_historialuserstory_abfe0f96; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_historialuserstory_abfe0f96 ON user_stories_historialuserstory USING btree (usuario_id);
 
 
 --
--- Name: user_stories_tarea_2c189993; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_2c189993; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_2c189993 ON user_stories_tarea USING btree (estado_id);
 
 
 --
--- Name: user_stories_tarea_6f919ae9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_6f919ae9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_6f919ae9 ON user_stories_tarea USING btree (actividad_id);
 
 
 --
--- Name: user_stories_tarea_8fde7968; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_8fde7968; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_8fde7968 ON user_stories_tarea USING btree (user_story_id);
 
 
 --
--- Name: user_stories_tarea_abfe0f96; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_abfe0f96; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_abfe0f96 ON user_stories_tarea USING btree (usuario_id);
 
 
 --
--- Name: user_stories_tarea_b688f27b; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_b688f27b; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_b688f27b ON user_stories_tarea USING btree (sprint_id);
 
 
 --
--- Name: user_stories_tarea_bd1d5624; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_tarea_bd1d5624; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_tarea_bd1d5624 ON user_stories_tarea USING btree (flujo_id);
 
 
 --
--- Name: user_stories_userstory_abfe0f96; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory_abfe0f96; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstory_abfe0f96 ON user_stories_userstory USING btree (usuario_id);
 
 
 --
--- Name: user_stories_userstory_b688f27b; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory_b688f27b; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstory_b688f27b ON user_stories_userstory USING btree (sprint_id);
 
 
 --
--- Name: user_stories_userstory_bd1d5624; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory_bd1d5624; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstory_bd1d5624 ON user_stories_userstory USING btree (flujo_id);
 
 
 --
--- Name: user_stories_userstory_f543c3f9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstory_f543c3f9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstory_f543c3f9 ON user_stories_userstory USING btree (proyecto_id);
 
 
 --
--- Name: user_stories_userstorydetalle_2c189993; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstorydetalle_2c189993; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstorydetalle_2c189993 ON user_stories_userstorydetalle USING btree (estado_id);
 
 
 --
--- Name: user_stories_userstorydetalle_6f919ae9; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: user_stories_userstorydetalle_6f919ae9; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX user_stories_userstorydetalle_6f919ae9 ON user_stories_userstorydetalle USING btree (actividad_id);
 
 
 --
--- Name: usuarios_usuario_rolesproyecto_78bbc24f; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_rolesproyecto_78bbc24f; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX usuarios_usuario_rolesproyecto_78bbc24f ON usuarios_usuario_rolesproyecto USING btree (rolproyecto_id);
 
 
 --
--- Name: usuarios_usuario_rolesproyecto_abfe0f96; Type: INDEX; Schema: public; Owner: fran; Tablespace: 
+-- Name: usuarios_usuario_rolesproyecto_abfe0f96; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
 CREATE INDEX usuarios_usuario_rolesproyecto_abfe0f96 ON usuarios_usuario_rolesproyecto USING btree (usuario_id);
 
 
 --
--- Name: D11d29a1039c57285a931b32cddbac4a; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: D11d29a1039c57285a931b32cddbac4a; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
@@ -3355,7 +3282,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
 
 
 --
--- Name: D51dcbacd02def6ec01a09cb93ead6c0; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: D51dcbacd02def6ec01a09cb93ead6c0; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY usuarios_usuario_rolesproyecto
@@ -3363,7 +3290,7 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto
 
 
 --
--- Name: actividadflujo_id_2f6213e2830490ff_fk_flujos_actividadflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: actividadflujo_id_2f6213e2830490ff_fk_flujos_actividadflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividadflujo_estados
@@ -3371,7 +3298,7 @@ ALTER TABLE ONLY flujos_actividadflujo_estados
 
 
 --
--- Name: actividadflujo_id_4f290d16e18fc4b5_fk_flujos_actividadflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: actividadflujo_id_4f290d16e18fc4b5_fk_flujos_actividadflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo_actividades
@@ -3379,7 +3306,7 @@ ALTER TABLE ONLY flujos_plantillaflujo_actividades
 
 
 --
--- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_permission
@@ -3387,7 +3314,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_group_permissions
@@ -3395,7 +3322,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_group_permissions
@@ -3403,7 +3330,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- Name: auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_user_permissions
@@ -3411,7 +3338,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- Name: auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_groups
@@ -3419,7 +3346,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- Name: auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_groups
@@ -3427,7 +3354,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- Name: auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY auth_user_user_permissions
@@ -3435,7 +3362,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY django_admin_log
@@ -3443,7 +3370,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- Name: django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY django_admin_log
@@ -3451,7 +3378,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- Name: flujos_act_actividad_id_691e5acbf8d9352f_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_act_actividad_id_691e5acbf8d9352f_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividad_estados
@@ -3459,7 +3386,7 @@ ALTER TABLE ONLY flujos_actividad_estados
 
 
 --
--- Name: flujos_actividad_estado_id_2276c49ed3abc6be_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_actividad_estado_id_2276c49ed3abc6be_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividadflujo_estados
@@ -3467,7 +3394,7 @@ ALTER TABLE ONLY flujos_actividadflujo_estados
 
 
 --
--- Name: flujos_actividad_estado_id_2f1195c02671158d_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_actividad_estado_id_2f1195c02671158d_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_actividad_estados
@@ -3475,7 +3402,7 @@ ALTER TABLE ONLY flujos_actividad_estados
 
 
 --
--- Name: flujos_fl_proyecto_id_4e8be849e1a24c63_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_fl_proyecto_id_4e8be849e1a24c63_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_flujo
@@ -3483,7 +3410,7 @@ ALTER TABLE ONLY flujos_flujo
 
 
 --
--- Name: flujos_flu_actividad_id_5a52ec95b3b4a98c_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_flu_actividad_id_5a52ec95b3b4a98c_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_flujo_actividades
@@ -3491,7 +3418,7 @@ ALTER TABLE ONLY flujos_flujo_actividades
 
 
 --
--- Name: flujos_flujo_activ_flujo_id_6e517b04c022928d_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: flujos_flujo_activ_flujo_id_6e517b04c022928d_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_flujo_actividades
@@ -3499,7 +3426,7 @@ ALTER TABLE ONLY flujos_flujo_actividades
 
 
 --
--- Name: plantillaflujo_id_762fb7234263a679_fk_flujos_plantillaflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: plantillaflujo_id_762fb7234263a679_fk_flujos_plantillaflujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY flujos_plantillaflujo_actividades
@@ -3507,7 +3434,7 @@ ALTER TABLE ONLY flujos_plantillaflujo_actividades
 
 
 --
--- Name: proyectos_pr_cliente_id_722e6226d4c68cfd_fk_clientes_cliente_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: proyectos_pr_cliente_id_722e6226d4c68cfd_fk_clientes_cliente_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto
@@ -3515,7 +3442,7 @@ ALTER TABLE ONLY proyectos_proyecto
 
 
 --
--- Name: proyectos_proy_scrum_master_id_1de1c751049bffe9_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: proyectos_proy_scrum_master_id_1de1c751049bffe9_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto
@@ -3523,7 +3450,7 @@ ALTER TABLE ONLY proyectos_proyecto
 
 
 --
--- Name: proyectos_proyecto_equ_user_id_5e501a1f252f482c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_equ_user_id_5e501a1f252f482c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto_equipo
@@ -3531,7 +3458,7 @@ ALTER TABLE ONLY proyectos_proyecto_equipo
 
 
 --
--- Name: proyectos_proyecto_id_15baf264a7a10058_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: proyectos_proyecto_id_15baf264a7a10058_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY proyectos_proyecto_equipo
@@ -3539,7 +3466,7 @@ ALTER TABLE ONLY proyectos_proyecto_equipo
 
 
 --
--- Name: roles_pro_proyecto_id_346915a2744c60ee_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: roles_pro_proyecto_id_346915a2744c60ee_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
@@ -3547,7 +3474,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
 
 
 --
--- Name: roles_proyecto_rolpr_group_id_4dbb17bc2b214d94_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolpr_group_id_4dbb17bc2b214d94_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto
@@ -3555,7 +3482,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto
 
 
 --
--- Name: roles_proyecto_rolproy_user_id_28e2100712f8438e_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: roles_proyecto_rolproy_user_id_28e2100712f8438e_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
@@ -3563,7 +3490,7 @@ ALTER TABLE ONLY roles_proyecto_rolproyecto_proyecto
 
 
 --
--- Name: sprints_s_proyecto_id_1d2b312ba202e3d9_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: sprints_s_proyecto_id_1d2b312ba202e3d9_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY sprints_sprint
@@ -3571,7 +3498,7 @@ ALTER TABLE ONLY sprints_sprint
 
 
 --
--- Name: use_user_story_id_211eed5f1e866adf_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: use_user_story_id_211eed5f1e866adf_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle
@@ -3579,7 +3506,7 @@ ALTER TABLE ONLY user_stories_userstorydetalle
 
 
 --
--- Name: use_user_story_id_23a509e04e2f08ab_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: use_user_story_id_23a509e04e2f08ab_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_historialuserstory
@@ -3587,7 +3514,7 @@ ALTER TABLE ONLY user_stories_historialuserstory
 
 
 --
--- Name: use_user_story_id_3dbf6181cc055618_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: use_user_story_id_3dbf6181cc055618_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3595,7 +3522,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stor_proyecto_id_572438c608a0a1df_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stor_proyecto_id_572438c608a0a1df_fk_proyectos_proyecto_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstory
@@ -3603,7 +3530,7 @@ ALTER TABLE ONLY user_stories_userstory
 
 
 --
--- Name: user_stori_actividad_id_3bf3a2e648bb80cf_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stori_actividad_id_3bf3a2e648bb80cf_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3611,7 +3538,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_storie_actividad_id_c3353cc83524648_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_storie_actividad_id_c3353cc83524648_fk_flujos_actividad_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle
@@ -3619,7 +3546,7 @@ ALTER TABLE ONLY user_stories_userstorydetalle
 
 
 --
--- Name: user_stories_histor_usuario_id_11b0cd61170f1c5b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_histor_usuario_id_11b0cd61170f1c5b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_historialuserstory
@@ -3627,7 +3554,7 @@ ALTER TABLE ONLY user_stories_historialuserstory
 
 
 --
--- Name: user_stories_ta_sprint_id_2795cb443cf34a8f_fk_sprints_sprint_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_ta_sprint_id_2795cb443cf34a8f_fk_sprints_sprint_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3635,7 +3562,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stories_tar_estado_id_59650f6907cbbd5b_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_tar_estado_id_59650f6907cbbd5b_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3643,7 +3570,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stories_tarea_flujo_id_4fcaa9847af1ab7e_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_tarea_flujo_id_4fcaa9847af1ab7e_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3651,7 +3578,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stories_tarea_usuario_id_c545a16716d3992_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_tarea_usuario_id_c545a16716d3992_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_tarea
@@ -3659,7 +3586,7 @@ ALTER TABLE ONLY user_stories_tarea
 
 
 --
--- Name: user_stories_us_sprint_id_13e3507adce568c0_fk_sprints_sprint_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_us_sprint_id_13e3507adce568c0_fk_sprints_sprint_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstory
@@ -3667,7 +3594,7 @@ ALTER TABLE ONLY user_stories_userstory
 
 
 --
--- Name: user_stories_use_estado_id_65cabc5b7c5d332c_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_use_estado_id_65cabc5b7c5d332c_fk_flujos_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstorydetalle
@@ -3675,7 +3602,7 @@ ALTER TABLE ONLY user_stories_userstorydetalle
 
 
 --
--- Name: user_stories_userst_flujo_id_97b0930a449919f_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_userst_flujo_id_97b0930a449919f_fk_flujos_flujo_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstory
@@ -3683,7 +3610,7 @@ ALTER TABLE ONLY user_stories_userstory
 
 
 --
--- Name: user_stories_usersto_usuario_id_c122d348955854f_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_stories_usersto_usuario_id_c122d348955854f_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_userstory
@@ -3691,7 +3618,7 @@ ALTER TABLE ONLY user_stories_userstory
 
 
 --
--- Name: user_user_story_id_27dba9196198acf_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: user_user_story_id_27dba9196198acf_fk_user_stories_userstory_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY user_stories_archivo
@@ -3699,7 +3626,7 @@ ALTER TABLE ONLY user_stories_archivo
 
 
 --
--- Name: usuarios_usu_usuario_id_3ea6caa1de07b4b6_fk_usuarios_usuario_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: usuarios_usu_usuario_id_3ea6caa1de07b4b6_fk_usuarios_usuario_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY usuarios_usuario_rolesproyecto
@@ -3707,7 +3634,7 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto
 
 
 --
--- Name: usuarios_usuario_user_id_1647f9d2f8f9478f_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: fran
+-- Name: usuarios_usuario_user_id_1647f9d2f8f9478f_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: sigp
 --
 
 ALTER TABLE ONLY usuarios_usuario
