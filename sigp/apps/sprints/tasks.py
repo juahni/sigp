@@ -47,7 +47,7 @@ def cambio_estado(proyecto, sprint, user_story, flujo, uri):
     send_mail('Notificacion cambio de estado en user story: %s - %s' % (user_story,
                                                                         datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')),
               'Cambio de estado:',
-              'gpsk.system@gmail.com', [email_scrum], fail_silently=False, html_message=html)
+              'sigp.soporte@gmail.com', [email_scrum], fail_silently=False, html_message=html)
     #print proyecto
 
     return 'Cambio de estado: Proyecto %s - Sprint %s -- User story %s - ' \
@@ -93,7 +93,7 @@ def fin_user_story(proyecto, sprint, user_story, flujo, uri):
     send_mail('Notificacion finalizacion de user story: %s - %s' % (user_story,
                                                                     datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')),
               'Finalizacion de user story:',
-              'gpsk.system@gmail.com', [email_scrum], fail_silently=False, html_message=html)
+              'sigp.soporte@gmail.com', [email_scrum], fail_silently=False, html_message=html)
 
     return 'User story finalizado: Proyecto %s - Sprint %s -- User story %s - ' \
            'Flujo %s.' % (proyecto, sprint, user_story, flujo)
@@ -140,7 +140,7 @@ def reversion_estado(proyecto, sprint, user_story, flujo, uri):
     send_mail('Notificacion revertir estado de user story: %s - %s' % (user_story,
                                                                        datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')),
               'Revertir estado de user story:',
-              'gpsk.system@gmail.com', [email_dev], fail_silently=False, html_message=html)
+              'sigp.soporte@gmail.com', [email_dev], fail_silently=False, html_message=html)
 
     return 'Revertir estado: Proyecto %s - Sprint %s -- User story %s - ' \
            'Flujo %s.' % (proyecto, sprint, user_story, flujo)
@@ -187,7 +187,7 @@ def aprobacion_user_story(proyecto, sprint, user_story, flujo, uri):
     send_mail('Notificacion aprobacion de user story: %s - %s' % (user_story,
                                                                   datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')),
               'Aprobacion de user story:',
-              'gpsk.system@gmail.com', [email_dev], fail_silently=False, html_message=html)
+              'sigp.soporte@gmail.com', [email_dev], fail_silently=False, html_message=html)
 
     return 'User story aprobado: Proyecto %s - Sprint %s -- User story %s - ' \
            'Flujo %s.' % (proyecto, sprint, user_story, flujo)
