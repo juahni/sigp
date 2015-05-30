@@ -2,6 +2,7 @@ from operator import attrgetter
 import urlparse
 import json
 import locale
+import datetime
 
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from django.views import generic
@@ -15,6 +16,7 @@ from models import Sprint
 from forms import SprintCreateForm, SprintUpdateForm, SprintAsignarUserStoryForm, SprintUpdateUserStoryForm, \
     RegistrarTareaForm, AdjuntarArchivoForm
 from apps.proyectos.models import Proyecto
+from apps.proyectos.views import habiles
 from apps.user_stories.models import UserStory, HistorialUserStory, UserStoryDetalle, Tarea, Archivo
 from apps.roles_proyecto.models import RolProyecto_Proyecto, RolProyecto
 from apps.flujos.models import Flujo
@@ -25,7 +27,6 @@ class IndexView(generic.ListView):
     """
     Clase que despliega la lista completa de sprints en el Index
     de la aplicacion sprints.
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -54,10 +55,8 @@ class IndexView(generic.ListView):
 class SprintCreate(UpdateView):
     """
     Clase que despliega el formulario para la creacion de sprints.
-
     @ivar form_class: Formulario que se utiliza para la creacion de sprints
     @type form_class: django.forms
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -68,13 +67,10 @@ class SprintCreate(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del usuario a ser modificado.
-
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
-
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
-
         @rtype: Sprint
         @return: Sprint actual a ser modificado
         """
@@ -84,10 +80,8 @@ class SprintCreate(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de sprints una vez que el formulario se haya guardado correctamente.
-
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
-
         @rtype: django.core.urlresolvers
         @return: redireccion al index de la aplicacion usuarios
         """
@@ -106,10 +100,8 @@ class SprintCreate(UpdateView):
 class SprintUpdate(UpdateView):
     """
     Clase que despliega el formulario para la modficacion de sprints.
-
     @ivar form_class: Formulario que se utiliza para la modficacion de sprints
     @type form_class: django.forms
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -120,13 +112,10 @@ class SprintUpdate(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del sprint a ser modificado.
-
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
-
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
-
         @rtype: Sprint
         @return: Sprint a ser modificado
         """
@@ -136,10 +125,8 @@ class SprintUpdate(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de sprints una vez que el formulario se haya guardado correctamente.
-
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
-
         @rtype: django.core.urlresolvers
         @return: redireccion al index de la aplicacion sprints
         """
@@ -174,7 +161,6 @@ class SprintBacklogIndexView(generic.ListView):
     """
     Clase que despliega la lista completa de user stories del sprints en el Index
     de la aplicacion sprints_backlog.
-
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -300,16 +286,12 @@ class SprintGestionar(UpdateView):
 def detalle_horas(request, pk_proyecto, pk_sprint):
     """
     Funcion que permite ver el detalle de la asignacion de horas en un sprint.
-
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
-
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
-
     @type pk_sprint: string
     @param pk_sprint: id del sprint
-
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/detalle_horas.html para obtener el detalle de horas.
     """
@@ -332,6 +314,7 @@ def detalle_horas(request, pk_proyecto, pk_sprint):
     dev_horas_disponibles = []
     dev_horas_asignadas = []
     dev_total_horas = []
+    dev_porcentaje = []
     for developer in lista_developers:
         user_story_list_sprint_usuario = UserStory.objects.filter(usuario=developer.user, sprint=sprint)
         total_horas_us_user = 0
@@ -340,6 +323,7 @@ def detalle_horas(request, pk_proyecto, pk_sprint):
         dev_horas_disponibles.append(developer.horas_developer * sprint.duracion - total_horas_us_user)
         dev_horas_asignadas.append(total_horas_us_user)
         dev_total_horas.append(developer.horas_developer * sprint.duracion)
+        dev_porcentaje.append(total_horas_us_user*100/(developer.horas_developer * sprint.duracion))
 
 
     horas_asignadas_sprint = 0
@@ -485,8 +469,9 @@ def desasignar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
             #                                      valor='Ninguno', usuario=usuario)
             #historial_us.save()
 
-            detalle = UserStoryDetalle.objects.get(user_story=user_story)
-            detalle.delete()
+
+            #detalle = UserStoryDetalle.objects.get(user_story=user_story)
+            #detalle.delete()
 
             return HttpResponseRedirect(reverse('sprints:gestionar', args=[pk_proyecto, pk_sprint]))
 
@@ -505,7 +490,16 @@ def iniciar_sprint(request, pk_proyecto, pk_sprint):
     sprint = get_object_or_404(Sprint, pk=pk_sprint)
 
     sprint.estado = 'Activo'
+    sprint.fecha_inicio = datetime.date.today()
+    cant_dias_habiles = 0
+    for i in range(0, sprint.duracion+1):
+        cant_dias_habiles = habiles(sprint.fecha_inicio, (sprint.fecha_inicio + datetime.timedelta(days=sprint.duracion+i)))
+        if cant_dias_habiles == sprint.duracion:
+            sprint.fecha_fin = sprint.fecha_inicio + datetime.timedelta(days=sprint.duracion+i)
+            break
+
     sprint.save()
+
 
     user_stories = UserStory.objects.filter(sprint=sprint).exclude(estado='Descartado').order_by('nombre')
 
@@ -548,19 +542,14 @@ def sprint_kanban(request, pk_proyecto, pk_sprint):
 def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que cambia el estado y/o la actividad de un user story seleccionado en un flujo.
-
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
-
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
-
     @type pk_sprint: string
     @param pk_sprint: id del sprint
-
     @type pk_user_story: string
     @param pk_user_story: id del user story
-
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -617,6 +606,11 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
                 tarea.usuario = request.user
                 tarea.save()
 
+                #se envia la notificacion a traves de celery
+                cambio_estado.delay(proyecto.nombre_corto, sprint.nombre, user_story.nombre, user_story.flujo.nombre, uri_us)
+
+            elif us_original_est == estados[2] and actividades.reverse()[0] != act:
+                #detalle.estado = estados[2]
                 detalle.actividad = actividades[index+1]
 
                 tarea = Tarea()
@@ -678,19 +672,14 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que revierte el estado y/o la actividad de un user story seleccionado en un flujo.
-
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
-
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
-
     @type pk_sprint: string
     @param pk_sprint: id del sprint
-
     @type pk_user_story: string
     @param pk_user_story: id del user story
-
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -769,19 +758,14 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 def aprobar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que permite aprobar un user story finalizado en un flujo.
-
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
-
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
-
     @type pk_sprint: string
     @param pk_sprint: id del sprint
-
     @type pk_user_story: string
     @param pk_user_story: id del user story
-
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -964,19 +948,14 @@ class TareasIndexView(generic.ListView):
 def adjuntar_archivo(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que permite adjuntar un archivo a un user story seleccionado en un flujo.
-
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
-
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
-
     @type pk_sprint: string
     @param pk_sprint: id del sprint
-
     @type pk_user_story: string
     @param pk_user_story: id del user story
-
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -1031,13 +1010,10 @@ class TareasIndexViewAjax(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         """
         Metodo que obtiene los datos a ser enviados al template de la vista
-
         @type self: FormView
         @param self: Informacion sobre la vista actual
-
         @type request: django.http.HttpRequest
         @param request: Contiene informacion sobre la peticion actual
-
         @rtype: django.http.HttpResponse
         @return: Renderiza sprints/ver_tareas.html para obtener las tareas del user story
         """
@@ -1057,9 +1033,10 @@ class TareasIndexViewAjax(generic.TemplateView):
             for tarea in tareas_x_tipo:
                 #fecha = str(tarea.fecha)
                 lista.append({'descripcion': tarea.descripcion, 'horas_de_trabajo': tarea.horas_de_trabajo,
+                              'sprint': tarea.sprint.nombre, 'flujo': tarea.flujo.nombre,
                               'actividad': tarea.actividad.nombre, 'estado': tarea.estado.nombre,
                               'usuario': tarea.usuario.username,
-                              'fecha': tarea.fecha.strftime('%d de %B de %Y a las %H:%M')})
+                              'fecha': tarea.fecha.strftime('%d/%m/%Y')})
             print tarea.fecha
             #print fecha
             data = json.dumps(lista)
@@ -1077,9 +1054,10 @@ class TareasIndexViewAjax(generic.TemplateView):
             for tarea in todas:
                 #fecha = str(tarea.fecha)
                 lista.append({'descripcion': tarea.descripcion, 'horas_de_trabajo': tarea.horas_de_trabajo,
+                              'sprint': tarea.sprint.nombre, 'flujo': tarea.flujo.nombre,
                               'actividad': tarea.actividad.nombre, 'estado': tarea.estado.nombre,
                               'usuario': tarea.usuario.username,
-                              'fecha': tarea.fecha.strftime('%d de %B de %Y a las %H:%M')})
+                              'fecha': tarea.fecha.strftime('%d/%m/%Y')})
             print tarea.fecha
             #print fecha
             data = json.dumps(lista)
@@ -1092,10 +1070,176 @@ class TareasIndexViewAjax(generic.TemplateView):
         return HttpResponse(data, content_type='application/json')
 
 
-#def abrir_archivo(request, pk_proyecto, pk_sprint, pk_user_story, pk_archivo):
-#    archivo = Archivo.objetcs.get(pk=pk_archivo)
-#    archivo = Archivo.File.url
-#    print archivo
-#    archivo_nombre, extension_archivo = os.path.splitext(archivo.file.name)
-#    response = HttpResponse(content_type='application/pdf')
-#    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+@login_required(login_url='/login/')
+def burndown_chart(request, pk_proyecto, pk_sprint):
+    """
+    Funcion que genera el burndown chart que corresponde al sprint
+    @param request: objeto de Sprint
+    @param pk_proyecto: clave primaria de proyecto
+    @param pk_sprint: clave primaria de sprint
+    @return: template con texto renderizado
+    """
+    template = 'sprints/burndown_chart.html'
+    proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
+    sprint = get_object_or_404(Sprint, pk=pk_sprint)
+
+    #todos_flujos = Flujo.objects.all()
+    user_stories = UserStory.objects.filter(sprint=sprint).exclude(estado='Descartado')
+
+    duracion = sprint.duracion
+
+    lista_tareas_us_sprint = Tarea.objects.filter(sprint=sprint, tipo='Registro de Tarea')
+    horas_totales_acumuladas = 0
+    for tarea in lista_tareas_us_sprint:
+        horas_totales_acumuladas = horas_totales_acumuladas + tarea.horas_de_trabajo
+
+    horas_calculadas_chart = 0
+
+    user_stories_lista = []
+
+    lista_data = []
+    horas_totales_estimacion = 0
+    for us in user_stories:
+        #fecha = str(us.fecha)
+
+        horas_totales_estimacion = horas_totales_estimacion + us.estimacion
+
+        user_stories_lista.append({'year': us.nombre, 'value': us.estimacion})
+
+    user_stories_json = json.dumps(user_stories_lista)
+    print "horas_tot_ estimacion %s" % horas_totales_estimacion
+    calculado = horas_totales_estimacion
+    calculado2 = horas_totales_estimacion
+
+
+    rol_developer = RolProyecto.objects.get(group__name='Developer')
+    lista_developers = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, rol_proyecto=rol_developer).order_by('id')
+    cantidad_developers = lista_developers.count()
+
+    horas_totales_sprint = 0
+    horas_developers_sprint_dia = 0
+    for miembro in lista_developers:
+        horas_developers_sprint_dia = horas_developers_sprint_dia + miembro.horas_developer
+        #horas_totales_sprint = horas_totales_sprint + horas_developer_sprint
+
+
+    #while tarea.fecha.date() <= sprint.fecha_fin:
+    #    pass
+    #for dia in range(1, duracion+1):
+    day = 0
+    dia = 1
+    lista_data.append({'year': 0, 'value2': calculado2, 'value': calculado})
+    print "antes while"
+    while sprint.fecha_inicio+datetime.timedelta(days=day) <= sprint.fecha_fin:
+        print "fecha days = %s" % str(sprint.fecha_inicio+datetime.timedelta(days=day))
+        print "fecha_fin = %s" % sprint.fecha_fin
+
+        print "Dia %s" % dia
+        print "calculado = %s" % calculado
+        print "calculado2 = %s" % calculado2
+        #calculado = horas_totales_estimacion
+        #entro = False
+        for tarea in lista_tareas_us_sprint:
+
+            print "tareafecha %s, sprint_inicio %s" % (tarea.fecha, sprint.fecha_inicio)
+            if tarea.fecha.date() == sprint.fecha_inicio+datetime.timedelta(days=day):
+                #entro = True
+                print "if"
+                print "estado %s" % tarea.user_story.estado
+                if calculado >= 0:
+                    calculado = calculado - tarea.horas_de_trabajo
+
+                    print "calculado = %s" % calculado
+
+        #if entro:
+        dia_semana = (sprint.fecha_inicio+datetime.timedelta(days=day)).weekday()
+        print "dia_semana %s" % dia_semana
+        if dia_semana < 5:
+            calculado2 = calculado2 - horas_developers_sprint_dia
+            print "calculado2 = %s" % calculado2
+            lista_data.append({'year': dia, 'value2': calculado2, 'value': calculado})
+            dia = dia + 1
+
+        day = day + 1
+
+
+
+    calculado_json = json.dumps(lista_data)
+    #print "calculado_json" % str(calculado_json)
+    print lista_data
+
+    return render(request, template, locals())
+
+
+@login_required(login_url='/login/')
+def finalizar_sprint(request, pk_proyecto, pk_sprint):
+    """
+    Funcion que realiza la finalizacion del sprint
+    @param request: sprint
+    @param pk_proyecto: clave primaria de proyecto
+    @param pk_sprint: clave primaria de sprint
+    @return: redirige al index de Sprints
+    """
+    sprint = get_object_or_404(Sprint, pk=pk_sprint)
+
+    template = 'sprints/finalizar_sprint.html'
+    proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
+    sprint = get_object_or_404(Sprint, pk=pk_sprint)
+
+    user_stories = UserStory.objects.filter(sprint=sprint, estado='Activo')
+
+    if request.method == 'POST':
+
+        sprint.estado = 'Finalizado'
+        print "fecha = %s" % datetime.date.today()
+        sprint.fecha_fin = datetime.date.today()
+
+        sprint.save()
+
+        for us in user_stories:
+            us.estado = 'Pendiente'
+            us.save()
+
+        return HttpResponseRedirect(reverse('sprints:index', args=[pk_proyecto]))
+    if user_stories:
+        mensaje = 'Existen user stories que no han finalizado.'
+
+    return render(request, template, locals())
+
+
+@login_required(login_url='/login/')
+def descartar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
+    """
+    Metodo que descarta un user story
+    @param request:
+    @type
+    @param pk_proyecto: clave primaria del proyecto al cual corresponde el user story
+    @type
+    @param pk_user_story: clave primaria del user story
+    @type
+    @rtype: django.http.HttpResponseRedirect
+    @return: Renderiza user_stories/delete.html para obtener el formulario o
+            redirecciona a la vista index del sprint backlog de User Stories si el user story fue descartado.
+    """
+    template = 'sprints/user_story_descartar.html'
+    proyecto = get_object_or_404(Proyecto, pk=pk_proyecto)
+    sprint = get_object_or_404(Sprint, pk=pk_sprint)
+    user_story = get_object_or_404(UserStory, pk=pk_user_story)
+    usuario = request.user
+    if request.method == 'POST':
+
+        if str(user_story.estado) == 'Finalizado' or str(user_story.estado) == 'Aprobado':
+            mensaje = 'No se puede descartar un user story Finalizado o Aprobado'
+
+            return render(request, template, locals())
+
+        else:
+            user_story.estado = 'Descartado'
+            user_story.save()
+
+            historial_us = HistorialUserStory(user_story=user_story, operacion='descartado', usuario=usuario)
+            historial_us.save()
+
+            return HttpResponseRedirect(reverse('sprints:backlog', args=[proyecto.pk, sprint.pk]))
+
+    return render(request, template, locals())

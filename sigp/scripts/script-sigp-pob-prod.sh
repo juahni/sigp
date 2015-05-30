@@ -11,6 +11,10 @@ pg_dump -c sigp-desarr -f /home/juahni/PycharmProjects/sigp/sigp/dumps/poblacion
 echo "*****************Creando Base de datos sigp-produccion*****************"
 echo "***********Ingrese el password del usuario sigp***********"
 createdb -h localhost -p 5432 -E UTF8 sigp-prod -O sigp -U sigp
+#cd /var/www/sigp/sigp
+#source /home/juahni/env/bin/activate
+#python manage.py makemigrations
+#python manage.py migrate
 
 echo "**************Poblando la base de datos de produccion********************"
 echo "**************Ingrese el password del usuario sigp***********************"
@@ -20,6 +24,10 @@ psql -U sigp -d sigp-prod -p 5432 -h localhost < /home/juahni/PycharmProjects/si
 echo "*****************Creando Base de datos sigp-capacitacion*****************"
 echo "***********Ingrese el password del usuario sigp***********"
 createdb -h localhost -p 5432 -E UTF8 sigp-prueba -O sigp -U sigp
+#cd /home/juahni/PycharmProjects/sigp/sigp
+#source /home/juahni/env/bin/activate
+#python manage.py makemigrations
+#python manage.py migrate
 
 echo "**************Poblando la base de datos de capacitacion********************"
 echo "**************Ingrese el password del usuario sigp***********************"
