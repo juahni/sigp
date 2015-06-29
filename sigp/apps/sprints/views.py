@@ -27,6 +27,7 @@ class IndexView(generic.ListView):
     """
     Clase que despliega la lista completa de sprints en el Index
     de la aplicacion sprints.
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -55,8 +56,10 @@ class IndexView(generic.ListView):
 class SprintCreate(UpdateView):
     """
     Clase que despliega el formulario para la creacion de sprints.
+
     @ivar form_class: Formulario que se utiliza para la creacion de sprints
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -67,10 +70,13 @@ class SprintCreate(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del usuario a ser modificado.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
+
         @rtype: Sprint
         @return: Sprint actual a ser modificado
         """
@@ -80,8 +86,10 @@ class SprintCreate(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de sprints una vez que el formulario se haya guardado correctamente.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @rtype: django.core.urlresolvers
         @return: redireccion al index de la aplicacion usuarios
         """
@@ -100,8 +108,10 @@ class SprintCreate(UpdateView):
 class SprintUpdate(UpdateView):
     """
     Clase que despliega el formulario para la modficacion de sprints.
+
     @ivar form_class: Formulario que se utiliza para la modficacion de sprints
     @type form_class: django.forms
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -112,10 +122,13 @@ class SprintUpdate(UpdateView):
     def get_object(self, queryset=None):
         """
         Metodo que obtiene los datos del sprint a ser modificado.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @type queryset: django.db.models.query
         @param queryset: Consulta a la base de datos
+
         @rtype: Sprint
         @return: Sprint a ser modificado
         """
@@ -125,8 +138,10 @@ class SprintUpdate(UpdateView):
     def get_success_url(self):
         """
         Metodo que redirecciona al index de sprints una vez que el formulario se haya guardado correctamente.
+
         @type self: FormView
         @param self: Informacion sobre la vista del formulario actual
+
         @rtype: django.core.urlresolvers
         @return: redireccion al index de la aplicacion sprints
         """
@@ -161,6 +176,7 @@ class SprintBacklogIndexView(generic.ListView):
     """
     Clase que despliega la lista completa de user stories del sprints en el Index
     de la aplicacion sprints_backlog.
+
     @ivar template_name: Nombre del template a utilizar en la vista
     @type template_name: string
     """
@@ -286,12 +302,16 @@ class SprintGestionar(UpdateView):
 def detalle_horas(request, pk_proyecto, pk_sprint):
     """
     Funcion que permite ver el detalle de la asignacion de horas en un sprint.
+
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
+
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
+
     @type pk_sprint: string
     @param pk_sprint: id del sprint
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/detalle_horas.html para obtener el detalle de horas.
     """
@@ -542,14 +562,19 @@ def sprint_kanban(request, pk_proyecto, pk_sprint):
 def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que cambia el estado y/o la actividad de un user story seleccionado en un flujo.
+
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
+
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
+
     @type pk_sprint: string
     @param pk_sprint: id del sprint
+
     @type pk_user_story: string
     @param pk_user_story: id del user story
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -672,14 +697,19 @@ def cambiar_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que revierte el estado y/o la actividad de un user story seleccionado en un flujo.
+
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
+
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
+
     @type pk_sprint: string
     @param pk_sprint: id del sprint
+
     @type pk_user_story: string
     @param pk_user_story: id del user story
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -758,14 +788,19 @@ def revertir_estado(request, pk_proyecto, pk_sprint, pk_user_story):
 def aprobar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que permite aprobar un user story finalizado en un flujo.
+
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
+
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
+
     @type pk_sprint: string
     @param pk_sprint: id del sprint
+
     @type pk_user_story: string
     @param pk_user_story: id del user story
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -948,14 +983,19 @@ class TareasIndexView(generic.ListView):
 def adjuntar_archivo(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Funcion que permite adjuntar un archivo a un user story seleccionado en un flujo.
+
     @type request: django.http.HttpRequest
     @param request: Contiene informacion sobre la peticion actual
+
     @type pk_proyecto: string
     @param pk_proyecto: id del proyecto
+
     @type pk_sprint: string
     @param pk_sprint: id del sprint
+
     @type pk_user_story: string
     @param pk_user_story: id del user story
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza sprints/sprint_kanban.html para obtener el kanban actual
     """
@@ -1010,10 +1050,13 @@ class TareasIndexViewAjax(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         """
         Metodo que obtiene los datos a ser enviados al template de la vista
+
         @type self: FormView
         @param self: Informacion sobre la vista actual
+
         @type request: django.http.HttpRequest
         @param request: Contiene informacion sobre la peticion actual
+
         @rtype: django.http.HttpResponse
         @return: Renderiza sprints/ver_tareas.html para obtener las tareas del user story
         """
@@ -1211,12 +1254,16 @@ def finalizar_sprint(request, pk_proyecto, pk_sprint):
 def descartar_user_story(request, pk_proyecto, pk_sprint, pk_user_story):
     """
     Metodo que descarta un user story
+
     @param request:
     @type
+
     @param pk_proyecto: clave primaria del proyecto al cual corresponde el user story
     @type
+
     @param pk_user_story: clave primaria del user story
     @type
+
     @rtype: django.http.HttpResponseRedirect
     @return: Renderiza user_stories/delete.html para obtener el formulario o
             redirecciona a la vista index del sprint backlog de User Stories si el user story fue descartado.

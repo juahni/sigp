@@ -223,36 +223,50 @@ class SprintAsignarUserStoryForm(forms.ModelForm):
 '''
     def clean_user_story(self):
         sprint = super(SprintAsignarUserStoryForm, self).save(commit=True)
+
         user_story = UserStory.objects.get(pk=self.cleaned_data['user_story'].pk)
+
         proyecto = Proyecto.objects.get(pk=self.data.get('proyecto'))
+
         user_story_list_sprint = UserStory.objects.filter(sprint=sprint).exclude(estado='Descartado').order_by('nombre')
         rol_developer = RolProyecto.objects.get(group__name='Developer')
         miembros = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, rol_proyecto=rol_developer)
         cantidad_developers = miembros.count()
+
         developer = RolProyecto_Proyecto.objects.filter(user=self.data.get('desarrollador'), proyecto=proyecto,
                                                         rol_proyecto=rol_developer)
+
         horas_asignadas_sprint = 0
         for us in user_story_list_sprint:
             horas_asignadas_sprint = horas_asignadas_sprint + us.estimacion
+
         horas_totales_sprint = 0
         for miembro in miembros:
             horas_developer_sprint = 0
             horas_developer_sprint = miembro.horas_developer * sprint.duracion
             horas_totales_sprint = horas_totales_sprint + horas_developer_sprint
+
         #horas_totales_sprint = sprint.duracion * cantidad_developers * 8
         horas_disponibles = horas_totales_sprint - horas_asignadas_sprint
+
         horas_disponibles = horas_disponibles - user_story.estimacion
+
+
         user_story_list_sprint_usuario = UserStory.objects.filter(usuario=developer[0].user, sprint=sprint)
         total_horas_us_user = 0
         for us in user_story_list_sprint_usuario:
             total_horas_us_user = total_horas_us_user + us.estimacion
+
         horas_developer_sprint = developer[0].horas_developer * sprint.duracion
         horas_disponibles_developer = horas_developer_sprint - total_horas_us_user
         horas_disponibles_developer = horas_disponibles_developer - user_story.estimacion
+
         if horas_disponibles_developer < 0:
             raise forms.ValidationError("El desarrollador no tiene las horas disponibles solicitadas.")
+
         if horas_disponibles < 0:
             raise forms.ValidationError("No existen suficientes horas disponibles para asignar en el sprint.")
+
         return horas_disponibles
 '''
 

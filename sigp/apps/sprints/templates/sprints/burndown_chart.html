@@ -25,6 +25,8 @@
     <script src="{% static 'js/raphael-min.js' %}"></script>
     <script src="{% static 'js/morris.min.js' %}"></script>
 <script type="text/javascript">
+
+
     var sprint = "{{sprint}}";
     var calculado = "{{calculado_json}}";
     var decoded = JSON.parse(calculado.replace(/&quot;/g,'"'));
@@ -54,6 +56,7 @@
       postUnits: ' horas',
       pointSize: '6'
       //ymin: 'auto[0]'
+
     });
 </script>
 

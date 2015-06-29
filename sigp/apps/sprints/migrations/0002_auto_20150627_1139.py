@@ -16,13 +16,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sprint',
             name='fecha_fin',
-            field=models.DateField(default=datetime.date(2015, 5, 30), null=True),
+            field=models.DateField(default=datetime.date(2015, 6, 27), null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='sprint',
             name='fecha_inicio',
-            field=models.DateField(default=datetime.date(2015, 5, 30), null=True),
+            field=models.DateField(default=datetime.date(2015, 6, 27), null=True),
             preserve_default=True,
         ),
         migrations.AlterField(
