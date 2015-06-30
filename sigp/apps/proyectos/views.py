@@ -1,4 +1,4 @@
-from datetime import datetime
+# from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView
@@ -29,14 +29,9 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from io import BytesIO
 from django.shortcuts import render_to_response
-import datetime
-from datetime import timedelta
-import random
-#from matplotlib.dates import DateFormatter
-#import numpy as np
-#import matplotlib.pyplot as plt
-import django
-#from dateutil import rrule
+
+from datetime import datetime
+#import datetime
 
 class IndexView(generic.ListView):
     """
@@ -51,7 +46,7 @@ class IndexView(generic.ListView):
     """
     queryset = Proyecto.objects.all().order_by('codigo')
     template_name = 'proyectos/index.html'
-    
+
 
 class ProyectoCreate(SuccessMessageMixin, CreateView):
     """
@@ -66,11 +61,11 @@ class ProyectoCreate(SuccessMessageMixin, CreateView):
     form_class = ProyectoCreateForm
     template_name = 'proyectos/create.html'
     success_message = "%(nombre_corto)s fue creado de manera exitosa"
-    
+
     def form_valid(self, form):
         return super(ProyectoCreate, self).form_valid(form)
 
-    def get_success_url(self): 
+    def get_success_url(self):
         return reverse('proyectos:index')
 
     @method_decorator(permission_required('proyectos.crear_proyecto'))
@@ -96,12 +91,13 @@ class ProyectoUpdate(SuccessMessageMixin, UpdateView):
         obj = Proyecto.objects.get(pk=self.kwargs['pk'])
         return obj
 
-    def get_success_url(self): 
+    def get_success_url(self):
         return reverse('proyectos:index')
 
     @method_decorator(permission_required('proyectos.modificar_proyecto'))
     def dispatch(self, *args, **kwargs):
         return super(ProyectoUpdate, self).dispatch(*args, **kwargs)
+
 
 @login_required(login_url='/login/')
 @permission_required('proyectos.eliminar_proyecto')
@@ -139,7 +135,7 @@ def proyecto_index(request, pk):
 
     lista_equipo = Proyecto.objects.get(pk=pk).equipo.all()
     print lista_equipo
-    
+
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
@@ -152,8 +148,7 @@ def proyecto_index(request, pk):
     #print "duracion = %s" % duracion_proyecto.days
     #duracion = duracion_proyecto.days
 
-    #duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
-
+    duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
 
     lista_us = UserStory.objects.filter(proyecto=pk).order_by('nombre')[:5]
     lista_sprints = Sprint.objects.filter(proyecto=pk).order_by('pk')
@@ -175,7 +170,7 @@ def listar_equipo(request, pk_proyecto):
     lista_equipo = Proyecto.objects.get(pk=pk_proyecto).equipo.all().order_by('id')
     print lista_equipo
 
-    #duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
+    duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
 
     nueva_lista = []
     for u in lista_equipo:
@@ -215,7 +210,7 @@ class AddMiembro(generic.UpdateView):
 
     def get_success_url(self):
         obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
-        return reverse( 'proyectos:equipo_list', args=[obj.pk])
+        return reverse('proyectos:equipo_list', args=[obj.pk])
 
     @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
     def dispatch(self, *args, **kwargs):
@@ -244,11 +239,11 @@ def delete_miembro(request, pk_proyecto, pk_user):
             lista_roles = RolProyecto_Proyecto.objects.filter(user=usuario, proyecto=proyecto)
             for rol in lista_roles:
                 rol.delete()
-            return HttpResponseRedirect(reverse( 'proyectos:equipo_list', args=[proyecto.pk]))
+            return HttpResponseRedirect(reverse('proyectos:equipo_list', args=[proyecto.pk]))
 
         else:
-            mensaje = 'No se puede eliminar el usuario ' 
-            mensaje =  mensaje + usuario.username + ' del proyecto porque es el Scrum Master. Designe primero como Scrum Master a otro usuario.'
+            mensaje = 'No se puede eliminar el usuario '
+            mensaje = mensaje + usuario.username + ' del proyecto porque es el Scrum Master. Designe primero como Scrum Master a otro usuario.'
             return render(request, template, locals())
 
     return render(request, template, locals())
@@ -276,7 +271,7 @@ class RolMiembro(UpdateView):
         print "solo_del_usuario = %s" % solo_del_usuario
         roles_proyecto_del_usuario = solo_del_usuario.values('rol_proyecto').distinct()
         print "roles_proyecto_del_usuario = %s" % roles_proyecto_del_usuario
-        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario) 
+        roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario)
 
         print "roro = %s" % roro
 
@@ -293,7 +288,7 @@ class RolMiembro(UpdateView):
 
     def get_success_url(self):
         obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
-        return reverse( 'proyectos:equipo_list', args=[obj.pk])
+        return reverse('proyectos:equipo_list', args=[obj.pk])
 
     @method_decorator(permission_required('proyectos.asignar_rol_proyecto_proyecto'))
     def dispatch(self, *args, **kwargs):
@@ -356,7 +351,7 @@ class HorasDeveloper(UpdateView):
         @return:
         """
         obj = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
-        return reverse( 'proyectos:equipo_list', args=[obj.pk])
+        return reverse('proyectos:equipo_list', args=[obj.pk])
 
     def get_context_data(self, **kwargs):
         """
@@ -367,7 +362,7 @@ class HorasDeveloper(UpdateView):
         context = super(HorasDeveloper, self).get_context_data(**kwargs)
         proyecto = get_object_or_404(Proyecto, pk=self.kwargs['pk_proyecto'])
         #duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
-        #duracion_proyecto = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
+        duracion_proyecto = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
         #duracion_horas = duracion_proyecto * 8
         #print "duracion = %s" % duracion_horas
 
@@ -393,7 +388,6 @@ class HorasDeveloper(UpdateView):
 #Recibe dos fechas y calcula cuantos dias habiles hay entre las mismas,
 #incluyendo la fecha de inicio
 def habiles(fecha1, fecha2):
-
     time1 = int(str(datetime.weekday(fecha1)))
     time2 = int(str(datetime.weekday(fecha2)))
     dia = time1 - time2
@@ -401,112 +395,115 @@ def habiles(fecha1, fecha2):
     valor = int(str(diferencia.days))
 
     if valor >= 7:
-        val = ((valor+dia)//7)*2
-        habiles = valor-val+1
+        val = ((valor + dia) // 7) * 2
+        habiles = valor - val + 1
 
         if time1 > 4 or time2 > 4:
             if time2 > time1:
                 if time2 == 5:
-                    habiles = habiles-1
+                    habiles = habiles - 1
                 else:
                     if time2 == 6:
-                        habiles = habiles-2
+                        habiles = habiles - 2
             else:
                 if (time1 > time2 and time1 == 6) and time2 != 5:
-                    habiles = habiles+1
+                    habiles = habiles + 1
                 else:
                     if time1 == time2:
-                        habiles=habiles-1
+                        habiles = habiles - 1
     else:
-        if (time1+valor) > 5:
-            habiles = valor-1
+        if (time1 + valor) > 5:
+            habiles = valor - 1
         else:
-            if (time1+valor) == 5:
+            if (time1 + valor) == 5:
                 habiles = valor
             else:
-                habiles = valor+1
+                habiles = valor + 1
 
     return habiles
 
 
-def reporte_pdf(request):
-         user = User.objects.get(username=request.user.username)
-         usuarioPorProyecto = RolProyecto_Proyecto.objects.filter(id=user.id)
-         proys = []
-         for rec in usuarioPorProyecto:
-             if not rec.proyecto in proys:
-                 proys.append(rec.proyecto.id)
-         lista = Proyecto.objects.filter(id__in = proys).order_by('id')
-         #template = 'proyectos/reportes.html'
-         #return render(request, template, locals())
+def reporte_pdf(request, pk_proyecto):
+    user = User.objects.get(username=request.user.username)
+    usuarioPorProyecto = RolProyecto_Proyecto.objects.filter(id=user.id)
+    proys = []
+    for rec in usuarioPorProyecto:
+        if not rec.proyecto in proys:
+            proys.append(rec.proyecto.id)
+    lista = Proyecto.objects.filter(id__in=proys).order_by('id')
+    #template = 'proyectos/reportes.html'
+    #return render(request, template, locals())
 
-         return render_to_response("proyectos/reportes.html", { 'proy' : lista,
-                                                                  'user' : user
-                                                                  })
-def reporte1_pdf(request,pk_proyecto):
+    return render_to_response("proyectos/reportes.html", {'proy': lista,
+                                                          'user': user
+    })
+
+
+def reporte1_pdf(request, pk_proyecto):
     """
     Metodo para generar el reporte 1 del proyecto
     :param request: contiene la informacion de la pagina que lo llamo
     :param proyecto_id: id del proyecto del cual se generara el reporte
     :return: reporte en pdf
     """
-    proyecto_actual= Proyecto.objects.get(id=pk_proyecto)
-    uh = UserStory.objects.filter(proyecto = proyecto_actual)
+    proyecto_actual = Proyecto.objects.get(id=pk_proyecto)
+    uh = UserStory.objects.filter(proyecto=proyecto_actual)
 
     estiloHoja = getSampleStyleSheet()
     style = [
-        ('GRID',(0,0),(-1,-1),0.5,colors.white),
-        ('BOX',(0,0),(-1,-1),2,colors.black),
-        ('SPAN',(0,0),(-1,0)),
-        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9),colors.white)),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9), colors.white)),
         ('BACKGROUND', (0, 2), (-1, 2), colors.fidlightblue),
         ('BACKGROUND', (0, 1), (-1, 1), colors.white),
-        ('LINEABOVE',(0,0),(-1,0),1.5,colors.black),
-        ('LINEBELOW',(0,0),(-1,0),1.5,colors.black),
-        ('SIZE',(0,0),(-1,0),12),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.5, colors.black),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.5, colors.black),
+        ('SIZE', (0, 0), (-1, 0), 12),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('TEXTCOLOR', (0, 2), (-1, 2), colors.black),
-        ]
+    ]
 
     story = []
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('PRIMER INFORME DEL'+ '"' +proyecto_actual.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('PRIMER INFORME DEL' + '"' + proyecto_actual.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading1']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('   ',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('   ', cabecera2)
     story.append(parrafo)
 
     ltrabajoequipo = []
-    ltrabajoequipo.append(['1. CANTIDAD DE TRABAJOS EN CURSO POR EQUIPO','',''])
-    ltrabajoequipo.append([' ',' ',' '])
-    ltrabajoequipo.append(['EQUIPO DE DESARROLLADORES','CANTIDAD DE TRABAJOS', 'ESTADO'])
+    ltrabajoequipo.append(['1. CANTIDAD DE TRABAJOS EN CURSO POR EQUIPO', '', ''])
+    ltrabajoequipo.append([' ', ' ', ' '])
+    ltrabajoequipo.append(['EQUIPO DE DESARROLLADORES', 'CANTIDAD DE TRABAJOS', 'ESTADO'])
     canttrabajo = 0
     for u in uh:
         if u.estado == 'Activo':
             canttrabajo = canttrabajo + 1
 
-    ltrabajoequipo.append(['Equipo 1',canttrabajo, 'Activo'])
+    ltrabajoequipo.append(['Equipo 1', canttrabajo, 'Activo'])
 
-    t=Table( ltrabajoequipo, style=style)
+    t = Table(ltrabajoequipo, style=style)
     story.append(t)
-    story.append(Spacer(0,20))
+    story.append(Spacer(0, 20))
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE PRIMER INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE PRIMER INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE PRIMER INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -515,7 +512,7 @@ def reporte1_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"
@@ -524,71 +521,71 @@ def reporte1_pdf(request,pk_proyecto):
     return response
 
 
-def reporte2_pdf(request,pk_proyecto):
+def reporte2_pdf(request, pk_proyecto):
     """
     Metodo que genera el reporte 2
     :param request: contiene la informacion sobre la pagina que lo llamo
     :param proyecto_id: id del proyecto del cual se generara el reporte
     :return: reporte en pdf
     """
-    proyecto_actual= Proyecto.objects.get(id=pk_proyecto)
-    uh = UserStory.objects.filter(proyecto = proyecto_actual)
+    proyecto_actual = Proyecto.objects.get(id=pk_proyecto)
+    uh = UserStory.objects.filter(proyecto=proyecto_actual)
 
     estiloHoja = getSampleStyleSheet()
     style = [
-        ('GRID',(0,0),(-1,-1),0.5,colors.white),
-        ('BOX',(0,0),(-1,-1),2,colors.black),
-        ('SPAN',(0,0),(-1,0)),
-        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9),colors.white)),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9), colors.white)),
         ('BACKGROUND', (0, 2), (-1, 2), colors.fidlightblue),
         ('BACKGROUND', (0, 1), (-1, 1), colors.white),
-        ('LINEABOVE',(0,0),(-1,0),1.5,colors.black),
-        ('LINEBELOW',(0,0),(-1,0),1.5,colors.black),
-        ('SIZE',(0,0),(-1,0),12),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.5, colors.black),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.5, colors.black),
+        ('SIZE', (0, 0), (-1, 0), 12),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('TEXTCOLOR', (0, 2), (-1, 2), colors.black),
-        ]
+    ]
 
     story = []
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('SEGUNDO INFORME DEL'+ '"' +proyecto_actual.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('SEGUNDO INFORME DEL' + '"' + proyecto_actual.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading1']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('   ',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('   ', cabecera2)
     story.append(parrafo)
     ltrabajoequipo = []
-    ltrabajoequipo.append(['2. CANTIDAD DE TRABAJOS POR USUARIO','','',''])
-    ltrabajoequipo.append([' ',' ',' ',' '])
-    ltrabajoequipo.append(['USUARIO','TRABAJOS PENDIENTES', 'TRABAJOS INICIADOS','TRABAJOS FINALIZADOS'])
-    urp = RolProyecto_Proyecto.objects.filter(proyecto = proyecto_actual)
+    ltrabajoequipo.append(['2. CANTIDAD DE TRABAJOS POR USUARIO', '', '', ''])
+    ltrabajoequipo.append([' ', ' ', ' ', ' '])
+    ltrabajoequipo.append(['USUARIO', 'TRABAJOS PENDIENTES', 'TRABAJOS INICIADOS', 'TRABAJOS FINALIZADOS'])
+    urp = RolProyecto_Proyecto.objects.filter(proyecto=proyecto_actual)
     for i in urp:
         if i.rol_proyecto == 'Developer':
-            usp = UserStory.objects.filter(encargado = i.usuario,proyecto = proyecto_actual, estado = 'Pendiente')
-            usi = UserStory.objects.filter(encargado = i.usuario,proyecto = proyecto_actual, estado = 'Activo')
-            usf = UserStory.objects.filter(encargado = i.usuario,proyecto = proyecto_actual, estado = 'Finalizado')
+            usp = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Pendiente')
+            usi = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Activo')
+            usf = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Finalizado')
             ltrabajoequipo.append([i.usuario.username, len(usp), len(usi), len(usf)])
 
-
-    t=Table( ltrabajoequipo, style=style)
+    t = Table(ltrabajoequipo, style=style)
     story.append(t)
-    story.append(Spacer(0,20))
+    story.append(Spacer(0, 20))
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE SEGUNDO INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE SEGUNDO INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE SEGUNDO INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -597,7 +594,7 @@ def reporte2_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"
@@ -606,67 +603,68 @@ def reporte2_pdf(request,pk_proyecto):
     return response
 
 
-def reporte3_pdf(request,pk_proyecto):
+def reporte3_pdf(request, pk_proyecto):
     """
     Metodo que genera el reporte 3
     :param request: contiene informacion sobre la pagina que lo llamo
     :param proyecto_id: id del proyecto del cual se generara el reporte
     :return: reporte en formato pdf
     """
-    proyecto_actual= Proyecto.objects.get(id=pk_proyecto)
-    uh = UserStory.objects.filter(proyecto = proyecto_actual).order_by('-valor_tecnico')
+    proyecto_actual = Proyecto.objects.get(id=pk_proyecto)
+    uh = UserStory.objects.filter(proyecto=proyecto_actual).order_by('-valor_tecnico')
 
     estiloHoja = getSampleStyleSheet()
     style = [
-        ('GRID',(0,0),(-1,-1),0.5,colors.white),
-        ('BOX',(0,0),(-1,-1),2,colors.black),
-        ('SPAN',(0,0),(-1,0)),
-        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9),colors.white)),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9), colors.white)),
         ('BACKGROUND', (0, 2), (-1, 2), colors.fidlightblue),
         ('BACKGROUND', (0, 1), (-1, 1), colors.white),
-        ('LINEABOVE',(0,0),(-1,0),1.5,colors.black),
-        ('LINEBELOW',(0,0),(-1,0),1.5,colors.black),
-        ('SIZE',(0,0),(-1,0),12),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.5, colors.black),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.5, colors.black),
+        ('SIZE', (0, 0), (-1, 0), 12),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('TEXTCOLOR', (0, 2), (-1, 2), colors.black),
-        ]
+    ]
 
     story = []
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('TERCER INFORME DEL'+ '"' +proyecto_actual.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('TERCER INFORME DEL' + '"' + proyecto_actual.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading1']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('   ',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('   ', cabecera2)
     story.append(parrafo)
 
     ltrabajoequipo = []
-    ltrabajoequipo.append(['3. LISTA DE ACTIVIDADES PARA COMPLETAR EL PROYECTO','', ''])
-    ltrabajoequipo.append([' ',' ',''])
-    ltrabajoequipo.append(['PRIORIDAD','ACTIVIDADES', 'ESTADO'])
+    ltrabajoequipo.append(['3. LISTA DE ACTIVIDADES PARA COMPLETAR EL PROYECTO', '', ''])
+    ltrabajoequipo.append([' ', ' ', ''])
+    ltrabajoequipo.append(['PRIORIDAD', 'ACTIVIDADES', 'ESTADO'])
     for u in uh:
         if u.estado != 'Finalizado' and u.estado != 'Descartado':
-            ltrabajoequipo.append([u.valor_tecnico,u.nombre, u.estado])
+            ltrabajoequipo.append([u.valor_tecnico, u.nombre, u.estado])
 
-    t=Table( ltrabajoequipo, style=style)
+    t = Table(ltrabajoequipo, style=style)
     story.append(t)
-    story.append(Spacer(0,20))
+    story.append(Spacer(0, 20))
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE TERCER INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE TERCER INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE TERCER INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -675,7 +673,7 @@ def reporte3_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"
@@ -684,56 +682,57 @@ def reporte3_pdf(request,pk_proyecto):
     return response
 
 
-def reporte4_pdf(request,pk_proyecto):
-
+def reporte4_pdf(request, pk_proyecto):
     from reportlab.graphics.shapes import Drawing, Rect, String, Group, Line
     from reportlab.graphics.charts.barcharts import VerticalBarChart
 
-    proy = Proyecto.objects.get(id = pk_proyecto)
+    proy = Proyecto.objects.get(id=pk_proyecto)
     story = []
     estilo = getSampleStyleSheet()
     import pprint
+
     estiloHoja = getSampleStyleSheet()
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('CUARTO INFORME DEL'+ '"' +proy.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('CUARTO INFORME DEL' + '"' + proy.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading2']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('GRAFICO DE TIEMPO ESTIMADO Y EJECUTADO POR SPRINT DEL PROYECTO'+'"'+proy.nombre_largo+'"',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph(
+        'GRAFICO DE TIEMPO ESTIMADO Y EJECUTADO POR SPRINT DEL PROYECTO' + '"' + proy.nombre_largo + '"', cabecera2)
     story.append(parrafo)
     d = Drawing(400, 200)
 
-    sprints = Sprint.objects.filter(proyecto = proy)
+    sprints = Sprint.objects.filter(proyecto=proy)
     listasprint = []
     listaplan = []
     listaejec = []
     for sp in sprints:
         listasprint.append(sp.nombre)
-        US = UserStory.objects.filter(sprint = sp)
+        US = UserStory.objects.filter(sprint=sp)
         sumahora = 0
-        totalplan =0
+        totalplan = 0
         for u in US:
             totalplan += u.estimacion
-            ust = UserStory.objects.get(id = u.id)
-            sumahora+=u.estimacion
+            ust = UserStory.objects.get(id=u.id)
+            sumahora += u.estimacion
             # trabajo = Comentarios.objects.filter(userhistory = ust)
             #
             # for j in trabajo:
             #     sumahora = sumahora + j.horas
         listaejec.append(sumahora)
         listaplan.append(totalplan)
-    mayor  = 0
+    mayor = 0
     for j in listaejec:
         if j > mayor:
             mayor = j
@@ -741,7 +740,7 @@ def reporte4_pdf(request,pk_proyecto):
         if j > mayor:
             mayor = j
 
-    data = [listaplan,listaejec]
+    data = [listaplan, listaejec]
     bc = VerticalBarChart()
     bc.x = 50
     bc.y = 50
@@ -764,21 +763,22 @@ def reporte4_pdf(request,pk_proyecto):
     pprint.pprint(bc.getProperties())
     story.append(d)
     cabecera2 = estiloHoja['Heading2']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('ROJO = TIEMPO ESTIMADO',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('ROJO = TIEMPO ESTIMADO', cabecera2)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading2']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('VERDE = TIEMPO EJECUTADO',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('VERDE = TIEMPO EJECUTADO', cabecera2)
     story.append(parrafo)
-    story.append(Spacer(0,20))
-    parrafo = Paragraph('_'*66,cabecera)
+    story.append(Spacer(0, 20))
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE CUARTO INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE CUARTO INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE CUARTO INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -787,7 +787,7 @@ def reporte4_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"
@@ -795,67 +795,69 @@ def reporte4_pdf(request,pk_proyecto):
     buff.close()
     return response
 
-def reporte5_pdf(request,pk_proyecto):
+
+def reporte5_pdf(request, pk_proyecto):
     """
     Metodo para generar reporte 5
     :param request: contiene la informacion de la pagina que lo llamo
     :param proyecto_id: id del proyecto del cual se genera el reporte
     :return: reporte en formato pdf
     """
-    proyecto_actual= Proyecto.objects.get(id=pk_proyecto)
-    uh = UserStory.objects.filter(proyecto = proyecto_actual).order_by('-valor_tecnico')
+    proyecto_actual = Proyecto.objects.get(id=pk_proyecto)
+    uh = UserStory.objects.filter(proyecto=proyecto_actual).order_by('-valor_tecnico')
 
     estiloHoja = getSampleStyleSheet()
     style = [
-        ('GRID',(0,0),(-1,-1),0.5,colors.white),
-        ('BOX',(0,0),(-1,-1),2,colors.black),
-        ('SPAN',(0,0),(-1,0)),
-        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9),colors.white)),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9), colors.white)),
         ('BACKGROUND', (0, 2), (-1, 2), colors.fidlightblue),
         ('BACKGROUND', (0, 1), (-1, 1), colors.white),
-        ('LINEABOVE',(0,0),(-1,0),1.5,colors.black),
-        ('LINEBELOW',(0,0),(-1,0),1.5,colors.black),
-        ('SIZE',(0,0),(-1,0),12),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.5, colors.black),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.5, colors.black),
+        ('SIZE', (0, 0), (-1, 0), 12),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('TEXTCOLOR', (0, 2), (-1, 2), colors.black),
-        ]
+    ]
 
     story = []
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('QUINTO INFORME DEL'+ '"' +proyecto_actual.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('QUINTO INFORME DEL' + '"' + proyecto_actual.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading1']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('   ',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('   ', cabecera2)
     story.append(parrafo)
 
     ltrabajoequipo = []
-    ltrabajoequipo.append(['5. BACKLOG DEL PRODUCTO','', '', ''])
-    ltrabajoequipo.append([' ',' ',' ', ' '])
-    ltrabajoequipo.append(['NOMBRE','DESCRIPCION','ORDEN', 'ESTADO'])
+    ltrabajoequipo.append(['5. BACKLOG DEL PRODUCTO', '', '', ''])
+    ltrabajoequipo.append([' ', ' ', ' ', ' '])
+    ltrabajoequipo.append(['NOMBRE', 'DESCRIPCION', 'ORDEN', 'ESTADO'])
     for u in uh:
         if u.estado != 'Descartado':
             ltrabajoequipo.append([u.nombre, u.descripcion, u.valor_tecnico, u.estado])
 
-    t=Table( ltrabajoequipo, style=style)
+    t = Table(ltrabajoequipo, style=style)
     story.append(t)
-    story.append(Spacer(0,20))
+    story.append(Spacer(0, 20))
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE QUINTO INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE QUINTO INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE QUINTO INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -864,7 +866,7 @@ def reporte5_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"
@@ -873,66 +875,67 @@ def reporte5_pdf(request,pk_proyecto):
     return response
 
 
-def reporte6_pdf(request,pk_proyecto):
+def reporte6_pdf(request, pk_proyecto):
     """
     Metodo con el cual se crea el reporte 6 en formato pdf
     :param request: contiene la informacion de la pagino que lo llamo
     :param proyecto_id: id del proyecto del cual se genera el reporte
     :return: reporte en formato pdf
     """
-    proyecto_actual= Proyecto.objects.get(id=pk_proyecto)
-    uh = UserStory.objects.filter(proyecto = proyecto_actual)
+    proyecto_actual = Proyecto.objects.get(id=pk_proyecto)
+    uh = UserStory.objects.filter(proyecto=proyecto_actual)
 
     estiloHoja = getSampleStyleSheet()
     style = [
-        ('GRID',(0,0),(-1,-1),0.5,colors.white),
-        ('BOX',(0,0),(-1,-1),2,colors.black),
-        ('SPAN',(0,0),(-1,0)),
-        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9),colors.white)),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.white),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
+        ('ROWBACKGROUNDS', (0, 3), (-1, -1), (colors.Color(0.9, 0.9, 0.9), colors.white)),
         ('BACKGROUND', (0, 2), (-1, 2), colors.fidlightblue),
         ('BACKGROUND', (0, 1), (-1, 1), colors.white),
-        ('LINEABOVE',(0,0),(-1,0),1.5,colors.black),
-        ('LINEBELOW',(0,0),(-1,0),1.5,colors.black),
-        ('SIZE',(0,0),(-1,0),12),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.5, colors.black),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.5, colors.black),
+        ('SIZE', (0, 0), (-1, 0), 12),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('TEXTCOLOR', (0, 2), (-1, 2), colors.black),
-        ]
+    ]
 
     story = []
     cabecera = estiloHoja['Heading2']
-    cabecera.pageBreakBefore=0
-    cabecera.keepWithNext=0
-    cabecera.backColor=colors.white
+    cabecera.pageBreakBefore = 0
+    cabecera.keepWithNext = 0
+    cabecera.backColor = colors.white
     cabecera.spaceAfter = 0
     cabecera.spaceBefore = 0
-    parrafo = Paragraph('',cabecera)
+    parrafo = Paragraph('', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('SEXTO INFORME DEL'+ '"' +proyecto_actual.nombre_largo+'" : ',cabecera)
+    parrafo = Paragraph('SEXTO INFORME DEL' + '"' + proyecto_actual.nombre_largo + '" : ', cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
     cabecera2 = estiloHoja['Heading1']
-    cabecera2.pageBreakBefore=0
-    cabecera2.keepWithNext=0
-    cabecera2.backColor=colors.white
-    parrafo = Paragraph('   ',cabecera2)
+    cabecera2.pageBreakBefore = 0
+    cabecera2.keepWithNext = 0
+    cabecera2.backColor = colors.white
+    parrafo = Paragraph('   ', cabecera2)
     story.append(parrafo)
     ltrabajoequipo = []
-    ltrabajoequipo.append(['6. SPRINT BACKLOG','', ''])
-    ltrabajoequipo.append([' ',' ',''])
-    ltrabajoequipo.append(['NOMBRE','ACTIVIDADES', 'ESTADO'])
+    ltrabajoequipo.append(['6. SPRINT BACKLOG', '', ''])
+    ltrabajoequipo.append([' ', ' ', ''])
+    ltrabajoequipo.append(['NOMBRE', 'ACTIVIDADES', 'ESTADO'])
     for u in uh:
         if u.sprint.estado == 'Activo':
-            ltrabajoequipo.append([u.sprint.nombre,u.nombre, u.sprint.estado])
+            ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado])
 
-    t=Table( ltrabajoequipo, style=style)
+    t = Table(ltrabajoequipo, style=style)
     story.append(t)
-    story.append(Spacer(0,20))
+    story.append(Spacer(0, 20))
     story.append(parrafo)
-    parrafo = Paragraph('_'*66,cabecera)
+    parrafo = Paragraph('_' * 66, cabecera)
     story.append(parrafo)
-    parrafo = Paragraph('FIN DE SEXTO INFORME' + ' '*100 + '('+str(datetime.date.today()) + ')' ,cabecera)
+    #parrafo = Paragraph('FIN DE SEXTO INFORME' + ' ' * 100 + '(' + str(datetime.date.today()) + ')', cabecera)
+    parrafo = Paragraph('FIN DE SEXTO INFORME', cabecera)
     story.append(parrafo)
     buff = BytesIO()
     doc = SimpleDocTemplate(buff,
@@ -941,7 +944,7 @@ def reporte6_pdf(request,pk_proyecto):
                             leftMargin=40,
                             topMargin=60,
                             bottomMargin=18,
-                            )
+    )
     doc.build(story)
     response = HttpResponse(content_type='application/pdf')
     pdf_name = "Reporte.pdf"

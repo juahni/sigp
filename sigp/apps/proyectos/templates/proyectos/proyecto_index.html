@@ -15,10 +15,6 @@
 					 <i class="fa fa-fw fa-archive"></i>{{proyecto}}
 				</h1>
 
-	            <a type="button" class="btn btn-success pull-left" href="{% url 'proyectos:reporte' %}" >
-	                 <i class="fa fa-lg fa-table"></i>
-		                 Informes
-                </a>
 
 			</div>
 		</div>
@@ -83,11 +79,6 @@
 
                         {% endfor %}
                         </tbody>
-
-
-
-
-
 
 					</table>
 					</div>
@@ -226,43 +217,10 @@
 
 	</div>
 
-
-
-
-
-
-
-
- <div class="panel panel-info">
-
-                <a><span style="color:#2702E1"><button type="button" class="btn btn-primary" ><strong>REPORTES PDF
-                </strong></button></span></a><button type="button" class="btn btn-success pull-center">
-
-                </button>
-
-                <ul class="col-lg-4">
-
-                    <li><a href="{% url 'proyectos:reporte1' proyecto.id %}"><span style="color:#2702E1">1. CANTIDAD DE TRABAJOS EN CURSO POR EQUIPO</span></a></li>
-
-                    <li><a href="{% url 'proyectos:reporte2' proyecto.id %}"><span style="color:#2702E1">2. CANTIDAD DE TRABAJOS POR USUARIO (PENDIENTE, EN CURSO, FINALIZADOS)</span></a></li>
-
-
-                    <li><a href="{% url 'proyectos:reporte3' proyecto.id %}"><span style="color:#2702E1">3. LISTA DE LAS ACTIVIDADES PARA COMPLETAR EL PROYECTO</span></a></li>
-
-
-                    <li><a href="{% url 'proyectos:reporte4' proyecto.id %}"><span style="color:#2702E1">4. LISTA DE TIEMPO ESTIMADO DEL PROYECTO Y LA EJECUCION DEL MISMO (GRAFICADO, SPRINT POR PROYECTO)</span></a></li>
-
-
-                    <li><a href="{% url 'proyectos:reporte5' proyecto.id %}"><span style="color:#2702E1">5. BACKLOG DEL PRODUCTO</span></a></li>
-
-
-                    <li><a href="{% url 'proyectos:reporte6' proyecto.id %}"><span style="color:#2702E1">6. SPRINT BACKLOG</span></a></li>
-
-                </ul>
- </div>
-
-
-
+     <a type="button" class="btn btn-success pull-center" href="{% url 'proyectos:reporte' proyecto.id %}" >
+	                 <i class="fa fa-lg fa-table"></i>
+		                 Informes del proyecto
+     </a>
 
 
 {% endblock %}
