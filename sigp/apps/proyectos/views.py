@@ -572,11 +572,12 @@ def reporte2_pdf(request, pk_proyecto):
     ltrabajoequipo.append(['USUARIO', 'TRABAJOS PENDIENTES', 'TRABAJOS INICIADOS', 'TRABAJOS FINALIZADOS'])
     urp = RolProyecto_Proyecto.objects.filter(proyecto=proyecto_actual)
     for i in urp:
-        if i.rol_proyecto == 'Developer':
-            usp = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Pendiente')
-            usi = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Activo')
-            usf = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Finalizado')
-            ltrabajoequipo.append([i.usuario.username, len(usp), len(usi), len(usf)])
+         if i.rol_proyecto == 'Developer':
+             usp = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Pendiente')
+             usi = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Activo')
+             usf = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Finalizado')
+             ltrabajoequipo.append([i.usuario.username, len(usp), len(usi), len(usf)])
+
 
     t = Table(ltrabajoequipo, style=style)
     story.append(t)
@@ -654,7 +655,7 @@ def reporte3_pdf(request, pk_proyecto):
     ltrabajoequipo.append([' ', ' ', ''])
     ltrabajoequipo.append(['PRIORIDAD', 'ACTIVIDADES', 'ESTADO'])
     for u in uh:
-        if u.estado != 'Finalizado' and u.estado != 'Descartado':
+        if u.estado != 'Finalizado' and u.estado != 'Aprobado' and u.estado != 'Descartado':
             ltrabajoequipo.append([u.valor_tecnico, u.nombre, u.estado])
 
     t = Table(ltrabajoequipo, style=style)
@@ -726,10 +727,10 @@ def reporte4_pdf(request, pk_proyecto):
             totalplan += u.estimacion
             ust = UserStory.objects.get(id=u.id)
             sumahora += u.estimacion
-            # trabajo = Comentarios.objects.filter(userhistory = ust)
-            #
-            # for j in trabajo:
-            #     sumahora = sumahora + j.horas
+            #trabajo = Comentarios.objects.filter(userhistory = ust)
+
+             #for j in trabajo:
+              #   sumahora = sumahora + j.horas
         listaejec.append(sumahora)
         listaplan.append(totalplan)
     mayor = 0

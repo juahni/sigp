@@ -4,13 +4,13 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #bdsigp
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sigp-desarr',
+        'NAME': 'sigp-p',
         'USER': 'sigp',
         'PASSWORD': 'sigp',
         'HOST': 'localhost',
