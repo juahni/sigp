@@ -10,7 +10,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sigp-p',
+        'NAME': 'sigp',
         'USER': 'sigp',
         'PASSWORD': 'sigp',
         'HOST': 'localhost',

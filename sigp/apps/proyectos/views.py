@@ -134,15 +134,15 @@ def proyecto_index(request, pk):
     template = 'proyectos/proyecto_index.html'
 
     lista_equipo = Proyecto.objects.get(pk=pk).equipo.all()
-    print lista_equipo
+    #print lista_equipo
 
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
-        print usu
+        #print usu
         nueva_lista.append(usu)
 
-    print nueva_lista
+    #print nueva_lista
 
     #duracion_proyecto = proyecto.fecha_fin - proyecto.fecha_inicio
     #print "duracion = %s" % duracion_proyecto.days
@@ -168,14 +168,14 @@ def listar_equipo(request, pk_proyecto):
     """
     proyecto = Proyecto.objects.get(pk=pk_proyecto)
     lista_equipo = Proyecto.objects.get(pk=pk_proyecto).equipo.all().order_by('id')
-    print lista_equipo
+    #print lista_equipo
 
     duracion = habiles(proyecto.fecha_inicio, proyecto.fecha_fin)
 
     nueva_lista = []
     for u in lista_equipo:
         usu = RolProyecto_Proyecto.objects.filter(proyecto=proyecto, user=u)
-        print usu
+        #print usu
         nueva_lista.append(usu)
 
     miembros = RolProyecto_Proyecto.objects.filter(proyecto=proyecto)
@@ -185,7 +185,7 @@ def listar_equipo(request, pk_proyecto):
         horas_developer_proyecto = miembro.horas_developer * duracion
         horas_hombre_totales = horas_hombre_totales + horas_developer_proyecto
 
-    print nueva_lista
+    #print nueva_lista
     template = 'proyectos/proyecto_equipo_list.html'
     return render(request, template, locals())
 
@@ -268,17 +268,17 @@ class RolMiembro(UpdateView):
         user = User.objects.get(pk=self.kwargs['pk_user'])
         proyecto = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
         solo_del_usuario = RolProyecto_Proyecto.objects.filter(user=user, proyecto=proyecto)
-        print "solo_del_usuario = %s" % solo_del_usuario
+        #print "solo_del_usuario = %s" % solo_del_usuario
         roles_proyecto_del_usuario = solo_del_usuario.values('rol_proyecto').distinct()
-        print "roles_proyecto_del_usuario = %s" % roles_proyecto_del_usuario
+        #print "roles_proyecto_del_usuario = %s" % roles_proyecto_del_usuario
         roro = Group.objects.filter(rolproyecto__pk__in=roles_proyecto_del_usuario)
 
-        print "roro = %s" % roro
+        #print "roro = %s" % roro
 
         initial['rolproyecto'] = roro
 
         initial['user'] = user
-        print "user = %s" % user
+        #print "user = %s" % user
 
         return initial
 
@@ -318,21 +318,21 @@ class HorasDeveloper(UpdateView):
         user = User.objects.get(pk=self.kwargs['pk_user'])
         proyecto = Proyecto.objects.get(pk=self.kwargs['pk_proyecto'])
         solo_del_usuario = RolProyecto_Proyecto.objects.filter(user=user, proyecto=proyecto)
-        print "solo_del_usuario = %s" % solo_del_usuario
+        #print "solo_del_usuario = %s" % solo_del_usuario
         rol_developer = []
         for rol in solo_del_usuario:
             if rol.rol_proyecto.group.name == "Developer":
                 rol_developer.append(rol)
 
-        print "rol_developer = %s" % rol_developer
+        #print "rol_developer = %s" % rol_developer
 
         horas = rol_developer[0].horas_developer
-        print "rol_developer = %s" % rol_developer
+        #print "rol_developer = %s" % rol_developer
 
         initial['horas_developer'] = horas
         initial['rol_developer'] = rol_developer
         initial['user'] = user
-        print "user = %s" % user
+        #print "user = %s" % user
 
         return initial
 
@@ -370,7 +370,7 @@ class HorasDeveloper(UpdateView):
         #context['duracion_horas'] = duracion_horas
 
         rows_del_proyecto = RolProyecto_Proyecto.objects.filter(proyecto=proyecto)
-        print "rows_del_proyecto = %s" % rows_del_proyecto
+        #print "rows_del_proyecto = %s" % rows_del_proyecto
 
         horas_asignadas = 0
         for row in rows_del_proyecto:
@@ -423,19 +423,24 @@ def habiles(fecha1, fecha2):
     return habiles
 
 
-def reporte_pdf(request, pk_proyecto):
-    user = User.objects.get(username=request.user.username)
-    usuarioPorProyecto = RolProyecto_Proyecto.objects.filter(id=user.id)
-    proys = []
-    for rec in usuarioPorProyecto:
-        if not rec.proyecto in proys:
-            proys.append(rec.proyecto.id)
-    lista = Proyecto.objects.filter(id__in=proys).order_by('id')
+def reporte_pdf(reques, pk):
+    #user = User.objects.get(username=request.user.username)
+    #usuarioPorProyecto = RolProyecto_Proyecto.objects.filter(id=user.id)
+    #
+
+
+    #proys = []
+    #for rec in usuarioPorProyecto:
+    #     if not rec.proyecto in proys:
+    #        proys.append(pk)
+    #lista = Proyecto.objects.filter(id__in=proys).order_by('id')
+    #lista = Proyecto.objects.get(pk=self.kwargs['pk'])
+    lista = Proyecto.objects.get(pk=pk)
     #template = 'proyectos/reportes.html'
     #return render(request, template, locals())
+    print lista
 
-    return render_to_response("proyectos/reportes.html", {'proy': lista,
-                                                          'user': user
+    return render_to_response("proyectos/reportes.html", {'i': lista,
     })
 
 
@@ -570,14 +575,35 @@ def reporte2_pdf(request, pk_proyecto):
     ltrabajoequipo.append(['2. CANTIDAD DE TRABAJOS POR USUARIO', '', '', ''])
     ltrabajoequipo.append([' ', ' ', ' ', ' '])
     ltrabajoequipo.append(['USUARIO', 'TRABAJOS PENDIENTES', 'TRABAJOS INICIADOS', 'TRABAJOS FINALIZADOS'])
-    urp = RolProyecto_Proyecto.objects.filter(proyecto=proyecto_actual)
-    for i in urp:
-         if i.rol_proyecto == 'Developer':
-             usp = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Pendiente')
-             usi = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Activo')
-             usf = UserStory.objects.filter(encargado=i.usuario, proyecto=proyecto_actual, estado='Finalizado')
-             ltrabajoequipo.append([i.usuario.username, len(usp), len(usi), len(usf)])
+    #urp = RolProyecto_Proyecto.objects.filter(proyecto=proyecto_actual)
 
+    #user = User.objects.get(pk=self.kwargs['pk_user'])
+    solo_del_usuario = RolProyecto_Proyecto.objects.filter(proyecto=proyecto_actual)
+
+    #proyecto = Proyecto.objects.get(pk=pk_proyecto)
+    #lista_equipo = Proyecto.objects.get(pk=pk_proyecto).equipo.all().order_by('id')
+    #print lista_equipo
+
+
+
+    #for i in urp:
+    #     if i.rol_proyecto == 'Developer':
+
+
+    for rol in solo_del_usuario:
+        #print rol
+        if rol.rol_proyecto.group.name == "Developer":
+
+             usp = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Pendiente')
+             usi = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Activo')
+             usf = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Aprobado')
+             ltrabajoequipo.append([rol.user, len(usp), len(usi), len(usf)])
+
+
+    print ltrabajoequipo
+    print usp
+    print usi
+    print usf
 
     t = Table(ltrabajoequipo, style=style)
     story.append(t)
