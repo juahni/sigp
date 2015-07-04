@@ -1231,6 +1231,12 @@ def finalizar_sprint(request, pk_proyecto, pk_sprint):
 
     user_stories = UserStory.objects.filter(sprint=sprint, estado='Activo')
 
+    for us in user_stories:
+        us.estado = 'Finalizado'
+        print us
+        us.save()
+
+
     if request.method == 'POST':
 
         sprint.estado = 'Finalizado'
@@ -1239,9 +1245,7 @@ def finalizar_sprint(request, pk_proyecto, pk_sprint):
 
         sprint.save()
 
-        for us in user_stories:
-            us.estado = 'Pendiente'
-            us.save()
+
 
         return HttpResponseRedirect(reverse('sprints:index', args=[pk_proyecto]))
     if user_stories:

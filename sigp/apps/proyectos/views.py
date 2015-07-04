@@ -597,7 +597,7 @@ def reporte2_pdf(request, pk_proyecto):
 
              usp = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Pendiente')
              usi = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Activo')
-             usf = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Aprobado')
+             usf = UserStory.objects.filter(usuario=rol.user, proyecto=proyecto_actual, estado='Finalizado')
              ltrabajoequipo.append([rol.user, len(usp), len(usi), len(usf)])
 
 
@@ -955,6 +955,9 @@ def reporte6_pdf(request, pk_proyecto):
 
         if u.estado != 'Descartado' and u.estado != 'Finalizado' and u.estado != 'Aprobado' and u.estado != 'No asignado':
             ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado, u.usuario.username])
+
+        #if u.sprint._state == 'Activo':
+           # ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado])
 
     t = Table(ltrabajoequipo, style=style)
     story.append(t)
