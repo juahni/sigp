@@ -44,6 +44,9 @@ ALTER TABLE ONLY public.flujos_flujo DROP CONSTRAINT flujos_fl_proyecto_id_4e8be
 ALTER TABLE ONLY public.flujos_actividad_estados DROP CONSTRAINT flujos_actividad_estado_id_2f1195c02671158d_fk_flujos_estado_id;
 ALTER TABLE ONLY public.flujos_actividadflujo_estados DROP CONSTRAINT flujos_actividad_estado_id_2276c49ed3abc6be_fk_flujos_estado_id;
 ALTER TABLE ONLY public.flujos_actividad_estados DROP CONSTRAINT flujos_act_actividad_id_691e5acbf8d9352f_fk_flujos_actividad_id;
+ALTER TABLE ONLY public.djcelery_taskstate DROP CONSTRAINT djcelery_taskstate_worker_id_fkey;
+ALTER TABLE ONLY public.djcelery_periodictask DROP CONSTRAINT djcelery_periodictask_interval_id_fkey;
+ALTER TABLE ONLY public.djcelery_periodictask DROP CONSTRAINT djcelery_periodictask_crontab_id_fkey;
 ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id;
 ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id;
 ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id;
@@ -92,12 +95,29 @@ DROP INDEX public.flujos_actividadflujo_estados_7f6a2a87;
 DROP INDEX public.flujos_actividadflujo_estados_2c189993;
 DROP INDEX public.flujos_actividad_estados_6f919ae9;
 DROP INDEX public.flujos_actividad_estados_2c189993;
+DROP INDEX public.djcelery_workerstate_last_heartbeat;
+DROP INDEX public.djcelery_workerstate_hostname_like;
+DROP INDEX public.djcelery_taskstate_worker_id;
+DROP INDEX public.djcelery_taskstate_tstamp;
+DROP INDEX public.djcelery_taskstate_task_id_like;
+DROP INDEX public.djcelery_taskstate_state_like;
+DROP INDEX public.djcelery_taskstate_state;
+DROP INDEX public.djcelery_taskstate_name_like;
+DROP INDEX public.djcelery_taskstate_name;
+DROP INDEX public.djcelery_taskstate_hidden;
+DROP INDEX public.djcelery_periodictask_name_like;
+DROP INDEX public.djcelery_periodictask_interval_id;
+DROP INDEX public.djcelery_periodictask_crontab_id;
 DROP INDEX public.django_session_session_key_461cfeaa630ca218_like;
 DROP INDEX public.django_session_de54fa62;
 DROP INDEX public.django_admin_log_e8701ad4;
 DROP INDEX public.django_admin_log_417f1b1c;
 DROP INDEX public.clientes_cliente_nombre_639d2387d43b55e6_like;
 DROP INDEX public."clientes_cliente_correoElectronico_2110c99edabb0fe5_like";
+DROP INDEX public.celery_tasksetmeta_taskset_id_like;
+DROP INDEX public.celery_tasksetmeta_hidden;
+DROP INDEX public.celery_taskmeta_task_id_like;
+DROP INDEX public.celery_taskmeta_hidden;
 DROP INDEX public.auth_user_username_51b3b110094b8aae_like;
 DROP INDEX public.auth_user_user_permissions_e8701ad4;
 DROP INDEX public.auth_user_user_permissions_8373b171;
@@ -138,6 +158,15 @@ ALTER TABLE ONLY public.flujos_actividadflujo_estados DROP CONSTRAINT flujos_act
 ALTER TABLE ONLY public.flujos_actividad DROP CONSTRAINT flujos_actividad_pkey;
 ALTER TABLE ONLY public.flujos_actividad_estados DROP CONSTRAINT flujos_actividad_estados_pkey;
 ALTER TABLE ONLY public.flujos_actividad_estados DROP CONSTRAINT flujos_actividad_estados_actividad_id_estado_id_key;
+ALTER TABLE ONLY public.djcelery_workerstate DROP CONSTRAINT djcelery_workerstate_pkey;
+ALTER TABLE ONLY public.djcelery_workerstate DROP CONSTRAINT djcelery_workerstate_hostname_key;
+ALTER TABLE ONLY public.djcelery_taskstate DROP CONSTRAINT djcelery_taskstate_task_id_key;
+ALTER TABLE ONLY public.djcelery_taskstate DROP CONSTRAINT djcelery_taskstate_pkey;
+ALTER TABLE ONLY public.djcelery_periodictasks DROP CONSTRAINT djcelery_periodictasks_pkey;
+ALTER TABLE ONLY public.djcelery_periodictask DROP CONSTRAINT djcelery_periodictask_pkey;
+ALTER TABLE ONLY public.djcelery_periodictask DROP CONSTRAINT djcelery_periodictask_name_key;
+ALTER TABLE ONLY public.djcelery_intervalschedule DROP CONSTRAINT djcelery_intervalschedule_pkey;
+ALTER TABLE ONLY public.djcelery_crontabschedule DROP CONSTRAINT djcelery_crontabschedule_pkey;
 ALTER TABLE ONLY public.django_session DROP CONSTRAINT django_session_pkey;
 ALTER TABLE ONLY public.django_migrations DROP CONSTRAINT django_migrations_pkey;
 ALTER TABLE ONLY public.django_content_type DROP CONSTRAINT django_content_type_pkey;
@@ -146,6 +175,10 @@ ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_pkey;
 ALTER TABLE ONLY public.clientes_cliente DROP CONSTRAINT clientes_cliente_pkey;
 ALTER TABLE ONLY public.clientes_cliente DROP CONSTRAINT clientes_cliente_nombre_key;
 ALTER TABLE ONLY public.clientes_cliente DROP CONSTRAINT "clientes_cliente_correoElectronico_key";
+ALTER TABLE ONLY public.celery_tasksetmeta DROP CONSTRAINT celery_tasksetmeta_taskset_id_key;
+ALTER TABLE ONLY public.celery_tasksetmeta DROP CONSTRAINT celery_tasksetmeta_pkey;
+ALTER TABLE ONLY public.celery_taskmeta DROP CONSTRAINT celery_taskmeta_task_id_key;
+ALTER TABLE ONLY public.celery_taskmeta DROP CONSTRAINT celery_taskmeta_pkey;
 ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_username_key;
 ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_user_id_permission_id_key;
 ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_pkey;
@@ -180,10 +213,17 @@ ALTER TABLE public.flujos_actividadflujo_estados ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.flujos_actividadflujo ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.flujos_actividad_estados ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.flujos_actividad ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.djcelery_workerstate ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.djcelery_taskstate ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.djcelery_periodictask ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.djcelery_intervalschedule ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.djcelery_crontabschedule ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.django_migrations ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.django_content_type ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.django_admin_log ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.clientes_cliente ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.celery_tasksetmeta ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.celery_taskmeta ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.auth_user_user_permissions ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.auth_user_groups ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.auth_user ALTER COLUMN id DROP DEFAULT;
@@ -232,6 +272,17 @@ DROP SEQUENCE public.flujos_actividad_id_seq;
 DROP SEQUENCE public.flujos_actividad_estados_id_seq;
 DROP TABLE public.flujos_actividad_estados;
 DROP TABLE public.flujos_actividad;
+DROP SEQUENCE public.djcelery_workerstate_id_seq;
+DROP TABLE public.djcelery_workerstate;
+DROP SEQUENCE public.djcelery_taskstate_id_seq;
+DROP TABLE public.djcelery_taskstate;
+DROP TABLE public.djcelery_periodictasks;
+DROP SEQUENCE public.djcelery_periodictask_id_seq;
+DROP TABLE public.djcelery_periodictask;
+DROP SEQUENCE public.djcelery_intervalschedule_id_seq;
+DROP TABLE public.djcelery_intervalschedule;
+DROP SEQUENCE public.djcelery_crontabschedule_id_seq;
+DROP TABLE public.djcelery_crontabschedule;
 DROP TABLE public.django_session;
 DROP SEQUENCE public.django_migrations_id_seq;
 DROP TABLE public.django_migrations;
@@ -241,6 +292,10 @@ DROP SEQUENCE public.django_admin_log_id_seq;
 DROP TABLE public.django_admin_log;
 DROP SEQUENCE public.clientes_cliente_id_seq;
 DROP TABLE public.clientes_cliente;
+DROP SEQUENCE public.celery_tasksetmeta_id_seq;
+DROP TABLE public.celery_tasksetmeta;
+DROP SEQUENCE public.celery_taskmeta_id_seq;
+DROP TABLE public.celery_taskmeta;
 DROP SEQUENCE public.auth_user_user_permissions_id_seq;
 DROP TABLE public.auth_user_user_permissions;
 DROP SEQUENCE public.auth_user_id_seq;
@@ -504,6 +559,81 @@ ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permiss
 
 
 --
+-- Name: celery_taskmeta; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE celery_taskmeta (
+    id integer NOT NULL,
+    task_id character varying(255) NOT NULL,
+    status character varying(50) NOT NULL,
+    result text,
+    date_done timestamp with time zone NOT NULL,
+    traceback text,
+    hidden boolean NOT NULL,
+    meta text
+);
+
+
+ALTER TABLE celery_taskmeta OWNER TO sigp;
+
+--
+-- Name: celery_taskmeta_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE celery_taskmeta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE celery_taskmeta_id_seq OWNER TO sigp;
+
+--
+-- Name: celery_taskmeta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE celery_taskmeta_id_seq OWNED BY celery_taskmeta.id;
+
+
+--
+-- Name: celery_tasksetmeta; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE celery_tasksetmeta (
+    id integer NOT NULL,
+    taskset_id character varying(255) NOT NULL,
+    result text NOT NULL,
+    date_done timestamp with time zone NOT NULL,
+    hidden boolean NOT NULL
+);
+
+
+ALTER TABLE celery_tasksetmeta OWNER TO sigp;
+
+--
+-- Name: celery_tasksetmeta_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE celery_tasksetmeta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE celery_tasksetmeta_id_seq OWNER TO sigp;
+
+--
+-- Name: celery_tasksetmeta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE celery_tasksetmeta_id_seq OWNED BY celery_tasksetmeta.id;
+
+
+--
 -- Name: clientes_cliente; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
 --
 
@@ -662,6 +792,217 @@ CREATE TABLE django_session (
 
 
 ALTER TABLE django_session OWNER TO sigp;
+
+--
+-- Name: djcelery_crontabschedule; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_crontabschedule (
+    id integer NOT NULL,
+    minute character varying(64) NOT NULL,
+    hour character varying(64) NOT NULL,
+    day_of_week character varying(64) NOT NULL,
+    day_of_month character varying(64) NOT NULL,
+    month_of_year character varying(64) NOT NULL
+);
+
+
+ALTER TABLE djcelery_crontabschedule OWNER TO sigp;
+
+--
+-- Name: djcelery_crontabschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE djcelery_crontabschedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_crontabschedule_id_seq OWNER TO sigp;
+
+--
+-- Name: djcelery_crontabschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE djcelery_crontabschedule_id_seq OWNED BY djcelery_crontabschedule.id;
+
+
+--
+-- Name: djcelery_intervalschedule; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_intervalschedule (
+    id integer NOT NULL,
+    every integer NOT NULL,
+    period character varying(24) NOT NULL
+);
+
+
+ALTER TABLE djcelery_intervalschedule OWNER TO sigp;
+
+--
+-- Name: djcelery_intervalschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE djcelery_intervalschedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_intervalschedule_id_seq OWNER TO sigp;
+
+--
+-- Name: djcelery_intervalschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE djcelery_intervalschedule_id_seq OWNED BY djcelery_intervalschedule.id;
+
+
+--
+-- Name: djcelery_periodictask; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_periodictask (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    task character varying(200) NOT NULL,
+    interval_id integer,
+    crontab_id integer,
+    args text NOT NULL,
+    kwargs text NOT NULL,
+    queue character varying(200),
+    exchange character varying(200),
+    routing_key character varying(200),
+    expires timestamp with time zone,
+    enabled boolean NOT NULL,
+    last_run_at timestamp with time zone,
+    total_run_count integer NOT NULL,
+    date_changed timestamp with time zone NOT NULL,
+    description text NOT NULL,
+    CONSTRAINT djcelery_periodictask_total_run_count_check CHECK ((total_run_count >= 0))
+);
+
+
+ALTER TABLE djcelery_periodictask OWNER TO sigp;
+
+--
+-- Name: djcelery_periodictask_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE djcelery_periodictask_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_periodictask_id_seq OWNER TO sigp;
+
+--
+-- Name: djcelery_periodictask_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE djcelery_periodictask_id_seq OWNED BY djcelery_periodictask.id;
+
+
+--
+-- Name: djcelery_periodictasks; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_periodictasks (
+    ident smallint NOT NULL,
+    last_update timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE djcelery_periodictasks OWNER TO sigp;
+
+--
+-- Name: djcelery_taskstate; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_taskstate (
+    id integer NOT NULL,
+    state character varying(64) NOT NULL,
+    task_id character varying(36) NOT NULL,
+    name character varying(200),
+    tstamp timestamp with time zone NOT NULL,
+    args text,
+    kwargs text,
+    eta timestamp with time zone,
+    expires timestamp with time zone,
+    result text,
+    traceback text,
+    runtime double precision,
+    retries integer NOT NULL,
+    worker_id integer,
+    hidden boolean NOT NULL
+);
+
+
+ALTER TABLE djcelery_taskstate OWNER TO sigp;
+
+--
+-- Name: djcelery_taskstate_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE djcelery_taskstate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_taskstate_id_seq OWNER TO sigp;
+
+--
+-- Name: djcelery_taskstate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE djcelery_taskstate_id_seq OWNED BY djcelery_taskstate.id;
+
+
+--
+-- Name: djcelery_workerstate; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE TABLE djcelery_workerstate (
+    id integer NOT NULL,
+    hostname character varying(255) NOT NULL,
+    last_heartbeat timestamp with time zone
+);
+
+
+ALTER TABLE djcelery_workerstate OWNER TO sigp;
+
+--
+-- Name: djcelery_workerstate_id_seq; Type: SEQUENCE; Schema: public; Owner: sigp
+--
+
+CREATE SEQUENCE djcelery_workerstate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_workerstate_id_seq OWNER TO sigp;
+
+--
+-- Name: djcelery_workerstate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sigp
+--
+
+ALTER SEQUENCE djcelery_workerstate_id_seq OWNED BY djcelery_workerstate.id;
+
 
 --
 -- Name: flujos_actividad; Type: TABLE; Schema: public; Owner: sigp; Tablespace: 
@@ -1118,10 +1459,12 @@ ALTER SEQUENCE roles_proyecto_rolproyecto_proyecto_id_seq OWNED BY roles_proyect
 
 CREATE TABLE sprints_sprint (
     id integer NOT NULL,
-    nombre character varying(15) NOT NULL,
-    duracion integer NOT NULL,
-    estado character varying(15) NOT NULL,
-    proyecto_id integer
+    nombre character varying(15),
+    duracion integer,
+    estado character varying(15),
+    proyecto_id integer,
+    fecha_fin date,
+    fecha_inicio date
 );
 
 
@@ -1455,6 +1798,20 @@ ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval(
 -- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
 --
 
+ALTER TABLE ONLY celery_taskmeta ALTER COLUMN id SET DEFAULT nextval('celery_taskmeta_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY celery_tasksetmeta ALTER COLUMN id SET DEFAULT nextval('celery_tasksetmeta_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
 ALTER TABLE ONLY clientes_cliente ALTER COLUMN id SET DEFAULT nextval('clientes_cliente_id_seq'::regclass);
 
 
@@ -1477,6 +1834,41 @@ ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django
 --
 
 ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_crontabschedule ALTER COLUMN id SET DEFAULT nextval('djcelery_crontabschedule_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_intervalschedule ALTER COLUMN id SET DEFAULT nextval('djcelery_intervalschedule_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_periodictask ALTER COLUMN id SET DEFAULT nextval('djcelery_periodictask_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_taskstate ALTER COLUMN id SET DEFAULT nextval('djcelery_taskstate_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_workerstate ALTER COLUMN id SET DEFAULT nextval('djcelery_workerstate_id_seq'::regclass);
 
 
 --
@@ -1631,10 +2023,10 @@ ALTER TABLE ONLY usuarios_usuario_rolesproyecto ALTER COLUMN id SET DEFAULT next
 --
 
 COPY auth_group (id, name) FROM stdin;
-1	Developer
-2	Product Owner
-3	Scrum Master
-4	Administrador del sistema
+1	Admin
+2	Scrum Master
+3	Product Owner
+4	Developer
 \.
 
 
@@ -1650,139 +2042,235 @@ SELECT pg_catalog.setval('auth_group_id_seq', 4, true);
 --
 
 COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
-1	1	28
-2	1	29
-3	1	30
-4	1	31
-5	1	32
-6	1	37
-7	1	38
-8	1	39
-9	1	40
-10	1	41
-11	1	42
-12	1	43
-13	1	44
-14	1	45
-15	1	46
-16	1	47
-17	1	48
-18	1	49
-19	1	50
-20	1	51
-21	1	52
-22	1	53
-23	1	54
-24	1	55
-25	1	56
-26	1	57
-27	1	58
-28	1	59
-29	1	63
-30	1	64
-31	1	65
-32	1	66
-33	1	67
-34	2	28
-35	2	29
-36	2	30
-37	2	31
-38	2	32
-39	2	37
-40	2	38
-41	2	39
-42	2	40
-43	2	41
-44	2	42
-45	2	43
-46	2	44
-47	2	45
-48	2	46
-49	2	47
-50	2	48
-51	2	49
-52	2	50
-53	2	51
-54	2	52
-55	2	53
-56	2	54
-57	2	55
-58	2	56
-59	2	57
-60	2	58
-61	2	59
-62	2	63
-63	2	64
-64	2	65
-65	2	66
-66	2	67
-67	3	28
-68	3	29
-69	3	30
-70	3	31
-71	3	32
-72	3	37
-73	3	38
-74	3	39
-75	3	40
-76	3	41
-77	3	42
-78	3	43
-79	3	44
-80	3	45
-81	3	46
-82	3	47
-83	3	48
-84	3	49
-85	3	50
-86	3	51
-87	3	52
-88	3	53
-89	3	54
-90	3	55
-91	3	56
-92	3	57
-93	3	58
-94	3	59
-95	3	63
-96	3	64
-97	3	65
-98	3	66
-99	3	67
-134	4	7
-135	4	8
-136	4	9
-137	4	19
-138	4	20
-139	4	21
-140	4	22
-141	4	23
-142	4	24
-143	4	25
-144	4	26
-145	4	27
-146	4	28
-147	4	29
-148	4	30
-149	4	31
-150	4	32
-151	4	33
-152	4	34
-153	4	35
-154	4	36
-155	4	37
-156	4	38
-157	4	39
-158	4	40
-159	4	41
-160	4	42
-161	4	43
-162	4	44
-163	4	63
-164	4	64
-165	4	65
-166	4	66
-167	4	67
+117	2	28
+118	2	29
+119	2	30
+120	2	31
+121	2	32
+122	2	37
+123	2	38
+124	2	39
+125	2	40
+126	2	41
+127	2	42
+128	2	43
+129	2	44
+130	2	45
+131	2	46
+132	2	47
+133	2	48
+134	2	49
+135	2	50
+136	2	51
+137	2	52
+138	2	53
+139	2	54
+140	2	55
+141	2	56
+142	2	57
+143	2	58
+144	2	59
+145	2	63
+146	2	64
+147	2	65
+148	2	66
+149	2	67
+150	2	68
+151	2	69
+152	2	70
+153	2	71
+154	2	72
+155	2	73
+156	2	74
+157	2	75
+158	2	76
+159	2	77
+160	2	78
+161	2	79
+162	2	80
+163	2	81
+164	2	82
+165	2	83
+166	2	84
+167	2	85
+168	2	86
+169	2	87
+170	2	88
+171	2	89
+172	2	90
+173	2	91
+174	3	28
+59	1	7
+60	1	8
+61	1	9
+62	1	19
+63	1	20
+64	1	21
+65	1	22
+66	1	23
+67	1	24
+68	1	25
+69	1	26
+70	1	27
+71	1	28
+72	1	29
+73	1	30
+74	1	31
+75	1	32
+76	1	33
+77	1	34
+78	1	35
+79	1	36
+80	1	37
+81	1	38
+82	1	39
+83	1	40
+84	1	41
+85	1	42
+86	1	43
+87	1	44
+88	1	63
+89	1	64
+90	1	65
+91	1	66
+92	1	67
+93	1	68
+94	1	69
+95	1	70
+96	1	71
+97	1	72
+98	1	73
+99	1	74
+100	1	75
+101	1	76
+102	1	77
+103	1	78
+104	1	79
+105	1	80
+106	1	81
+107	1	82
+108	1	83
+109	1	84
+110	1	85
+111	1	86
+112	1	87
+113	1	88
+114	1	89
+115	1	90
+116	1	91
+175	3	29
+176	3	30
+177	3	31
+178	3	32
+179	3	37
+180	3	38
+181	3	39
+182	3	40
+183	3	41
+184	3	42
+185	3	43
+186	3	44
+187	3	45
+188	3	46
+189	3	47
+190	3	48
+191	3	49
+192	3	50
+193	3	51
+194	3	52
+195	3	53
+196	3	54
+197	3	55
+198	3	56
+199	3	57
+200	3	58
+201	3	59
+202	3	63
+203	3	64
+204	3	65
+205	3	66
+206	3	67
+207	3	68
+208	3	69
+209	3	70
+210	3	71
+211	3	72
+212	3	73
+213	3	74
+214	3	75
+215	3	76
+216	3	77
+217	3	78
+218	3	79
+219	3	80
+220	3	81
+221	3	82
+222	3	83
+223	3	84
+224	3	85
+225	3	86
+226	3	87
+227	3	88
+228	3	89
+229	3	90
+230	3	91
+231	4	28
+232	4	29
+233	4	30
+234	4	31
+235	4	32
+236	4	37
+237	4	38
+238	4	39
+239	4	40
+240	4	41
+241	4	42
+242	4	43
+243	4	44
+244	4	45
+245	4	46
+246	4	47
+247	4	48
+248	4	49
+249	4	50
+250	4	51
+251	4	52
+252	4	53
+253	4	54
+254	4	55
+255	4	56
+256	4	57
+257	4	58
+258	4	59
+259	4	63
+260	4	64
+261	4	65
+262	4	66
+263	4	67
+264	4	68
+265	4	69
+266	4	70
+267	4	71
+268	4	72
+269	4	73
+270	4	74
+271	4	75
+272	4	76
+273	4	77
+274	4	78
+275	4	79
+276	4	80
+277	4	81
+278	4	82
+279	4	83
+280	4	84
+281	4	85
+282	4	86
+283	4	87
+284	4	88
+285	4	89
+286	4	90
+287	4	91
 \.
 
 
@@ -1790,7 +2278,7 @@ COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_group_permissions_id_seq', 167, true);
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 287, true);
 
 
 --
@@ -1865,6 +2353,30 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 65	Can listar sprint	22	listar_sprint
 66	Can iniciar sprint	22	iniciar_sprint
 67	Can finalizar sprint	22	finalizar_sprint
+68	Can add task state	23	add_taskmeta
+69	Can change task state	23	change_taskmeta
+70	Can delete task state	23	delete_taskmeta
+71	Can add saved group result	24	add_tasksetmeta
+72	Can change saved group result	24	change_tasksetmeta
+73	Can delete saved group result	24	delete_tasksetmeta
+74	Can add interval	25	add_intervalschedule
+75	Can change interval	25	change_intervalschedule
+76	Can delete interval	25	delete_intervalschedule
+77	Can add crontab	26	add_crontabschedule
+78	Can change crontab	26	change_crontabschedule
+79	Can delete crontab	26	delete_crontabschedule
+80	Can add periodic tasks	27	add_periodictasks
+81	Can change periodic tasks	27	change_periodictasks
+82	Can delete periodic tasks	27	delete_periodictasks
+83	Can add periodic task	28	add_periodictask
+84	Can change periodic task	28	change_periodictask
+85	Can delete periodic task	28	delete_periodictask
+86	Can add worker	29	add_workerstate
+87	Can change worker	29	change_workerstate
+88	Can delete worker	29	delete_workerstate
+89	Can add task	30	add_taskstate
+90	Can change task	30	change_taskstate
+91	Can delete task	30	delete_taskstate
 \.
 
 
@@ -1872,7 +2384,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 67, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 91, true);
 
 
 --
@@ -1880,11 +2392,14 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 67, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$15000$93VRa2oNBAYW$NJjr8VMWyKOM7w0C33DkdOq7+jhn8qJTsriroPn66H4=	2015-05-18 11:24:34.113797-04	t	juahni			juahni@gmail.com	t	t	2015-05-18 11:24:26.500486-04
-4	pbkdf2_sha256$15000$0SjTT2worLqe$i06W0e+xlxsfuzZ/xxWfBOzQ1QzCIVVvObBf9nPYUCo=	2015-05-18 11:57:55.292362-04	f	Romina	Romina	Diaz	rodibe86@gmail.com	f	t	2015-05-18 11:27:41.339959-04
-5	pbkdf2_sha256$15000$kMzc4s5hRPCl$w1rpuF3pTkz2y2Q0q6jz3Sbk1055cS9yR4UrZzNP0ic=	2015-05-18 11:29:10.091487-04	f	Pedro	Pedro	Gonzalez	pedro@gmail.com	f	t	2015-05-18 11:29:10.091514-04
-3	pbkdf2_sha256$15000$oAnUphNmMuLe$bOwYIjetHelXncsQfzKQZmAXk3EOBRWVwmLbvQv5XbQ=	2015-05-18 14:24:16.349926-04	f	Carolina	Carolina	Arguello	caro@gmail.com	f	t	2015-05-18 11:27:20.994747-04
-2	pbkdf2_sha256$15000$quOonaYjVR8r$yqNgIsntfWvtJlbBnV6K6d+XWYONohn+/26KE316Fvo=	2015-05-18 14:46:53.163853-04	f	Francisco	Francisco	Velloso	rucontra@gmail.com	f	t	2015-05-18 11:24:54.978752-04
+6	pbkdf2_sha256$15000$aNF7TKmoqxI0$daWLQ842TWc84qTIgTXBKG2TmkWOKon92qj6PHub7lk=	2015-06-13 11:49:50.527194-04	f	stfy	estefanis	zamora	stfy86@gmail.com	f	t	2015-06-13 11:49:50.527296-04
+5	pbkdf2_sha256$15000$GCrarZsLaAap$XHfpCtmywPQSMEiM6JFZFVjKPnIuNi239xom5rhEGtE=	2015-07-02 18:20:02.709456-04	f	carolina	carolina	argüello	caro.argu@gmail.com	f	t	2015-06-13 11:48:30.420028-04
+8	pbkdf2_sha256$15000$XELdmGOpU4Tm$Y1pUtyGU6hniGdyImaLM0u26q/FVCo3EH69LTiUcQy4=	2015-06-13 11:51:55.200853-04	f	guillermo	Guillermo	Gonzalez	ggonzalez@gmail.com	f	t	2015-06-13 11:51:55.20094-04
+2	pbkdf2_sha256$15000$W32zo9HbRrZP$gM6eWz7leFSyhbi9/obWUJWM3KEWp19rmvOez8/IrwY=	2015-07-02 21:54:23.147266-04	f	romina	Romina	diaz de bedoya	rodibe86@gmail.com	f	t	2015-06-13 11:45:48.102116-04
+7	pbkdf2_sha256$15000$hGNP5CS18lO2$OZPlzcH7YdaBEEQYXc9URaLMTFgywT2pgWxBL1wsePs=	2015-06-13 11:50:52.439982-04	f	lory	lorelay	ortiz	lory15tbotbf@gmail.com	f	t	2015-06-13 11:50:52.440102-04
+1	pbkdf2_sha256$15000$It4oJf43WHWG$w47tI3hDWLdANCZBLiqfSujF8125vrbjEubDX/jM7Nc=	2015-07-02 16:05:35.370666-04	t	sigp			sigp.soporte@gmail.com	t	t	2015-06-13 11:44:25.858798-04
+3	pbkdf2_sha256$15000$OnYRkPAfntxq$3pkCCXPq+282AU7nR1OIzZWobtD86B38FUU3erM0ya8=	2015-06-27 16:21:47.06117-04	f	juana	Juana	maldonado	juahni@gmail.com	f	t	2015-06-13 11:46:41.378295-04
+4	pbkdf2_sha256$15000$bQjtcHCRRKeX$1kUk4Wr3nRQFy4XlrmWGp1awGyF6JY6xyqaUJEtcRjo=	2015-07-03 19:17:19.358681-04	f	francisco	francisco	velloso	rucontra@gmail.com	f	t	2015-06-13 11:47:48.680608-04
 \.
 
 
@@ -1893,11 +2408,16 @@ COPY auth_user (id, password, last_login, is_superuser, username, first_name, la
 --
 
 COPY auth_user_groups (id, user_id, group_id) FROM stdin;
-2	2	4
-3	2	3
-4	3	2
-5	4	1
-6	5	1
+1	2	2
+2	5	3
+3	4	4
+4	3	4
+5	4	2
+6	3	2
+7	8	3
+8	2	4
+9	7	4
+10	6	4
 \.
 
 
@@ -1905,14 +2425,14 @@ COPY auth_user_groups (id, user_id, group_id) FROM stdin;
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_user_groups_id_seq', 6, true);
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 10, true);
 
 
 --
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('auth_user_id_seq', 5, true);
+SELECT pg_catalog.setval('auth_user_id_seq', 8, true);
 
 
 --
@@ -1931,11 +2451,44 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 
 
 --
+-- Data for Name: celery_taskmeta; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY celery_taskmeta (id, task_id, status, result, date_done, traceback, hidden, meta) FROM stdin;
+\.
+
+
+--
+-- Name: celery_taskmeta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('celery_taskmeta_id_seq', 1, false);
+
+
+--
+-- Data for Name: celery_tasksetmeta; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY celery_tasksetmeta (id, taskset_id, result, date_done, hidden) FROM stdin;
+\.
+
+
+--
+-- Name: celery_tasksetmeta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('celery_tasksetmeta_id_seq', 1, false);
+
+
+--
 -- Data for Name: clientes_cliente; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
 COPY clientes_cliente (id, nombre, descripcion, "correoElectronico", telefono, direccion) FROM stdin;
-1	Jose	Perez	jose@gmail.com	9482479384	Herrera y EEUU
+1	tigo	empresa telefonica	mail@tigo.com.py	8567000	españa
+2	mspbs	Ministerio de Salud	mail@mspbs.gov.py	225209	pettirossi
+3	nike	empresa deportiva	mail@nike.com.py	3339000	carmelitas center
+4	FPolitecnica	Facultad Politecnica -UNA	mail@pol.una.py	555558	mcal estigarribia
 \.
 
 
@@ -1943,7 +2496,7 @@ COPY clientes_cliente (id, nombre, descripcion, "correoElectronico", telefono, d
 -- Name: clientes_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('clientes_cliente_id_seq', 1, true);
+SELECT pg_catalog.setval('clientes_cliente_id_seq', 4, true);
 
 
 --
@@ -1988,6 +2541,14 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 20	tarea	user_stories	tarea
 21	archivo	user_stories	archivo
 22	sprint	sprints	sprint
+23	task state	djcelery	taskmeta
+24	saved group result	djcelery	tasksetmeta
+25	interval	djcelery	intervalschedule
+26	crontab	djcelery	crontabschedule
+27	periodic tasks	djcelery	periodictasks
+28	periodic task	djcelery	periodictask
+29	worker	djcelery	workerstate
+30	task	djcelery	taskstate
 \.
 
 
@@ -1995,7 +2556,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 30, true);
 
 
 --
@@ -2003,19 +2564,21 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
 --
 
 COPY django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2015-05-18 11:23:37.414028-04
-2	auth	0001_initial	2015-05-18 11:23:38.195795-04
-3	admin	0001_initial	2015-05-18 11:23:38.36379-04
-4	auth	0002_auto_20150516_1330	2015-05-18 11:23:38.441452-04
-5	clientes	0001_initial	2015-05-18 11:23:38.686259-04
-6	proyectos	0001_initial	2015-05-18 11:23:39.042253-04
-7	flujos	0001_initial	2015-05-18 11:23:39.956904-04
-8	roles_proyecto	0001_initial	2015-05-18 11:23:40.213858-04
-9	sessions	0001_initial	2015-05-18 11:23:40.369527-04
-10	sprints	0001_initial	2015-05-18 11:23:40.493049-04
-11	user_stories	0001_initial	2015-05-18 11:23:41.382806-04
-12	user_stories	0002_auto_20150516_1330	2015-05-18 11:23:42.097153-04
-13	usuarios	0001_initial	2015-05-18 11:23:42.365209-04
+1	contenttypes	0001_initial	2015-06-13 11:41:09.181578-04
+2	auth	0001_initial	2015-06-13 11:41:10.355296-04
+3	admin	0001_initial	2015-06-13 11:41:10.623721-04
+4	auth	0002_auto_20150504_0142	2015-06-13 11:41:10.835912-04
+5	clientes	0001_initial	2015-06-13 11:41:11.236335-04
+6	proyectos	0001_initial	2015-06-13 11:41:11.757123-04
+7	flujos	0001_initial	2015-06-13 11:41:13.206707-04
+8	roles_proyecto	0001_initial	2015-06-13 11:41:13.674521-04
+9	sessions	0001_initial	2015-06-13 11:41:13.920934-04
+10	sprints	0001_initial	2015-06-13 11:41:14.121913-04
+11	sprints	0002_auto_20150530_0856	2015-06-13 11:41:14.641277-04
+12	sprints	0003_auto_20150613_1140	2015-06-13 11:41:14.798976-04
+13	user_stories	0001_initial	2015-06-13 11:41:16.343667-04
+14	user_stories	0002_auto_20150516_1330	2015-06-13 11:41:17.460116-04
+15	usuarios	0001_initial	2015-06-13 11:41:17.847747-04
 \.
 
 
@@ -2023,7 +2586,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 13, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 15, true);
 
 
 --
@@ -2031,9 +2594,92 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 13, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
-3wh6eo8d69m7pkyknammnlk191vr5f09	ZTBjM2QwNWU4MDkzNDA4YmE1M2Y1YjBiM2RmNDBlMjY2Yjc5NTBjZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjA4YThlNDgyZjZkMzRkY2NkMDIxZjI5NzNhMWI2NDNlMmEzZGM0ZjAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-06-01 14:25:06.865212-04
-66xq3b065ptn0o4eqfs3wgfq4haty155	ZTBjM2QwNWU4MDkzNDA4YmE1M2Y1YjBiM2RmNDBlMjY2Yjc5NTBjZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjA4YThlNDgyZjZkMzRkY2NkMDIxZjI5NzNhMWI2NDNlMmEzZGM0ZjAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9	2015-06-01 14:46:53.175665-04
+wxagbh7ujbj836gkczl14akhndirqx2j	ZjQ1NTM2ZjQ1NzA4MTYyNzM2NzgzNDQ1MWZlYWUxNzc0MzEzZjNhYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjliMDljM2RhZDQwNmZjYTg2NWJjNzE0ZDdiOTM5YmE4YjhkYzI4YmUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9	2015-07-16 21:55:14.204707-04
+pyk4eqmpuky8xp79fr3epsiqe7l3tqi5	ZjQ1NTM2ZjQ1NzA4MTYyNzM2NzgzNDQ1MWZlYWUxNzc0MzEzZjNhYTp7Il9hdXRoX3VzZXJfaGFzaCI6IjliMDljM2RhZDQwNmZjYTg2NWJjNzE0ZDdiOTM5YmE4YjhkYzI4YmUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9	2015-07-17 19:17:19.369789-04
 \.
+
+
+--
+-- Data for Name: djcelery_crontabschedule; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_crontabschedule (id, minute, hour, day_of_week, day_of_month, month_of_year) FROM stdin;
+\.
+
+
+--
+-- Name: djcelery_crontabschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('djcelery_crontabschedule_id_seq', 1, false);
+
+
+--
+-- Data for Name: djcelery_intervalschedule; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_intervalschedule (id, every, period) FROM stdin;
+\.
+
+
+--
+-- Name: djcelery_intervalschedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('djcelery_intervalschedule_id_seq', 1, false);
+
+
+--
+-- Data for Name: djcelery_periodictask; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_periodictask (id, name, task, interval_id, crontab_id, args, kwargs, queue, exchange, routing_key, expires, enabled, last_run_at, total_run_count, date_changed, description) FROM stdin;
+\.
+
+
+--
+-- Name: djcelery_periodictask_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('djcelery_periodictask_id_seq', 1, false);
+
+
+--
+-- Data for Name: djcelery_periodictasks; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_periodictasks (ident, last_update) FROM stdin;
+\.
+
+
+--
+-- Data for Name: djcelery_taskstate; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_taskstate (id, state, task_id, name, tstamp, args, kwargs, eta, expires, result, traceback, runtime, retries, worker_id, hidden) FROM stdin;
+\.
+
+
+--
+-- Name: djcelery_taskstate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('djcelery_taskstate_id_seq', 1, false);
+
+
+--
+-- Data for Name: djcelery_workerstate; Type: TABLE DATA; Schema: public; Owner: sigp
+--
+
+COPY djcelery_workerstate (id, hostname, last_heartbeat) FROM stdin;
+\.
+
+
+--
+-- Name: djcelery_workerstate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
+--
+
+SELECT pg_catalog.setval('djcelery_workerstate_id_seq', 1, false);
 
 
 --
@@ -2041,9 +2687,17 @@ COPY django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY flujos_actividad (id, nombre, orden) FROM stdin;
-1	Actividad 1	0
-2	Actividad 2	0
-3	Actividad 3	0
+6	EPYDOC	0
+4	PRU UNI	0
+7	SCV (TAG)	0
+1	ERS	0
+2	DIAGRAMAS	0
+3	CODIGO	0
+5	PRODUC	0
+8	ECU	0
+9	INVESTIGACION	0
+10	MONTAJE	0
+11	UTILIZACION	0
 \.
 
 
@@ -2061,6 +2715,30 @@ COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
 7	3	7
 8	3	8
 9	3	9
+10	4	10
+11	4	11
+12	4	12
+13	5	13
+14	5	14
+15	5	15
+16	6	16
+17	6	17
+18	6	18
+19	7	19
+20	7	20
+21	7	21
+22	8	22
+23	8	23
+24	8	24
+25	9	25
+26	9	26
+27	9	27
+28	10	28
+29	10	29
+30	10	30
+31	11	31
+32	11	32
+33	11	33
 \.
 
 
@@ -2068,14 +2746,14 @@ COPY flujos_actividad_estados (id, actividad_id, estado_id) FROM stdin;
 -- Name: flujos_actividad_estados_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 9, true);
+SELECT pg_catalog.setval('flujos_actividad_estados_id_seq', 33, true);
 
 
 --
 -- Name: flujos_actividad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_actividad_id_seq', 3, true);
+SELECT pg_catalog.setval('flujos_actividad_id_seq', 11, true);
 
 
 --
@@ -2122,6 +2800,30 @@ COPY flujos_estado (id, nombre) FROM stdin;
 7	To do
 8	Doing
 9	Done
+10	To do
+11	Doing
+12	Done
+13	To do
+14	Doing
+15	Done
+16	To do
+17	Doing
+18	Done
+19	To do
+20	Doing
+21	Done
+22	To do
+23	Doing
+24	Done
+25	To do
+26	Doing
+27	Done
+28	To do
+29	Doing
+30	Done
+31	To do
+32	Doing
+33	Done
 \.
 
 
@@ -2129,7 +2831,7 @@ COPY flujos_estado (id, nombre) FROM stdin;
 -- Name: flujos_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_estado_id_seq', 9, true);
+SELECT pg_catalog.setval('flujos_estado_id_seq', 33, true);
 
 
 --
@@ -2137,8 +2839,13 @@ SELECT pg_catalog.setval('flujos_estado_id_seq', 9, true);
 --
 
 COPY flujos_flujo (id, nombre, proyecto_id) FROM stdin;
-1	Flujo 1	3
-2	Flujo 2	3
+4	ANALISIS	4
+5	DISEÑO	4
+6	CONFIGURACION	4
+7	DESARROLLO	4
+1	FLUJO 1	\N
+2	FLUJO 2	\N
+3	FLUJO 3	\N
 \.
 
 
@@ -2150,8 +2857,29 @@ COPY flujos_flujo_actividades (id, flujo_id, actividad_id) FROM stdin;
 1	1	1
 2	1	2
 3	1	3
-4	2	2
-5	2	3
+4	1	4
+5	1	5
+6	2	1
+7	2	2
+8	2	3
+9	2	4
+10	2	5
+11	3	1
+12	3	2
+13	3	3
+14	3	4
+15	3	5
+16	4	1
+17	5	8
+18	5	2
+19	6	9
+20	6	10
+21	6	11
+22	7	3
+23	7	4
+24	7	5
+25	7	6
+26	7	7
 \.
 
 
@@ -2159,14 +2887,14 @@ COPY flujos_flujo_actividades (id, flujo_id, actividad_id) FROM stdin;
 -- Name: flujos_flujo_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 5, true);
+SELECT pg_catalog.setval('flujos_flujo_actividades_id_seq', 26, true);
 
 
 --
 -- Name: flujos_flujo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('flujos_flujo_id_seq', 2, true);
+SELECT pg_catalog.setval('flujos_flujo_id_seq', 7, true);
 
 
 --
@@ -2204,9 +2932,10 @@ SELECT pg_catalog.setval('flujos_plantillaflujo_id_seq', 1, false);
 --
 
 COPY proyectos_proyecto (id, codigo, nombre_corto, nombre_largo, fecha_inicio, fecha_fin, cancelado, estado, cliente_id, scrum_master_id) FROM stdin;
-1	a	Alfa	Proyecto Alfa	2015-05-18	2015-05-31	f	Activo	1	2
-2	a-1	Alfa	Proyecto Alfa	2015-05-18	2015-05-31	f	Activo	1	2
-3	b	Beta	Proyecto Beta	2015-05-18	2015-05-31	f	Activo	1	2
+4	s-3	SGA	Sistema de Gestion Agil	2015-07-02	2015-07-31	f	Activo	4	4
+1	s	SGA	Sistema de Gestion Ambulatoria	2015-06-13	2015-06-30	f	Activo	2	2
+3	s-2	SGC	Sistema de Gestion Contabilidad	2015-06-27	2015-07-05	f	No iniciado	3	3
+2	s-1	SGS	Sistema de Gestion Stock	2015-06-27	2015-07-04	f	Activo	1	4
 \.
 
 
@@ -2216,17 +2945,20 @@ COPY proyectos_proyecto (id, codigo, nombre_corto, nombre_largo, fecha_inicio, f
 
 COPY proyectos_proyecto_equipo (id, proyecto_id, user_id) FROM stdin;
 1	1	2
-2	1	3
+2	1	5
 3	1	4
-4	1	5
-5	2	2
-6	2	3
-7	2	4
-8	2	5
-9	3	2
-10	3	3
-11	3	5
-12	3	4
+4	1	3
+5	2	4
+6	3	3
+7	2	8
+8	2	2
+9	2	3
+10	2	7
+11	4	4
+12	4	5
+13	4	2
+14	4	3
+15	4	6
 \.
 
 
@@ -2234,14 +2966,14 @@ COPY proyectos_proyecto_equipo (id, proyecto_id, user_id) FROM stdin;
 -- Name: proyectos_proyecto_equipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 12, true);
+SELECT pg_catalog.setval('proyectos_proyecto_equipo_id_seq', 15, true);
 
 
 --
 -- Name: proyectos_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('proyectos_proyecto_id_seq', 3, true);
+SELECT pg_catalog.setval('proyectos_proyecto_id_seq', 4, true);
 
 
 --
@@ -2249,9 +2981,9 @@ SELECT pg_catalog.setval('proyectos_proyecto_id_seq', 3, true);
 --
 
 COPY roles_proyecto_rolproyecto (id, es_rol_proyecto, group_id) FROM stdin;
-1	t	1
-2	t	2
-3	t	3
+1	t	2
+2	t	3
+3	t	4
 \.
 
 
@@ -2267,18 +2999,21 @@ SELECT pg_catalog.setval('roles_proyecto_rolproyecto_id_seq', 3, true);
 --
 
 COPY roles_proyecto_rolproyecto_proyecto (id, horas_developer, proyecto_id, rol_proyecto_id, user_id) FROM stdin;
-2	0	1	3	2
-3	0	1	2	3
-5	6	1	1	5
-4	10	1	1	4
-7	0	2	3	2
-8	0	2	2	3
-9	6	2	1	4
-10	6	2	1	5
-12	0	3	3	2
-13	0	3	2	3
-15	6	3	1	4
-14	6	3	1	5
+3	0	1	2	5
+5	8	1	3	3
+4	8	1	3	4
+7	0	1	1	2
+9	0	3	1	3
+10	0	2	1	4
+11	0	2	2	8
+12	5	2	3	2
+13	5	2	3	3
+14	5	2	3	7
+16	0	4	1	4
+17	0	4	2	5
+18	5	4	3	2
+19	5	4	3	3
+20	3	4	3	6
 \.
 
 
@@ -2286,18 +3021,23 @@ COPY roles_proyecto_rolproyecto_proyecto (id, horas_developer, proyecto_id, rol_
 -- Name: roles_proyecto_rolproyecto_proyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 15, true);
+SELECT pg_catalog.setval('roles_proyecto_rolproyecto_proyecto_id_seq', 20, true);
 
 
 --
 -- Data for Name: sprints_sprint; Type: TABLE DATA; Schema: public; Owner: sigp
 --
 
-COPY sprints_sprint (id, nombre, duracion, estado, proyecto_id) FROM stdin;
-2	Sprint 2 alfa	5	No iniciado	1
-1	Sprint 1 alfa	5	Activo	1
-3	Sprint 1 alfa	10	Activo	2
-4	Sprint 1	10	Activo	3
+COPY sprints_sprint (id, nombre, duracion, estado, proyecto_id, fecha_fin, fecha_inicio) FROM stdin;
+1	SPRINT 1	2	Finalizado	1	2015-06-13	2015-06-13
+2	SPRINT 2	3	Finalizado	1	2015-06-13	2015-06-13
+9	ITERACION 7	3	No iniciado	4	2015-07-02	2015-07-02
+7	ITERACION 5	8	No iniciado	4	2015-07-02	2015-07-02
+6	ITERACION 4	6	No iniciado	4	2015-07-02	2015-07-02
+5	ITERACION 2	3	No iniciado	4	2015-07-02	2015-07-02
+8	ITERACION 6	3	No iniciado	4	2015-07-02	2015-07-02
+4	ITERACION 3	6	No iniciado	4	2015-07-02	2015-07-02
+3	ITERACION 1	5	Activo	4	2015-07-09	2015-07-03
 \.
 
 
@@ -2305,7 +3045,7 @@ COPY sprints_sprint (id, nombre, duracion, estado, proyecto_id) FROM stdin;
 -- Name: sprints_sprint_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('sprints_sprint_id_seq', 4, true);
+SELECT pg_catalog.setval('sprints_sprint_id_seq', 9, true);
 
 
 --
@@ -2313,7 +3053,9 @@ SELECT pg_catalog.setval('sprints_sprint_id_seq', 4, true);
 --
 
 COPY user_stories_archivo (id, archivo, user_story_id) FROM stdin;
-1	user-stories/gatis_e8LERqZ.jpg	4
+1	user-stories/CONFIGURACION.png	2
+2	user-stories/TEST.png	2
+3	user-stories/Selección_007.png	5
 \.
 
 
@@ -2321,7 +3063,7 @@ COPY user_stories_archivo (id, archivo, user_story_id) FROM stdin;
 -- Name: user_stories_archivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_archivo_id_seq', 1, true);
+SELECT pg_catalog.setval('user_stories_archivo_id_seq', 3, true);
 
 
 --
@@ -2329,60 +3071,236 @@ SELECT pg_catalog.setval('user_stories_archivo_id_seq', 1, true);
 --
 
 COPY user_stories_historialuserstory (id, operacion, campo, valor, fecha, user_story_id, usuario_id) FROM stdin;
-1	creado			2015-05-18 11:32:06.03886-04	1	3
-2	creado			2015-05-18 11:32:16.605231-04	2	3
-3	creado			2015-05-18 11:32:39.661871-04	3	3
-4	modificado	valor de negocio	8	2015-05-18 11:32:43.782475-04	3	3
-5	modificado	prioridad	3	2015-05-18 11:34:38.268571-04	1	2
-6	modificado	valor tecnico	5	2015-05-18 11:34:38.278865-04	1	2
-7	modificado	estimacion	30	2015-05-18 11:34:38.28996-04	1	2
-8	modificado	flujo	Flujo 1	2015-05-18 11:34:38.301094-04	1	2
-9	modificado	prioridad	5	2015-05-18 11:34:56.714359-04	2	2
-10	modificado	valor tecnico	7	2015-05-18 11:34:56.724389-04	2	2
-11	modificado	estimacion	30	2015-05-18 11:34:56.735489-04	2	2
-12	modificado	flujo	Flujo 1	2015-05-18 11:34:56.746638-04	2	2
-13	modificado	prioridad	8	2015-05-18 11:35:11.159437-04	3	2
-14	modificado	valor tecnico	7	2015-05-18 11:35:11.169598-04	3	2
-15	modificado	estimacion	60	2015-05-18 11:35:11.180691-04	3	2
-16	modificado	flujo	Flujo 2	2015-05-18 11:35:11.191753-04	3	2
-17	modificado	desarrollador	Romina	2015-05-18 11:36:55.853582-04	1	2
-18	modificado	sprint	Sprint 1 alfa	2015-05-18 11:36:55.863516-04	1	2
-19	modificado	estado	Activo	2015-05-18 11:36:55.874583-04	1	2
-20	modificado	desarrollador	Pedro	2015-05-18 11:37:03.631116-04	2	2
-21	modificado	sprint	Sprint 1 alfa	2015-05-18 11:37:03.641626-04	2	2
-22	modificado	estado	Activo	2015-05-18 11:37:03.652562-04	2	2
-23	creado			2015-05-18 11:50:14.213594-04	4	3
-24	creado			2015-05-18 11:50:28.803531-04	5	3
-25	modificado	prioridad	9	2015-05-18 11:52:42.521482-04	4	2
-26	modificado	valor tecnico	8	2015-05-18 11:52:42.531867-04	4	2
-27	modificado	estimacion	30	2015-05-18 11:52:42.542991-04	4	2
-28	modificado	flujo	Flujo 1	2015-05-18 11:52:42.554171-04	4	2
-29	modificado	prioridad	6	2015-05-18 11:52:59.868289-04	5	2
-30	modificado	valor tecnico	5	2015-05-18 11:52:59.877833-04	5	2
-31	modificado	estimacion	60	2015-05-18 11:52:59.889231-04	5	2
-32	modificado	flujo	Flujo 2	2015-05-18 11:52:59.900486-04	5	2
-33	modificado	desarrollador	Romina	2015-05-18 11:53:49.124906-04	4	2
-34	modificado	sprint	Sprint 1 alfa	2015-05-18 11:53:49.135226-04	4	2
-35	modificado	estado	Activo	2015-05-18 11:53:49.146505-04	4	2
-36	modificado	desarrollador	Pedro	2015-05-18 11:53:53.692147-04	5	2
-37	modificado	sprint	Sprint 1 alfa	2015-05-18 11:53:53.702533-04	5	2
-38	modificado	estado	Activo	2015-05-18 11:53:53.713647-04	5	2
-39	creado			2015-05-18 14:24:38.062192-04	6	3
-40	creado			2015-05-18 14:24:54.422039-04	7	3
-41	modificado	prioridad	5	2015-05-18 14:25:41.25618-04	6	2
-42	modificado	valor tecnico	5	2015-05-18 14:25:41.26628-04	6	2
-43	modificado	estimacion	30	2015-05-18 14:25:41.277379-04	6	2
-44	modificado	flujo	Flujo 1	2015-05-18 14:25:41.288537-04	6	2
-45	modificado	prioridad	7	2015-05-18 14:25:54.623773-04	7	2
-46	modificado	valor tecnico	8	2015-05-18 14:25:54.667352-04	7	2
-47	modificado	estimacion	50	2015-05-18 14:25:54.711752-04	7	2
-48	modificado	flujo	Flujo 2	2015-05-18 14:25:54.72278-04	7	2
-49	modificado	desarrollador	Pedro	2015-05-18 14:27:27.374602-04	7	2
-50	modificado	sprint	Sprint 1	2015-05-18 14:27:27.400887-04	7	2
-51	modificado	estado	Activo	2015-05-18 14:27:27.429191-04	7	2
-52	modificado	desarrollador	Romina	2015-05-18 14:27:33.45289-04	6	2
-53	modificado	sprint	Sprint 1	2015-05-18 14:27:33.463084-04	6	2
-54	modificado	estado	Activo	2015-05-18 14:27:33.473955-04	6	2
+1	creado			2015-06-13 12:07:18.462445-04	1	5
+2	creado			2015-06-13 12:07:48.319484-04	2	5
+3	creado			2015-06-13 12:08:42.321491-04	3	5
+4	modificado	valor de negocio	4	2015-06-13 12:08:58.24562-04	3	5
+5	modificado	valor de negocio	1	2015-06-13 12:09:07.535845-04	2	5
+6	modificado	valor de negocio	1	2015-06-13 12:09:17.103317-04	1	5
+7	creado			2015-06-13 12:09:59.796599-04	4	5
+8	modificado	prioridad	3	2015-06-13 12:11:44.794947-04	3	2
+9	modificado	valor tecnico	3	2015-06-13 12:11:44.823337-04	3	2
+10	modificado	estimacion	20	2015-06-13 12:11:44.833834-04	3	2
+11	modificado	flujo	FLUJO 1	2015-06-13 12:11:44.845025-04	3	2
+12	modificado	prioridad	1	2015-06-13 12:12:45.250258-04	2	2
+13	modificado	valor tecnico	2	2015-06-13 12:12:45.257696-04	2	2
+14	modificado	estimacion	10	2015-06-13 12:12:45.268852-04	2	2
+15	modificado	flujo	FLUJO 1	2015-06-13 12:12:45.280673-04	2	2
+16	modificado	prioridad	1	2015-06-13 12:13:13.672995-04	1	2
+17	modificado	valor tecnico	1	2015-06-13 12:13:13.681594-04	1	2
+18	modificado	estimacion	5	2015-06-13 12:13:13.692438-04	1	2
+19	modificado	flujo	FLUJO 1	2015-06-13 12:13:13.703556-04	1	2
+20	modificado	desarrollador	juana	2015-06-13 12:15:14.479571-04	1	2
+21	modificado	sprint	SPRINT 1	2015-06-13 12:15:14.486138-04	1	2
+22	modificado	estado	Activo	2015-06-13 12:15:14.496755-04	1	2
+23	modificado	desarrollador	francisco	2015-06-13 12:15:35.644931-04	2	2
+24	modificado	sprint	SPRINT 1	2015-06-13 12:15:35.653935-04	2	2
+25	modificado	estado	Activo	2015-06-13 12:15:35.664774-04	2	2
+26	modificado	desarrollador	francisco	2015-06-13 12:19:59.523176-04	1	2
+27	modificado	estimacion	16	2015-06-13 12:21:44.196037-04	3	2
+28	modificado	desarrollador	juana	2015-06-13 12:22:40.005277-04	3	2
+29	modificado	sprint	SPRINT 1	2015-06-13 12:22:40.014642-04	3	2
+30	modificado	estado	Activo	2015-06-13 12:22:40.025434-04	3	2
+31	modificado	prioridad	2	2015-06-13 13:30:59.585837-04	4	2
+32	modificado	valor tecnico	7	2015-06-13 13:30:59.593986-04	4	2
+33	modificado	estimacion	24	2015-06-13 13:30:59.604743-04	4	2
+34	modificado	flujo	FLUJO 2	2015-06-13 13:30:59.616207-04	4	2
+35	modificado	desarrollador	juana	2015-06-13 13:31:44.642902-04	4	2
+36	modificado	sprint	SPRINT 2	2015-06-13 13:31:44.651133-04	4	2
+37	modificado	estado	Activo	2015-06-13 13:31:44.662106-04	4	2
+38	descartado			2015-06-13 14:43:39.99986-04	4	2
+39	creado			2015-06-13 14:55:39.362645-04	5	5
+40	modificado	prioridad	5	2015-06-13 14:56:36.65445-04	5	2
+41	modificado	valor tecnico	9	2015-06-13 14:56:36.663548-04	5	2
+42	modificado	estimacion	24	2015-06-13 14:56:36.674708-04	5	2
+43	modificado	flujo	FLUJO 3	2015-06-13 14:56:36.685806-04	5	2
+44	modificado	desarrollador	juana	2015-06-13 15:11:45.789428-04	5	2
+45	modificado	sprint	SPRINT 2	2015-06-13 15:11:45.79913-04	5	2
+46	modificado	estado	Activo	2015-06-13 15:11:45.810438-04	5	2
+47	creado			2015-07-02 17:02:53.443062-04	6	5
+48	creado			2015-07-02 17:06:47.919611-04	7	5
+49	creado			2015-07-02 17:07:38.742443-04	8	5
+50	creado			2015-07-02 17:10:40.716118-04	9	5
+51	creado			2015-07-02 17:11:44.786086-04	10	5
+52	creado			2015-07-02 17:20:56.808601-04	11	5
+53	modificado	nombre	FUN INI/FIN/	2015-07-02 17:21:43.721663-04	11	5
+54	modificado	descripcion	Funcionalidad de inicio/cierre	2015-07-02 17:21:43.776541-04	11	5
+55	modificado	valor de negocio	4	2015-07-02 17:21:43.807841-04	11	5
+56	creado			2015-07-02 17:23:43.471069-04	12	5
+57	creado			2015-07-02 17:24:10.937579-04	13	5
+58	modificado	nombre	TAG 1	2015-07-02 17:25:12.109161-04	8	5
+59	creado			2015-07-02 18:22:28.038846-04	14	5
+60	creado			2015-07-02 18:23:09.372249-04	15	5
+61	creado			2015-07-02 18:45:13.523204-04	16	5
+62	creado			2015-07-02 18:47:28.595374-04	17	5
+63	creado			2015-07-02 18:48:25.663008-04	18	5
+64	creado			2015-07-02 18:50:01.556668-04	19	5
+65	creado			2015-07-02 18:51:05.458179-04	20	5
+66	creado			2015-07-02 18:52:40.305937-04	21	5
+67	creado			2015-07-02 18:53:59.487268-04	22	5
+68	creado			2015-07-02 18:54:44.700801-04	23	5
+69	creado			2015-07-02 18:55:16.367929-04	24	5
+70	modificado	nombre	FUN BURDOWNCHART	2015-07-02 18:56:18.672583-04	24	5
+71	modificado	descripcion	Funcionalidad de BurdownChart	2015-07-02 18:56:18.715241-04	24	5
+72	modificado	nombre	FUN BCHART	2015-07-02 18:56:40.828525-04	24	5
+73	modificado	descripcion	Funcionalidad de BurdownChart	2015-07-02 18:56:40.881799-04	24	5
+74	creado			2015-07-02 18:57:16.362145-04	25	5
+75	creado			2015-07-02 18:57:38.907182-04	26	5
+76	modificado	prioridad	3	2015-07-02 19:23:25.15718-04	24	4
+77	modificado	valor tecnico	7	2015-07-02 19:23:25.16719-04	24	4
+78	modificado	estimacion	15	2015-07-02 19:23:25.177774-04	24	4
+79	modificado	flujo	DESARROLLO	2015-07-02 19:23:25.188853-04	24	4
+80	modificado	prioridad	4	2015-07-02 19:28:24.693166-04	22	4
+81	modificado	valor tecnico	9	2015-07-02 19:28:24.701047-04	22	4
+82	modificado	estimacion	40	2015-07-02 19:28:24.711981-04	22	4
+83	modificado	flujo	DESARROLLO	2015-07-02 19:28:24.723286-04	22	4
+84	modificado	prioridad	7	2015-07-02 19:29:11.105697-04	16	4
+85	modificado	valor tecnico	5	2015-07-02 19:29:11.114264-04	16	4
+86	modificado	estimacion	10	2015-07-02 19:29:11.124929-04	16	4
+87	modificado	flujo	DESARROLLO	2015-07-02 19:29:11.136109-04	16	4
+88	modificado	prioridad	3	2015-07-02 19:30:43.17479-04	25	4
+89	modificado	valor tecnico	4	2015-07-02 19:30:43.18438-04	25	4
+90	modificado	estimacion	7	2015-07-02 19:30:43.195345-04	25	4
+91	modificado	flujo	DESARROLLO	2015-07-02 19:30:43.207154-04	25	4
+92	modificado	prioridad	3	2015-07-02 19:31:31.255412-04	23	4
+93	modificado	valor tecnico	5	2015-07-02 19:31:31.263784-04	23	4
+94	modificado	estimacion	10	2015-07-02 19:31:31.275125-04	23	4
+95	modificado	flujo	DESARROLLO	2015-07-02 19:31:31.285976-04	23	4
+96	modificado	prioridad	7	2015-07-02 19:32:15.502138-04	15	4
+97	modificado	valor tecnico	4	2015-07-02 19:32:15.509706-04	15	4
+98	modificado	estimacion	15	2015-07-02 19:32:15.520611-04	15	4
+99	modificado	flujo	DESARROLLO	2015-07-02 19:32:15.53188-04	15	4
+100	modificado	prioridad	6	2015-07-02 19:34:27.084002-04	20	4
+101	modificado	valor tecnico	9	2015-07-02 19:34:27.093488-04	20	4
+102	modificado	estimacion	30	2015-07-02 19:34:27.104661-04	20	4
+103	modificado	flujo	DESARROLLO	2015-07-02 19:34:27.115653-04	20	4
+104	modificado	prioridad	6	2015-07-02 19:35:35.142216-04	17	4
+105	modificado	valor tecnico	6	2015-07-02 19:35:35.185279-04	17	4
+106	modificado	estimacion	5	2015-07-02 19:35:35.196048-04	17	4
+107	modificado	flujo	DESARROLLO	2015-07-02 19:35:35.207454-04	17	4
+108	modificado	prioridad	8	2015-07-02 19:36:42.322881-04	11	4
+109	modificado	valor tecnico	2	2015-07-02 19:36:42.331757-04	11	4
+110	modificado	estimacion	5	2015-07-02 19:36:42.343305-04	11	4
+111	modificado	flujo	DESARROLLO	2015-07-02 19:36:42.354647-04	11	4
+112	modificado	prioridad	9	2015-07-02 19:38:57.117754-04	7	4
+113	modificado	valor tecnico	1	2015-07-02 19:38:57.126257-04	7	4
+114	modificado	estimacion	10	2015-07-02 19:38:57.137684-04	7	4
+115	modificado	flujo	CONFIGURACION	2015-07-02 19:38:57.148644-04	7	4
+116	modificado	prioridad	2	2015-07-02 19:39:40.986534-04	26	4
+117	modificado	valor tecnico	3	2015-07-02 19:39:40.994885-04	26	4
+118	modificado	estimacion	15	2015-07-02 19:39:41.005977-04	26	4
+119	modificado	flujo	DESARROLLO	2015-07-02 19:39:41.017129-04	26	4
+120	modificado	prioridad	9	2015-07-02 19:40:14.287838-04	9	4
+121	modificado	valor tecnico	1	2015-07-02 19:40:14.296381-04	9	4
+122	modificado	estimacion	5	2015-07-02 19:40:14.307365-04	9	4
+123	modificado	flujo	CONFIGURACION	2015-07-02 19:40:14.318851-04	9	4
+124	modificado	prioridad	9	2015-07-02 19:40:55.267912-04	10	4
+125	modificado	valor tecnico	2	2015-07-02 19:40:55.275345-04	10	4
+126	modificado	estimacion	9	2015-07-02 19:40:55.286434-04	10	4
+127	modificado	flujo	CONFIGURACION	2015-07-02 19:40:55.297925-04	10	4
+128	modificado	prioridad	10	2015-07-02 19:41:41.644558-04	6	4
+129	modificado	valor tecnico	4	2015-07-02 19:41:41.654688-04	6	4
+130	modificado	estimacion	3	2015-07-02 19:41:41.666009-04	6	4
+131	modificado	flujo	CONFIGURACION	2015-07-02 19:41:41.677458-04	6	4
+132	modificado	prioridad	8	2015-07-02 19:42:20.804273-04	12	4
+133	modificado	valor tecnico	5	2015-07-02 19:42:20.812373-04	12	4
+134	modificado	estimacion	20	2015-07-02 19:42:20.823336-04	12	4
+135	modificado	flujo	DESARROLLO	2015-07-02 19:42:20.83465-04	12	4
+136	modificado	prioridad	5	2015-07-02 19:43:15.328619-04	21	4
+137	modificado	valor tecnico	6	2015-07-02 19:43:15.336257-04	21	4
+138	modificado	estimacion	10	2015-07-02 19:43:15.347574-04	21	4
+139	modificado	flujo	DESARROLLO	2015-07-02 19:43:15.35868-04	21	4
+140	modificado	prioridad	6	2015-07-02 19:44:00.230661-04	18	4
+141	modificado	valor tecnico	6	2015-07-02 19:44:00.247266-04	18	4
+142	modificado	estimacion	15	2015-07-02 19:44:00.260316-04	18	4
+143	modificado	flujo	DESARROLLO	2015-07-02 19:44:00.271789-04	18	4
+144	modificado	prioridad	8	2015-07-02 19:44:42.28797-04	13	4
+145	modificado	valor tecnico	7	2015-07-02 19:44:42.295509-04	13	4
+146	modificado	estimacion	20	2015-07-02 19:44:42.30726-04	13	4
+147	modificado	flujo	DESARROLLO	2015-07-02 19:44:42.318003-04	13	4
+148	modificado	prioridad	7	2015-07-02 19:45:39.698709-04	14	4
+149	modificado	valor tecnico	5	2015-07-02 19:45:39.709085-04	14	4
+150	modificado	estimacion	15	2015-07-02 19:45:39.720194-04	14	4
+151	modificado	flujo	DESARROLLO	2015-07-02 19:45:39.731577-04	14	4
+152	modificado	prioridad	5	2015-07-02 19:48:54.786687-04	19	4
+153	modificado	valor tecnico	4	2015-07-02 19:48:54.805772-04	19	4
+154	modificado	estimacion	10	2015-07-02 19:48:54.817036-04	19	4
+155	modificado	flujo	DESARROLLO	2015-07-02 19:48:54.827792-04	19	4
+156	modificado	desarrollador	romina	2015-07-02 20:33:29.688092-04	26	4
+157	modificado	sprint	ITERACION 7	2015-07-02 20:33:29.697552-04	26	4
+158	modificado	estado	Activo	2015-07-02 20:33:29.708765-04	26	4
+159	modificado	desarrollador	juana	2015-07-02 20:39:06.858066-04	20	4
+160	modificado	sprint	ITERACION 5	2015-07-02 20:39:06.866444-04	20	4
+161	modificado	estado	Activo	2015-07-02 20:39:06.877054-04	20	4
+162	modificado	desarrollador	Ninguno	2015-07-02 20:39:55.392467-04	20	4
+163	modificado	sprint	Ninguno	2015-07-02 20:39:55.403839-04	20	4
+164	modificado	desarrollador	juana	2015-07-02 20:40:33.329882-04	22	4
+165	modificado	sprint	ITERACION 5	2015-07-02 20:40:33.338584-04	22	4
+166	modificado	estado	Activo	2015-07-02 20:40:33.349458-04	22	4
+167	modificado	desarrollador	juana	2015-07-02 21:23:33.795539-04	21	4
+168	modificado	sprint	ITERACION 4	2015-07-02 21:23:33.804871-04	21	4
+169	modificado	estado	Activo	2015-07-02 21:23:33.816112-04	21	4
+170	modificado	desarrollador	juana	2015-07-02 21:23:52.353662-04	19	4
+171	modificado	sprint	ITERACION 4	2015-07-02 21:23:52.361946-04	19	4
+172	modificado	estado	Activo	2015-07-02 21:23:52.37332-04	19	4
+173	modificado	desarrollador	romina	2015-07-02 21:26:07.8573-04	20	4
+174	modificado	sprint	ITERACION 4	2015-07-02 21:26:07.867097-04	20	4
+175	modificado	estado	Activo	2015-07-02 21:26:07.878336-04	20	4
+176	modificado	desarrollador	stfy	2015-07-02 21:31:38.37178-04	24	4
+177	modificado	sprint	ITERACION 6	2015-07-02 21:31:38.379785-04	24	4
+178	modificado	estado	Activo	2015-07-02 21:31:38.391243-04	24	4
+179	modificado	desarrollador	romina	2015-07-02 21:32:41.061899-04	23	4
+180	modificado	sprint	ITERACION 6	2015-07-02 21:32:41.071676-04	23	4
+181	modificado	estado	Activo	2015-07-02 21:32:41.082912-04	23	4
+182	modificado	desarrollador	juana	2015-07-02 21:33:20.19825-04	17	4
+183	modificado	sprint	ITERACION 6	2015-07-02 21:33:20.206879-04	17	4
+184	modificado	estado	Activo	2015-07-02 21:33:20.217647-04	17	4
+185	modificado	desarrollador	stfy	2015-07-02 21:34:43.382555-04	17	4
+186	modificado	desarrollador	romina	2015-07-02 21:34:59.398441-04	24	4
+187	modificado	desarrollador	juana	2015-07-02 21:35:08.560259-04	23	4
+188	modificado	desarrollador	stfy	2015-07-02 21:36:03.193737-04	6	4
+189	modificado	sprint	ITERACION 1	2015-07-02 21:36:03.201795-04	6	4
+190	modificado	estado	Activo	2015-07-02 21:36:03.21266-04	6	4
+191	modificado	desarrollador	stfy	2015-07-02 21:36:19.184012-04	9	4
+192	modificado	sprint	ITERACION 1	2015-07-02 21:36:19.192044-04	9	4
+193	modificado	estado	Activo	2015-07-02 21:36:19.202548-04	9	4
+194	modificado	desarrollador	romina	2015-07-02 21:36:44.140374-04	7	4
+195	modificado	sprint	ITERACION 1	2015-07-02 21:36:44.148278-04	7	4
+196	modificado	estado	Activo	2015-07-02 21:36:44.15953-04	7	4
+197	modificado	desarrollador	juana	2015-07-02 21:36:58.073634-04	10	4
+198	modificado	sprint	ITERACION 1	2015-07-02 21:36:58.082522-04	10	4
+199	modificado	estado	Activo	2015-07-02 21:36:58.093115-04	10	4
+200	modificado	desarrollador	stfy	2015-07-02 21:38:00.298569-04	11	4
+201	modificado	sprint	ITERACION 1	2015-07-02 21:38:00.306618-04	11	4
+202	modificado	estado	Activo	2015-07-02 21:38:00.317926-04	11	4
+203	modificado	desarrollador	stfy	2015-07-02 21:38:27.289324-04	12	4
+204	modificado	sprint	ITERACION 1	2015-07-02 21:38:27.296564-04	12	4
+205	modificado	estado	Activo	2015-07-02 21:38:27.307801-04	12	4
+206	modificado	desarrollador	juana	2015-07-02 21:38:53.234472-04	13	4
+207	modificado	sprint	ITERACION 1	2015-07-02 21:38:53.242123-04	13	4
+208	modificado	estado	Activo	2015-07-02 21:38:53.253221-04	13	4
+209	modificado	desarrollador	romina	2015-07-02 21:39:09.86036-04	11	4
+210	modificado	desarrollador	romina	2015-07-02 21:39:27.406082-04	9	4
+211	modificado	desarrollador	stfy	2015-07-02 21:41:40.342001-04	16	4
+212	modificado	sprint	ITERACION 2	2015-07-02 21:41:40.34937-04	16	4
+213	modificado	estado	Activo	2015-07-02 21:41:40.36045-04	16	4
+214	modificado	desarrollador	juana	2015-07-02 21:42:03.497651-04	15	4
+215	modificado	sprint	ITERACION 2	2015-07-02 21:42:03.505875-04	15	4
+216	modificado	estado	Activo	2015-07-02 21:42:03.516796-04	15	4
+217	modificado	desarrollador	romina	2015-07-02 21:42:11.674087-04	14	4
+218	modificado	sprint	ITERACION 2	2015-07-02 21:42:11.683238-04	14	4
+219	modificado	estado	Activo	2015-07-02 21:42:11.695678-04	14	4
+220	modificado	desarrollador	stfy	2015-07-02 21:43:43.94559-04	18	4
+221	modificado	sprint	ITERACION 3	2015-07-02 21:43:43.953812-04	18	4
+222	modificado	estado	Activo	2015-07-02 21:43:43.965228-04	18	4
+223	modificado	desarrollador	Ninguno	2015-07-02 21:44:36.511402-04	17	4
+224	modificado	sprint	Ninguno	2015-07-02 21:44:36.522661-04	17	4
+225	modificado	desarrollador	stfy	2015-07-02 21:44:47.304616-04	25	4
+226	modificado	sprint	ITERACION 6	2015-07-02 21:44:47.312419-04	25	4
+227	modificado	estado	Activo	2015-07-02 21:44:47.323804-04	25	4
+228	modificado	desarrollador	stfy	2015-07-02 21:46:32.262692-04	17	4
+229	modificado	sprint	ITERACION 3	2015-07-02 21:46:32.272465-04	17	4
+230	modificado	estado	Activo	2015-07-02 21:46:32.283357-04	17	4
 \.
 
 
@@ -2390,7 +3308,7 @@ COPY user_stories_historialuserstory (id, operacion, campo, valor, fecha, user_s
 -- Name: user_stories_historialuserstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 54, true);
+SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 230, true);
 
 
 --
@@ -2398,22 +3316,116 @@ SELECT pg_catalog.setval('user_stories_historialuserstory_id_seq', 54, true);
 --
 
 COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id, estado_id, flujo_id, sprint_id, user_story_id, tipo, usuario_id) FROM stdin;
-1	Tarea 1	10	2015-05-18 11:56:13.740946-04	1	1	1	3	4	Registro de Tarea	2
-2	tarea 2	10	2015-05-18 11:56:24.493625-04	1	1	1	3	4	Registro de Tarea	2
-3	tarea 3	20	2015-05-18 11:56:35.835383-04	1	1	1	3	4	Registro de Tarea	2
-4	Adjuntar archivo	0	2015-05-18 11:58:35.842117-04	1	1	1	3	4	Registro de Tarea	4
-5	Cambio de estado: To do -> Doing	0	2015-05-18 11:58:42.968949-04	1	2	1	3	4	Cambio de Estado	4
-6	Cambio de estado: Doing -> Done	0	2015-05-18 11:59:58.482163-04	1	3	1	3	4	Cambio de Estado	4
-7	Cambio de actividad: Actividad 1 -> Actividad 2	0	2015-05-18 11:59:58.499039-04	2	4	1	3	4	Cambio de Estado	4
-8	Cambio de estado: To do -> Doing	0	2015-05-18 11:59:59.744646-04	2	5	1	3	4	Cambio de Estado	4
-9	Cambio de estado: Doing -> Done	0	2015-05-18 12:00:00.712676-04	2	6	1	3	4	Cambio de Estado	4
-10	Cambio de actividad: Actividad 2 -> Actividad 3	0	2015-05-18 12:00:00.734294-04	3	7	1	3	4	Cambio de Estado	4
-11	Cambio de estado: To do -> Doing	0	2015-05-18 12:00:04.51184-04	3	8	1	3	4	Cambio de Estado	4
-12	Cambio de estado: Doing -> Done	0	2015-05-18 12:00:06.177862-04	3	9	1	3	4	Cambio de Estado	4
-13	Finalizar user story	0	2015-05-18 12:00:06.187561-04	3	9	1	3	4	Cambio de Estado	4
-14	Revertir: - Estado: Done -> To do	0	2015-05-18 14:21:47.730683-04	3	7	1	3	4	Cambio de Estado	2
-15	Revertir: - Actividad: Actividad 3 -> Actividad 2	0	2015-05-18 14:21:50.76227-04	2	4	1	3	4	Cambio de Estado	2
-16	Revertir: - Actividad: Actividad 2 -> Actividad 1	0	2015-05-18 14:21:54.540571-04	1	1	1	3	4	Cambio de Estado	2
+1	Análisis de los requerimientos Funcionales	2	2015-06-13 13:38:41.472751-04	1	1	1	1	3	Registro de Tarea	3
+2	Cambio de estado: To do -> Doing	0	2015-06-13 13:38:44.236122-04	1	2	1	1	3	Cambio de Estado	3
+3	Cambio de estado: Doing -> Done	0	2015-06-13 13:38:49.801743-04	1	3	1	1	3	Cambio de Estado	3
+4	Cambio de actividad: analisis -> diseño	0	2015-06-13 13:38:54.228314-04	2	4	1	1	3	Cambio de Estado	3
+5	Diagrama de estados	1	2015-06-13 13:39:17.602523-04	2	4	1	1	3	Registro de Tarea	3
+6	Diagrama de secuencia del ABM	1	2015-06-13 13:39:40.214585-04	2	4	1	1	3	Registro de Tarea	3
+7	Cambio de estado: To do -> Doing	0	2015-06-13 13:39:43.160787-04	2	5	1	1	3	Cambio de Estado	3
+8	Cambio de estado: Doing -> Done	0	2015-06-13 13:39:45.516979-04	2	6	1	1	3	Cambio de Estado	3
+9	Cambio de actividad: diseño -> desarrollo	0	2015-06-13 13:39:47.60551-04	3	7	1	1	3	Cambio de Estado	3
+10	Creacion del Alta de Ambulancia	1	2015-06-13 13:40:16.871702-04	3	7	1	1	3	Registro de Tarea	3
+11	Creacion de la Modificacion y Desactivacion de las Ambulancias	2	2015-06-13 13:41:00.098751-04	3	7	1	1	3	Registro de Tarea	3
+12	Cambio de estado: To do -> Doing	0	2015-06-13 13:41:02.397523-04	3	8	1	1	3	Cambio de Estado	3
+13	Cambio de estado: Doing -> Done	0	2015-06-13 13:41:04.123784-04	3	9	1	1	3	Cambio de Estado	3
+14	Cambio de actividad: desarrollo -> testeo	0	2015-06-13 13:41:06.179673-04	4	10	1	1	3	Cambio de Estado	3
+15	Cambio de estado: To do -> Doing	0	2015-06-13 13:42:46.446714-04	4	11	1	1	3	Cambio de Estado	3
+16	Ajustes en las funcionalidades de testeo	2	2015-06-13 13:43:07.967651-04	4	11	1	1	3	Registro de Tarea	3
+17	Cambio de estado: Doing -> Done	0	2015-06-13 13:43:10.108386-04	4	12	1	1	3	Cambio de Estado	3
+18	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 13:43:13.391204-04	5	13	1	1	3	Cambio de Estado	3
+19	Levantar al Servidor de Capacitacion	1	2015-06-13 13:43:44.090676-04	5	13	1	1	3	Registro de Tarea	3
+20	Cambio de estado: To do -> Doing	0	2015-06-13 13:43:46.576971-04	5	14	1	1	3	Cambio de Estado	3
+21	Capacitar al funcionario en la carga	1	2015-06-13 13:44:24.673827-04	5	14	1	1	3	Registro de Tarea	3
+22	Cambio de estado: Doing -> Done	0	2015-06-13 13:44:28.111445-04	5	15	1	1	3	Cambio de Estado	3
+23	Finalizar user story	0	2015-06-13 13:44:28.125643-04	5	15	1	1	3	Cambio de Estado	3
+24	Cambio de estado: To do -> Doing	0	2015-06-13 13:45:40.610864-04	1	2	1	1	2	Cambio de Estado	4
+25	Requerimientos Funcionales, roles	2	2015-06-13 13:46:23.975726-04	1	2	1	1	2	Registro de Tarea	4
+26	Cambio de estado: Doing -> Done	0	2015-06-13 13:46:28.278963-04	1	3	1	1	2	Cambio de Estado	4
+27	Cambio de actividad: analisis -> diseño	0	2015-06-13 13:46:30.791307-04	2	4	1	1	2	Cambio de Estado	4
+28	Diagrama de actividad 	1	2015-06-13 13:48:16.304203-04	2	4	1	1	2	Registro de Tarea	4
+29	Cambio de estado: To do -> Doing	0	2015-06-13 13:48:23.325682-04	1	2	1	1	1	Cambio de Estado	4
+30	Relevamiento de Datos para creacion del Login - Logout	1	2015-06-13 13:48:58.849396-04	1	2	1	1	1	Registro de Tarea	4
+31	Cambio de estado: Doing -> Done	0	2015-06-13 13:49:01.932035-04	1	3	1	1	1	Cambio de Estado	4
+32	Cambio de actividad: analisis -> diseño	0	2015-06-13 13:49:04.528771-04	2	4	1	1	1	Cambio de Estado	4
+33	diagrama de estados	1	2015-06-13 13:49:32.629568-04	2	4	1	1	1	Registro de Tarea	4
+34	Cambio de estado: To do -> Doing	0	2015-06-13 13:49:37.071871-04	2	5	1	1	1	Cambio de Estado	4
+35	Cambio de estado: Doing -> Done	0	2015-06-13 13:49:44.017446-04	2	6	1	1	1	Cambio de Estado	4
+36	Cambio de actividad: diseño -> desarrollo	0	2015-06-13 13:49:46.668462-04	3	7	1	1	1	Cambio de Estado	4
+37	Cambio de estado: To do -> Doing	0	2015-06-13 13:49:49.149814-04	3	8	1	1	1	Cambio de Estado	4
+38	funcionalidad de login y logout	1	2015-06-13 13:50:21.861194-04	3	8	1	1	1	Registro de Tarea	4
+39	Cambio de estado: Doing -> Done	0	2015-06-13 13:50:24.557717-04	3	9	1	1	1	Cambio de Estado	4
+40	Cambio de actividad: desarrollo -> testeo	0	2015-06-13 13:50:26.897173-04	4	10	1	1	1	Cambio de Estado	4
+41	Cambio de estado: To do -> Doing	0	2015-06-13 13:50:29.5356-04	4	11	1	1	1	Cambio de Estado	4
+42	testeo del login	1	2015-06-13 13:50:41.885621-04	4	11	1	1	1	Registro de Tarea	4
+43	Cambio de estado: Doing -> Done	0	2015-06-13 13:50:48.514786-04	4	12	1	1	1	Cambio de Estado	4
+44	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 13:50:53.835194-04	5	13	1	1	1	Cambio de Estado	4
+45	Cambio de estado: To do -> Doing	0	2015-06-13 13:50:55.825562-04	5	14	1	1	1	Cambio de Estado	4
+46	Cambio de estado: Doing -> Done	0	2015-06-13 13:50:57.721845-04	5	15	1	1	1	Cambio de Estado	4
+47	Finalizar user story	0	2015-06-13 13:50:57.741796-04	5	15	1	1	1	Cambio de Estado	4
+48	Revertir: - Estado: Done -> To do	0	2015-06-13 14:24:43.55058-04	5	13	1	1	1	Cambio de Estado	2
+49	Aprobar user story	0	2015-06-13 14:24:50.941538-04	5	15	1	1	3	Cambio de Estado	2
+50	Revertir: - Actividad: capacitacion -> testeo	0	2015-06-13 14:24:54.454542-04	4	10	1	1	1	Cambio de Estado	2
+51	Cambio de estado: To do -> Doing	0	2015-06-13 14:34:11.163105-04	4	11	1	1	1	Cambio de Estado	4
+52	Testeo del login y logout	1	2015-06-13 14:34:27.889929-04	4	11	1	1	1	Registro de Tarea	4
+53	Cambio de estado: Doing -> Done	0	2015-06-13 14:34:30.473248-04	4	12	1	1	1	Cambio de Estado	4
+54	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 14:34:32.318047-04	5	13	1	1	1	Cambio de Estado	4
+55	Cambio de estado: To do -> Doing	0	2015-06-13 14:34:34.342651-04	5	14	1	1	1	Cambio de Estado	4
+56	Cambio de estado: Doing -> Done	0	2015-06-13 14:34:36.28365-04	5	15	1	1	1	Cambio de Estado	4
+57	Finalizar user story	0	2015-06-13 14:34:36.311955-04	5	15	1	1	1	Cambio de Estado	4
+58	Cambio de estado: To do -> Doing	0	2015-06-13 14:34:47.798644-04	2	5	1	1	2	Cambio de Estado	4
+59	Adjuntar archivo	0	2015-06-13 14:35:50.475641-04	2	5	1	1	2	Registro de Tarea	4
+60	Cambio de estado: Doing -> Done	0	2015-06-13 14:36:02.23958-04	2	6	1	1	2	Cambio de Estado	4
+61	Cambio de actividad: diseño -> desarrollo	0	2015-06-13 14:36:04.256533-04	3	7	1	1	2	Cambio de Estado	4
+62	Cambio de estado: To do -> Doing	0	2015-06-13 14:36:12.124673-04	3	8	1	1	2	Cambio de Estado	4
+63	Funcionalidad de Alta y Modificacion de usuarios	2	2015-06-13 14:36:40.292453-04	3	8	1	1	2	Registro de Tarea	4
+64	funcionalidad de inactivar usuarios	1	2015-06-13 14:37:28.49419-04	3	8	1	1	2	Registro de Tarea	4
+65	Cambio de estado: Doing -> Done	0	2015-06-13 14:37:31.288005-04	3	9	1	1	2	Cambio de Estado	4
+66	Cambio de actividad: desarrollo -> testeo	0	2015-06-13 14:37:33.327228-04	4	10	1	1	2	Cambio de Estado	4
+67	Cambio de estado: To do -> Doing	0	2015-06-13 14:37:35.575608-04	4	11	1	1	2	Cambio de Estado	4
+68	testeo de funcionalidades	2	2015-06-13 14:37:51.186082-04	4	11	1	1	2	Registro de Tarea	4
+69	Adjuntar archivo	0	2015-06-13 14:38:04.204398-04	4	11	1	1	2	Registro de Tarea	4
+70	Cambio de estado: Doing -> Done	0	2015-06-13 14:38:09.60943-04	4	12	1	1	2	Cambio de Estado	4
+71	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 14:38:11.529928-04	5	13	1	1	2	Cambio de Estado	4
+72	Cambio de estado: To do -> Doing	0	2015-06-13 14:38:13.361362-04	5	14	1	1	2	Cambio de Estado	4
+73	Levantar al servidor y configuraciones necesarias	1	2015-06-13 14:38:39.123588-04	5	14	1	1	2	Registro de Tarea	4
+74	Cambio de estado: Doing -> Done	0	2015-06-13 14:38:41.764281-04	5	15	1	1	2	Cambio de Estado	4
+75	Finalizar user story	0	2015-06-13 14:38:41.78827-04	5	15	1	1	2	Cambio de Estado	4
+76	Aprobar user story	0	2015-06-13 14:41:19.308255-04	5	15	1	1	1	Cambio de Estado	2
+77	Aprobar user story	0	2015-06-13 14:41:38.43082-04	5	15	1	1	2	Cambio de Estado	2
+78	analisis de funcionalidades para la gestionde ambulancias	2	2015-06-13 15:16:48.341763-04	1	1	3	2	5	Registro de Tarea	3
+79	Cambio de estado: To do -> Doing	0	2015-06-13 15:16:51.029939-04	1	2	3	2	5	Cambio de Estado	3
+80	Cambio de estado: Doing -> Done	0	2015-06-13 15:17:04.196296-04	1	3	3	2	5	Cambio de Estado	3
+81	Cambio de actividad: analisis -> diseño	0	2015-06-13 15:17:16.362395-04	2	4	3	2	5	Cambio de Estado	3
+82	Cambio de estado: To do -> Doing	0	2015-06-13 15:17:21.166561-04	2	5	3	2	5	Cambio de Estado	3
+83	diagrama de clases de gestionar ambulancias	3	2015-06-13 15:17:42.428095-04	2	5	3	2	5	Registro de Tarea	3
+84	Adjuntar archivo	0	2015-06-13 15:19:00.180313-04	2	5	3	2	5	Registro de Tarea	3
+85	Cambio de estado: Doing -> Done	0	2015-06-13 15:19:14.692273-04	2	6	3	2	5	Cambio de Estado	3
+86	Cambio de actividad: diseño -> desarrollo	0	2015-06-13 15:19:17.923166-04	3	7	3	2	5	Cambio de Estado	3
+87	Cambio de estado: To do -> Doing	0	2015-06-13 15:19:22.362724-04	3	8	3	2	5	Cambio de Estado	3
+88	Funcionalidad de asignar ambulancia a paciente	8	2015-06-13 15:19:51.877599-04	3	8	3	2	5	Registro de Tarea	3
+89	asignar datos relevantes de pacientes	4	2015-06-13 15:20:14.271468-04	3	8	3	2	5	Registro de Tarea	3
+90	Cambio de estado: Doing -> Done	0	2015-06-13 15:20:49.563039-04	3	9	3	2	5	Cambio de Estado	3
+91	Cambio de actividad: desarrollo -> testeo	0	2015-06-13 15:20:57.78724-04	4	10	3	2	5	Cambio de Estado	3
+92	Cambio de estado: To do -> Doing	0	2015-06-13 15:21:01.088884-04	4	11	3	2	5	Cambio de Estado	3
+93	Cambio de estado: Doing -> Done	0	2015-06-13 15:21:12.545188-04	4	12	3	2	5	Cambio de Estado	3
+94	Testeo de la asignacion de ambulancias	3	2015-06-13 15:21:33.545158-04	4	12	3	2	5	Registro de Tarea	3
+95	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 15:21:42.744852-04	5	13	3	2	5	Cambio de Estado	3
+96	Cambio de estado: To do -> Doing	0	2015-06-13 15:21:44.939959-04	5	14	3	2	5	Cambio de Estado	3
+97	Revertir: - Actividad: capacitacion -> testeo	0	2015-06-13 15:22:04.112138-04	4	10	3	2	5	Cambio de Estado	2
+98	Revertir: - Actividad: testeo -> desarrollo	0	2015-06-13 15:22:08.22-04	3	7	3	2	5	Cambio de Estado	2
+99	Cambio de estado: To do -> Doing	0	2015-06-13 15:23:04.564353-04	3	8	3	2	5	Cambio de Estado	3
+100	Asignacion del lugar mas cercano para derivar paciente	5	2015-06-13 15:23:35.010104-04	3	8	3	2	5	Registro de Tarea	3
+101	Cambio de estado: Doing -> Done	0	2015-06-13 15:23:41.029622-04	3	9	3	2	5	Cambio de Estado	3
+102	Cambio de actividad: desarrollo -> testeo	0	2015-06-13 15:23:43.974556-04	4	10	3	2	5	Cambio de Estado	3
+103	Cambio de estado: To do -> Doing	0	2015-06-13 15:23:46.535644-04	4	11	3	2	5	Cambio de Estado	3
+104	Testeo de la Funcionalidad de asignacion del lugar mas cercano	2	2015-06-13 15:24:18.686025-04	4	11	3	2	5	Registro de Tarea	3
+105	Cambio de estado: Doing -> Done	0	2015-06-13 15:24:22.378714-04	4	12	3	2	5	Cambio de Estado	3
+106	Cambio de actividad: testeo -> capacitacion	0	2015-06-13 15:24:24.810461-04	5	13	3	2	5	Cambio de Estado	3
+107	Cambio de estado: To do -> Doing	0	2015-06-13 15:24:26.999357-04	5	14	3	2	5	Cambio de Estado	3
+108	Cambio de estado: Doing -> Done	0	2015-06-13 15:24:29.021015-04	5	15	3	2	5	Cambio de Estado	3
+109	Finalizar user story	0	2015-06-13 15:24:29.031091-04	5	15	3	2	5	Cambio de Estado	3
+110	Aprobar user story	0	2015-06-13 15:25:55.601683-04	5	15	3	2	5	Cambio de Estado	2
 \.
 
 
@@ -2421,7 +3433,7 @@ COPY user_stories_tarea (id, descripcion, horas_de_trabajo, fecha, actividad_id,
 -- Name: user_stories_tarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_tarea_id_seq', 16, true);
+SELECT pg_catalog.setval('user_stories_tarea_id_seq', 110, true);
 
 
 --
@@ -2429,13 +3441,32 @@ SELECT pg_catalog.setval('user_stories_tarea_id_seq', 16, true);
 --
 
 COPY user_stories_userstory (id, nombre, descripcion, valor_negocio, prioridad, valor_tecnico, estimacion, estado, flujo_id, proyecto_id, sprint_id, usuario_id) FROM stdin;
-3	User Story gama	User Story gama	8	8	7	60	No asignado	2	1	\N	\N
-1	User Story alfa	User Story alfa	3	3	5	30	Activo	1	1	1	4
-2	User Story beta	User Story beta	5	5	7	30	Activo	1	1	1	5
-5	User Story beta	User Story beta	6	6	5	60	Activo	2	2	3	5
-4	User Story alfa	User Story alfa	5	9	8	30	Activo	1	2	3	4
-7	User Story 2	User Story 2	7	7	8	50	Activo	2	3	4	5
-6	User Story 1	User Story 1	5	5	5	30	Activo	1	3	4	4
+8	TAG 1	TAG de la 1era ITER	2	0	0	0	No asignado	\N	4	\N	\N
+22	FUN CAM KANBAN	cambios de estado en Kanban	10	4	9	40	Activo	7	4	7	3
+21	FUN TAREAS	Funcionalidad de Tareas	7	5	6	10	Activo	7	4	6	3
+19	FUN PRIO UH	Prioridad del User History	9	5	4	10	Activo	7	4	6	3
+20	FUN FLUJO UH	Asignacion a Sprint UH y Flujos	9	6	9	30	Activo	7	4	6	2
+1	login-logout	Ingreso y egreso del Sistema	1	1	1	5	Aprobado	1	1	1	4
+2	Admin-Usuarios	Administracion de usuarios con sus perfi	1	1	2	10	Aprobado	1	1	1	4
+4	Gestion AMB	Gestion de Ambulancias	9	2	7	24	Descartado	2	1	2	3
+24	FUN BCHART	Funcionalidad de BurdownChart	8	3	7	15	Activo	7	4	8	2
+23	FUN FIN SPRINT	Finalizacion de Sprint	10	3	5	10	Activo	7	4	8	3
+6	IDE	Montaje y Utilizacion	1	10	4	3	Activo	6	4	3	6
+7	SCV	Sistema de Control de Versiones	2	9	1	10	Activo	6	4	3	2
+10	PDO CONF	Configuracion de la documentacion del co	2	9	2	9	Activo	6	4	3	3
+5	GES AMBUL	gestionar ambulancia	6	5	9	24	Aprobado	3	1	2	3
+3	ABM AMBULANCIA	Administracion de Ambulacias	4	3	3	16	Aprobado	1	1	1	3
+12	FUN USUARIO/CLI	Funcionalidad de Usuarios y CLientes	8	8	5	20	Activo	7	4	3	6
+13	FUN ROLES	Funcionalidad de Roles y Permisos	7	8	7	20	Activo	7	4	3	3
+11	FUN INI/FIN/	Funcionalidad de inicio/cierre	4	8	2	5	Activo	7	4	3	2
+9	PUN	Configuracion de Pruebas Unitarias	2	9	1	5	Activo	6	4	3	2
+16	FUN EQUIPO	AM de Equipo y Asignacion de horas	5	7	5	10	Activo	7	4	5	6
+26	REPORTES	Reportes Gerenciales	4	2	3	15	Activo	7	4	9	2
+15	FUN FLUJOS	ABM FLUJOS Y ACTIVIDAD	5	7	4	15	Activo	7	4	5	3
+14	FUN PROYECTO	ABM Proyectos	4	7	5	15	Activo	7	4	5	2
+18	FUN SPRINT	ABM Sprint	8	6	6	15	Activo	7	4	4	6
+25	FUN FIN HU	Finalizacion de User History	5	3	4	7	Activo	7	4	8	6
+17	FUN HIST HU	Historial del User History	6	6	6	5	Activo	7	4	4	6
 \.
 
 
@@ -2443,7 +3474,7 @@ COPY user_stories_userstory (id, nombre, descripcion, valor_negocio, prioridad, 
 -- Name: user_stories_userstory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_userstory_id_seq', 7, true);
+SELECT pg_catalog.setval('user_stories_userstory_id_seq', 26, true);
 
 
 --
@@ -2451,12 +3482,31 @@ SELECT pg_catalog.setval('user_stories_userstory_id_seq', 7, true);
 --
 
 COPY user_stories_userstorydetalle (id, actividad_id, estado_id, user_story_id) FROM stdin;
-1	1	1	1
-2	1	1	2
-4	2	4	5
-3	1	1	4
-5	2	4	7
-6	1	1	6
+4	1	1	4
+3	5	15	3
+5	5	15	5
+6	3	7	26
+7	3	7	20
+8	3	7	22
+9	3	7	21
+10	3	7	19
+11	3	7	24
+12	3	7	23
+13	3	7	17
+14	9	25	6
+15	9	25	9
+16	9	25	7
+17	9	25	10
+18	3	7	11
+19	3	7	12
+20	3	7	13
+21	3	7	16
+22	3	7	15
+23	3	7	14
+24	3	7	18
+25	3	7	25
+1	5	15	1
+2	5	15	2
 \.
 
 
@@ -2464,7 +3514,7 @@ COPY user_stories_userstorydetalle (id, actividad_id, estado_id, user_story_id) 
 -- Name: user_stories_userstorydetalle_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 6, true);
+SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 25, true);
 
 
 --
@@ -2472,10 +3522,13 @@ SELECT pg_catalog.setval('user_stories_userstorydetalle_id_seq', 6, true);
 --
 
 COPY usuarios_usuario (id, telefono, direccion, user_id) FROM stdin;
-1	9482479384	Bartolome de las casas	2
-2	9482479384	Herrera y EEUU	3
-3	0987234222	Herrera y EEUU	4
-4	0987234222	Ind. Nacional	5
+3	856214	mcal lopez	4
+7	8522456	san lorenzo	8
+6	685321	rca. argentina	7
+4	852456	eusebio ayala	5
+1	205287	herrera	2
+2	985621	bartolome de las casas	3
+5	562347	soldado ovelar	6
 \.
 
 
@@ -2483,7 +3536,7 @@ COPY usuarios_usuario (id, telefono, direccion, user_id) FROM stdin;
 -- Name: usuarios_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_id_seq', 4, true);
+SELECT pg_catalog.setval('usuarios_usuario_id_seq', 7, true);
 
 
 --
@@ -2491,10 +3544,16 @@ SELECT pg_catalog.setval('usuarios_usuario_id_seq', 4, true);
 --
 
 COPY usuarios_usuario_rolesproyecto (id, usuario_id, rolproyecto_id) FROM stdin;
-1	1	3
-2	2	2
-3	3	1
-4	4	1
+1	1	1
+2	4	2
+3	3	3
+4	2	3
+5	3	1
+6	2	1
+7	7	2
+8	1	3
+9	6	3
+10	5	3
 \.
 
 
@@ -2502,7 +3561,7 @@ COPY usuarios_usuario_rolesproyecto (id, usuario_id, rolproyecto_id) FROM stdin;
 -- Name: usuarios_usuario_rolesproyecto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sigp
 --
 
-SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 4, true);
+SELECT pg_catalog.setval('usuarios_usuario_rolesproyecto_id_seq', 10, true);
 
 
 --
@@ -2610,6 +3669,38 @@ ALTER TABLE ONLY auth_user
 
 
 --
+-- Name: celery_taskmeta_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_taskmeta
+    ADD CONSTRAINT celery_taskmeta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: celery_taskmeta_task_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_taskmeta
+    ADD CONSTRAINT celery_taskmeta_task_id_key UNIQUE (task_id);
+
+
+--
+-- Name: celery_tasksetmeta_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_tasksetmeta
+    ADD CONSTRAINT celery_tasksetmeta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: celery_tasksetmeta_taskset_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_tasksetmeta
+    ADD CONSTRAINT celery_tasksetmeta_taskset_id_key UNIQUE (taskset_id);
+
+
+--
 -- Name: clientes_cliente_correoElectronico_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
 --
 
@@ -2671,6 +3762,78 @@ ALTER TABLE ONLY django_migrations
 
 ALTER TABLE ONLY django_session
     ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: djcelery_crontabschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_crontabschedule
+    ADD CONSTRAINT djcelery_crontabschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_intervalschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_intervalschedule
+    ADD CONSTRAINT djcelery_intervalschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_periodictask_name_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_name_key UNIQUE (name);
+
+
+--
+-- Name: djcelery_periodictask_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_periodictasks_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictasks
+    ADD CONSTRAINT djcelery_periodictasks_pkey PRIMARY KEY (ident);
+
+
+--
+-- Name: djcelery_taskstate_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_taskstate_task_id_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_task_id_key UNIQUE (task_id);
+
+
+--
+-- Name: djcelery_workerstate_hostname_key; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_workerstate
+    ADD CONSTRAINT djcelery_workerstate_hostname_key UNIQUE (hostname);
+
+
+--
+-- Name: djcelery_workerstate_pkey; Type: CONSTRAINT; Schema: public; Owner: sigp; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_workerstate
+    ADD CONSTRAINT djcelery_workerstate_pkey PRIMARY KEY (id);
 
 
 --
@@ -2985,6 +4148,34 @@ CREATE INDEX auth_user_username_51b3b110094b8aae_like ON auth_user USING btree (
 
 
 --
+-- Name: celery_taskmeta_hidden; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX celery_taskmeta_hidden ON celery_taskmeta USING btree (hidden);
+
+
+--
+-- Name: celery_taskmeta_task_id_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX celery_taskmeta_task_id_like ON celery_taskmeta USING btree (task_id varchar_pattern_ops);
+
+
+--
+-- Name: celery_tasksetmeta_hidden; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX celery_tasksetmeta_hidden ON celery_tasksetmeta USING btree (hidden);
+
+
+--
+-- Name: celery_tasksetmeta_taskset_id_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX celery_tasksetmeta_taskset_id_like ON celery_tasksetmeta USING btree (taskset_id varchar_pattern_ops);
+
+
+--
 -- Name: clientes_cliente_correoElectronico_2110c99edabb0fe5_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
 --
 
@@ -3024,6 +4215,97 @@ CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date)
 --
 
 CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_periodictask_crontab_id; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_crontab_id ON djcelery_periodictask USING btree (crontab_id);
+
+
+--
+-- Name: djcelery_periodictask_interval_id; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_interval_id ON djcelery_periodictask USING btree (interval_id);
+
+
+--
+-- Name: djcelery_periodictask_name_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_name_like ON djcelery_periodictask USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_hidden; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_hidden ON djcelery_taskstate USING btree (hidden);
+
+
+--
+-- Name: djcelery_taskstate_name; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_name ON djcelery_taskstate USING btree (name);
+
+
+--
+-- Name: djcelery_taskstate_name_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_name_like ON djcelery_taskstate USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_state; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_state ON djcelery_taskstate USING btree (state);
+
+
+--
+-- Name: djcelery_taskstate_state_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_state_like ON djcelery_taskstate USING btree (state varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_task_id_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_task_id_like ON djcelery_taskstate USING btree (task_id varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_tstamp; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_tstamp ON djcelery_taskstate USING btree (tstamp);
+
+
+--
+-- Name: djcelery_taskstate_worker_id; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_worker_id ON djcelery_taskstate USING btree (worker_id);
+
+
+--
+-- Name: djcelery_workerstate_hostname_like; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_workerstate_hostname_like ON djcelery_workerstate USING btree (hostname varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_workerstate_last_heartbeat; Type: INDEX; Schema: public; Owner: sigp; Tablespace: 
+--
+
+CREATE INDEX djcelery_workerstate_last_heartbeat ON djcelery_workerstate USING btree (last_heartbeat);
 
 
 --
@@ -3373,6 +4655,30 @@ ALTER TABLE ONLY django_admin_log
 
 ALTER TABLE ONLY django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_periodictask_crontab_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_crontab_id_fkey FOREIGN KEY (crontab_id) REFERENCES djcelery_crontabschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_periodictask_interval_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_interval_id_fkey FOREIGN KEY (interval_id) REFERENCES djcelery_intervalschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_taskstate_worker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sigp
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_worker_id_fkey FOREIGN KEY (worker_id) REFERENCES djcelery_workerstate(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

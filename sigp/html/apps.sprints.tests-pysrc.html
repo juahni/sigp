@@ -2951,7 +2951,297 @@ apps.user_stories.models.UserStory.estado
 apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-582', 'estado', 'link-215');">estado</a></tt><tt class="py-op">,</tt> <tt class="py-string">'Aprobado'</tt><tt class="py-op">)</tt> </tt>
 <a name="L447"></a><tt class="py-lineno">447</tt>  <tt class="py-line"> </tt>
 <a name="L448"></a><tt class="py-lineno">448</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'Test de aprobar_user_story realizado exitosamente'</tt> </tt>
-</div></div><a name="L449"></a><tt class="py-lineno">449</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+</div><a name="L449"></a><tt class="py-lineno">449</tt>  <tt class="py-line"> </tt>
+<a name="SprintsTest.test_view_finalizar_sprint"></a><div id="SprintsTest.test_view_finalizar_sprint-def"><a name="L450"></a><tt class="py-lineno">450</tt> <a class="py-toggle" href="#" id="SprintsTest.test_view_finalizar_sprint-toggle" onclick="return toggle('SprintsTest.test_view_finalizar_sprint');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="apps.sprints.tests.SprintsTest-class.html#test_view_finalizar_sprint">test_view_finalizar_sprint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SprintsTest.test_view_finalizar_sprint-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SprintsTest.test_view_finalizar_sprint-expanded"><a name="L451"></a><tt class="py-lineno">451</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L452"></a><tt class="py-lineno">452</tt>  <tt class="py-line"><tt class="py-docstring">        Funcion que realiza el test sobre la funcion finalizar_sprint que finaliza</tt> </tt>
+<a name="L453"></a><tt class="py-lineno">453</tt>  <tt class="py-line"><tt class="py-docstring">        un sprint dado</tt> </tt>
+<a name="L454"></a><tt class="py-lineno">454</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L455"></a><tt class="py-lineno">455</tt>  <tt class="py-line">        <tt class="py-comment"># se loguea el usuario testuser</tt> </tt>
+<a name="L456"></a><tt class="py-lineno">456</tt>  <tt class="py-line">        <tt id="link-583" class="py-name"><a title="apps.roles_proyecto.models.RolProyecto_Proyecto.user
+apps.usuarios.models.Usuario.user" class="py-name" href="#" onclick="return doclink('link-583', 'user', 'link-22');">user</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">client</tt><tt class="py-op">.</tt><tt class="py-name">login</tt><tt class="py-op">(</tt><tt class="py-name">username</tt><tt class="py-op">=</tt><tt class="py-string">'testuser'</tt><tt class="py-op">,</tt> <tt class="py-name">password</tt><tt class="py-op">=</tt><tt class="py-string">'test'</tt><tt class="py-op">)</tt> </tt>
+<a name="L457"></a><tt class="py-lineno">457</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">assertTrue</tt><tt class="py-op">(</tt><tt id="link-584" class="py-name"><a title="apps.roles_proyecto.models.RolProyecto_Proyecto.user
+apps.usuarios.models.Usuario.user" class="py-name" href="#" onclick="return doclink('link-584', 'user', 'link-22');">user</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L458"></a><tt class="py-lineno">458</tt>  <tt class="py-line"> </tt>
+<a name="L459"></a><tt class="py-lineno">459</tt>  <tt class="py-line">        <tt class="py-name">user4</tt> <tt class="py-op">=</tt> <tt class="py-name">User</tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">create_user</tt><tt class="py-op">(</tt><tt class="py-name">username</tt><tt class="py-op">=</tt><tt class="py-string">'user_prueba4'</tt><tt class="py-op">,</tt> <tt id="link-585" class="py-name"><a title="apps.usuarios.forms.UserCreateForm.email
+apps.usuarios.forms.UserUpdateForm.email
+sigp.forms.UserProfileForm.email" class="py-name" href="#" onclick="return doclink('link-585', 'email', 'link-23');">email</a></tt><tt class="py-op">=</tt><tt class="py-string">'test@test224.com'</tt><tt class="py-op">,</tt> <tt class="py-name">password</tt><tt class="py-op">=</tt><tt class="py-string">'prueba'</tt><tt class="py-op">)</tt> </tt>
+<a name="L460"></a><tt class="py-lineno">460</tt>  <tt class="py-line">        <tt class="py-comment"># se crea un usuario</tt> </tt>
+<a name="L461"></a><tt class="py-lineno">461</tt>  <tt class="py-line">        <tt id="link-586" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-586', 'proyecto', 'link-27');">proyecto</a></tt> <tt class="py-op">=</tt> <tt id="link-587" class="py-name"><a title="apps.proyectos.models.Proyecto" class="py-name" href="#" onclick="return doclink('link-587', 'Proyecto', 'link-9');">Proyecto</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">create</tt><tt class="py-op">(</tt><tt id="link-588" class="py-name"><a title="apps.flujos.forms.AsignarFlujoProyectoForm.codigo
+apps.proyectos.forms.AddMiembroForm.codigo
+apps.proyectos.forms.HorasDeveloperForm.codigo
+apps.proyectos.forms.RolMiembroForm.codigo
+apps.proyectos.models.Proyecto.codigo
+apps.sprints.forms.SprintUpdateForm.codigo
+apps.user_stories.forms.UserStoryUpdateFormPO.codigo
+apps.user_stories.forms.UserStoryUpdateFormSM.codigo" class="py-name" href="#" onclick="return doclink('link-588', 'codigo', 'link-29');">codigo</a></tt><tt class="py-op">=</tt><tt class="py-string">'codi'</tt><tt class="py-op">,</tt> <tt id="link-589" class="py-name"><a title="apps.proyectos.models.Proyecto.nombre_corto" class="py-name" href="#" onclick="return doclink('link-589', 'nombre_corto', 'link-30');">nombre_corto</a></tt><tt class="py-op">=</tt><tt class="py-string">'test'</tt><tt class="py-op">,</tt> </tt>
+<a name="L462"></a><tt class="py-lineno">462</tt>  <tt class="py-line">                                           <tt id="link-590" class="py-name"><a title="apps.proyectos.models.Proyecto.nombre_largo" class="py-name" href="#" onclick="return doclink('link-590', 'nombre_largo', 'link-31');">nombre_largo</a></tt><tt class="py-op">=</tt><tt class="py-string">'test'</tt><tt class="py-op">,</tt> <tt id="link-591" class="py-name"><a title="apps.proyectos.models.Proyecto.cancelado" class="py-name" href="#" onclick="return doclink('link-591', 'cancelado', 'link-32');">cancelado</a></tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">,</tt> <tt id="link-592" class="py-name"><a title="apps.proyectos.forms.ProyectoCreateForm.scrum_master
+apps.proyectos.forms.ProyectoUpdateForm.scrum_master
+apps.proyectos.models.Proyecto.scrum_master" class="py-name" href="#" onclick="return doclink('link-592', 'scrum_master', 'link-33');">scrum_master</a></tt><tt class="py-op">=</tt><tt class="py-name">user4</tt><tt class="py-op">)</tt> </tt>
+<a name="L463"></a><tt class="py-lineno">463</tt>  <tt class="py-line"> </tt>
+<a name="L464"></a><tt class="py-lineno">464</tt>  <tt class="py-line">        <tt id="link-593" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-593', 'proyecto', 'link-27');">proyecto</a></tt><tt class="py-op">.</tt><tt id="link-594" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-594', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L465"></a><tt class="py-lineno">465</tt>  <tt class="py-line"> </tt>
+<a name="L466"></a><tt class="py-lineno">466</tt>  <tt class="py-line">        <tt id="link-595" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-595', 'sprint', 'link-36');">sprint</a></tt> <tt class="py-op">=</tt> <tt id="link-596" class="py-name"><a title="apps.sprints.models.Sprint" class="py-name" href="#" onclick="return doclink('link-596', 'Sprint', 'link-2');">Sprint</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">create</tt><tt class="py-op">(</tt><tt id="link-597" class="py-name"><a title="apps.clientes.models.Cliente.nombre
+apps.flujos.models.Actividad.nombre
+apps.flujos.models.ActividadFlujo.nombre
+apps.flujos.models.Estado.nombre
+apps.flujos.models.Flujo.nombre
+apps.flujos.models.PlantillaFlujo.nombre
+apps.sprints.forms.RegistrarTareaForm.nombre
+apps.sprints.forms.SprintAsignarUserStoryForm.nombre
+apps.sprints.forms.SprintUpdateUserStoryForm.nombre
+apps.sprints.models.Sprint.nombre
+apps.user_stories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-597', 'nombre', 'link-38');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-string">'sprint'</tt><tt class="py-op">,</tt> <tt id="link-598" class="py-name"><a title="apps.sprints.forms.SprintCreateForm.duracion
+apps.sprints.models.Sprint.duracion" class="py-name" href="#" onclick="return doclink('link-598', 'duracion', 'link-39');">duracion</a></tt><tt class="py-op">=</tt><tt class="py-number">15</tt><tt class="py-op">,</tt> <tt id="link-599" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-599', 'proyecto', 'link-27');">proyecto</a></tt><tt class="py-op">=</tt><tt id="link-600" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-600', 'proyecto', 'link-27');">proyecto</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L467"></a><tt class="py-lineno">467</tt>  <tt class="py-line">        <tt id="link-601" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-601', 'sprint', 'link-36');">sprint</a></tt><tt class="py-op">.</tt><tt id="link-602" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-602', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L468"></a><tt class="py-lineno">468</tt>  <tt class="py-line"> </tt>
+<a name="L469"></a><tt class="py-lineno">469</tt>  <tt class="py-line">        <tt id="link-603" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-603', 'user_story', 'link-125');">user_story</a></tt> <tt class="py-op">=</tt> <tt id="link-604" class="py-name"><a title="apps.user_stories.models.UserStory" class="py-name" href="#" onclick="return doclink('link-604', 'UserStory', 'link-13');">UserStory</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">create</tt><tt class="py-op">(</tt><tt id="link-605" class="py-name"><a title="apps.clientes.models.Cliente.nombre
+apps.flujos.models.Actividad.nombre
+apps.flujos.models.ActividadFlujo.nombre
+apps.flujos.models.Estado.nombre
+apps.flujos.models.Flujo.nombre
+apps.flujos.models.PlantillaFlujo.nombre
+apps.sprints.forms.RegistrarTareaForm.nombre
+apps.sprints.forms.SprintAsignarUserStoryForm.nombre
+apps.sprints.forms.SprintUpdateUserStoryForm.nombre
+apps.sprints.models.Sprint.nombre
+apps.user_stories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-605', 'nombre', 'link-38');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-string">'us'</tt><tt class="py-op">,</tt> <tt id="link-606" class="py-name"><a title="apps.clientes.models.Cliente.descripcion
+apps.user_stories.models.Tarea.descripcion
+apps.user_stories.models.UserStory.descripcion" class="py-name" href="#" onclick="return doclink('link-606', 'descripcion', 'link-128');">descripcion</a></tt><tt class="py-op">=</tt><tt class="py-string">'desc'</tt><tt class="py-op">,</tt> </tt>
+<a name="L470"></a><tt class="py-lineno">470</tt>  <tt class="py-line">                                              <tt id="link-607" class="py-name"><a title="apps.user_stories.forms.UserStoryCreateForm.valor_negocio
+apps.user_stories.models.UserStory.valor_negocio" class="py-name" href="#" onclick="return doclink('link-607', 'valor_negocio', 'link-129');">valor_negocio</a></tt><tt class="py-op">=</tt><tt class="py-number">20</tt><tt class="py-op">,</tt> <tt id="link-608" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-608', 'proyecto', 'link-27');">proyecto</a></tt><tt class="py-op">=</tt><tt id="link-609" class="py-name"><a title="apps.flujos.models.Flujo.proyecto
+apps.roles_proyecto.models.RolProyecto_Proyecto.proyecto
+apps.sprints.models.Sprint.proyecto
+apps.user_stories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-609', 'proyecto', 'link-27');">proyecto</a></tt><tt class="py-op">,</tt> <tt id="link-610" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-610', 'sprint', 'link-36');">sprint</a></tt><tt class="py-op">=</tt><tt id="link-611" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-611', 'sprint', 'link-36');">sprint</a></tt><tt class="py-op">,</tt> <tt id="link-612" class="py-name"><a title="apps.user_stories.models.HistorialUserStory.usuario
+apps.user_stories.models.Tarea.usuario
+apps.user_stories.models.UserStory.usuario" class="py-name" href="#" onclick="return doclink('link-612', 'usuario', 'link-174');">usuario</a></tt><tt class="py-op">=</tt><tt class="py-name">user4</tt><tt class="py-op">)</tt> </tt>
+<a name="L471"></a><tt class="py-lineno">471</tt>  <tt class="py-line">        <tt id="link-613" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-613', 'user_story', 'link-125');">user_story</a></tt><tt class="py-op">.</tt><tt id="link-614" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-614', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L472"></a><tt class="py-lineno">472</tt>  <tt class="py-line"> </tt>
+<a name="L473"></a><tt class="py-lineno">473</tt>  <tt class="py-line">        <tt id="link-615" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-615', 'sprint', 'link-36');">sprint</a></tt><tt class="py-op">.</tt><tt id="link-616" class="py-name"><a title="apps.proyectos.models.Proyecto.estado
+apps.sprints.models.Sprint.estado
+apps.user_stories.models.Tarea.estado
+apps.user_stories.models.UserStory.estado
+apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-616', 'estado', 'link-215');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'Finalizado'</tt> </tt>
+<a name="L474"></a><tt class="py-lineno">474</tt>  <tt class="py-line">        <tt id="link-617" class="py-name"><a title="apps.user_stories.models.Tarea.sprint
+apps.user_stories.models.UserStory.sprint" class="py-name" href="#" onclick="return doclink('link-617', 'sprint', 'link-36');">sprint</a></tt><tt class="py-op">.</tt><tt id="link-618" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-618', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L475"></a><tt class="py-lineno">475</tt>  <tt class="py-line"> </tt>
+<a name="L476"></a><tt class="py-lineno">476</tt>  <tt class="py-line">        <tt id="link-619" class="py-name"><a title="apps.user_stories.models.Tarea.actividad
+apps.user_stories.models.UserStoryDetalle.actividad" class="py-name" href="#" onclick="return doclink('link-619', 'actividad', 'link-264');">actividad</a></tt> <tt class="py-op">=</tt> <tt id="link-620" class="py-name"><a title="apps.flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-620', 'Actividad', 'link-20');">Actividad</a></tt><tt class="py-op">(</tt><tt id="link-621" class="py-name"><a title="apps.clientes.models.Cliente.nombre
+apps.flujos.models.Actividad.nombre
+apps.flujos.models.ActividadFlujo.nombre
+apps.flujos.models.Estado.nombre
+apps.flujos.models.Flujo.nombre
+apps.flujos.models.PlantillaFlujo.nombre
+apps.sprints.forms.RegistrarTareaForm.nombre
+apps.sprints.forms.SprintAsignarUserStoryForm.nombre
+apps.sprints.forms.SprintUpdateUserStoryForm.nombre
+apps.sprints.models.Sprint.nombre
+apps.user_stories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-621', 'nombre', 'link-38');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-string">'actividad'</tt><tt class="py-op">)</tt> </tt>
+<a name="L477"></a><tt class="py-lineno">477</tt>  <tt class="py-line">        <tt id="link-622" class="py-name"><a title="apps.user_stories.models.Tarea.actividad
+apps.user_stories.models.UserStoryDetalle.actividad" class="py-name" href="#" onclick="return doclink('link-622', 'actividad', 'link-264');">actividad</a></tt><tt class="py-op">.</tt><tt id="link-623" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-623', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L478"></a><tt class="py-lineno">478</tt>  <tt class="py-line"> </tt>
+<a name="L479"></a><tt class="py-lineno">479</tt>  <tt class="py-line">        <tt id="link-624" class="py-name"><a title="apps.proyectos.models.Proyecto.estado
+apps.sprints.models.Sprint.estado
+apps.user_stories.models.Tarea.estado
+apps.user_stories.models.UserStory.estado
+apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-624', 'estado', 'link-215');">estado</a></tt> <tt class="py-op">=</tt> <tt id="link-625" class="py-name"><a title="apps.flujos.models.Estado" class="py-name" href="#" onclick="return doclink('link-625', 'Estado', 'link-21');">Estado</a></tt><tt class="py-op">(</tt><tt id="link-626" class="py-name"><a title="apps.clientes.models.Cliente.nombre
+apps.flujos.models.Actividad.nombre
+apps.flujos.models.ActividadFlujo.nombre
+apps.flujos.models.Estado.nombre
+apps.flujos.models.Flujo.nombre
+apps.flujos.models.PlantillaFlujo.nombre
+apps.sprints.forms.RegistrarTareaForm.nombre
+apps.sprints.forms.SprintAsignarUserStoryForm.nombre
+apps.sprints.forms.SprintUpdateUserStoryForm.nombre
+apps.sprints.models.Sprint.nombre
+apps.user_stories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-626', 'nombre', 'link-38');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L480"></a><tt class="py-lineno">480</tt>  <tt class="py-line">        <tt id="link-627" class="py-name"><a title="apps.proyectos.models.Proyecto.estado
+apps.sprints.models.Sprint.estado
+apps.user_stories.models.Tarea.estado
+apps.user_stories.models.UserStory.estado
+apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-627', 'estado', 'link-215');">estado</a></tt><tt class="py-op">.</tt><tt id="link-628" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-628', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L481"></a><tt class="py-lineno">481</tt>  <tt class="py-line"> </tt>
+<a name="L482"></a><tt class="py-lineno">482</tt>  <tt class="py-line">        <tt class="py-name">detalle</tt> <tt class="py-op">=</tt> <tt id="link-629" class="py-name"><a title="apps.user_stories.models.UserStoryDetalle" class="py-name" href="#" onclick="return doclink('link-629', 'UserStoryDetalle', 'link-14');">UserStoryDetalle</a></tt><tt class="py-op">(</tt><tt id="link-630" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-630', 'user_story', 'link-125');">user_story</a></tt><tt class="py-op">=</tt><tt id="link-631" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-631', 'user_story', 'link-125');">user_story</a></tt><tt class="py-op">,</tt> <tt id="link-632" class="py-name"><a title="apps.user_stories.models.Tarea.actividad
+apps.user_stories.models.UserStoryDetalle.actividad" class="py-name" href="#" onclick="return doclink('link-632', 'actividad', 'link-264');">actividad</a></tt><tt class="py-op">=</tt><tt id="link-633" class="py-name"><a title="apps.user_stories.models.Tarea.actividad
+apps.user_stories.models.UserStoryDetalle.actividad" class="py-name" href="#" onclick="return doclink('link-633', 'actividad', 'link-264');">actividad</a></tt><tt class="py-op">,</tt> <tt id="link-634" class="py-name"><a title="apps.proyectos.models.Proyecto.estado
+apps.sprints.models.Sprint.estado
+apps.user_stories.models.Tarea.estado
+apps.user_stories.models.UserStory.estado
+apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-634', 'estado', 'link-215');">estado</a></tt><tt class="py-op">=</tt><tt id="link-635" class="py-name"><a title="apps.proyectos.models.Proyecto.estado
+apps.sprints.models.Sprint.estado
+apps.user_stories.models.Tarea.estado
+apps.user_stories.models.UserStory.estado
+apps.user_stories.models.UserStoryDetalle.estado" class="py-name" href="#" onclick="return doclink('link-635', 'estado', 'link-215');">estado</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L483"></a><tt class="py-lineno">483</tt>  <tt class="py-line">        <tt class="py-name">detalle</tt><tt class="py-op">.</tt><tt id="link-636" class="py-name"><a title="apps.flujos.forms.ActividadCreateForm.save
+apps.flujos.forms.AsignarFlujoProyectoForm.save
+apps.flujos.forms.PlantillaFlujoCreateForm.save
+apps.proyectos.forms.AddMiembroForm.save
+apps.proyectos.forms.HorasDeveloperForm.save
+apps.proyectos.forms.ProyectoCreateForm.save
+apps.proyectos.forms.ProyectoUpdateForm.save
+apps.proyectos.forms.RolMiembroForm.save
+apps.roles_proyecto.forms.RolProyectoCreateForm.save
+apps.sprints.forms.RegistrarTareaForm.save
+apps.sprints.forms.SprintAsignarUserStoryForm.save
+apps.sprints.forms.SprintCreateForm.save
+apps.sprints.forms.SprintUpdateForm.save
+apps.sprints.forms.SprintUpdateUserStoryForm.save
+apps.user_stories.forms.UserStoryCreateForm.save
+apps.user_stories.forms.UserStoryUpdateFormPO.save
+apps.user_stories.forms.UserStoryUpdateFormSM.save
+apps.usuarios.forms.UserCreateForm.save
+apps.usuarios.forms.UserUpdateForm.save" class="py-name" href="#" onclick="return doclink('link-636', 'save', 'link-35');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L484"></a><tt class="py-lineno">484</tt>  <tt class="py-line"> </tt>
+<a name="L485"></a><tt class="py-lineno">485</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">assertEqual</tt><tt class="py-op">(</tt><tt id="link-637" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-637', 'user_story', 'link-125');">user_story</a></tt><tt class="py-op">,</tt> <tt class="py-name">detalle</tt><tt class="py-op">.</tt><tt id="link-638" class="py-name"><a title="apps.user_stories.models.Archivo.user_story
+apps.user_stories.models.HistorialUserStory.user_story
+apps.user_stories.models.Tarea.user_story
+apps.user_stories.models.UserStoryDetalle.user_story" class="py-name" href="#" onclick="return doclink('link-638', 'user_story', 'link-125');">user_story</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L486"></a><tt class="py-lineno">486</tt>  <tt class="py-line"> </tt>
+<a name="L487"></a><tt class="py-lineno">487</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'Test de finalizar_sprint realizado exitosamente'</tt> </tt>
+</div></div><a name="L488"></a><tt class="py-lineno">488</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -2981,7 +3271,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 17:48:03 2015
+    Generated by Epydoc 3.0.1 on Fri Jul  3 21:06:17 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

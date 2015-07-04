@@ -195,19 +195,25 @@ sigp.views" class="py-name" href="#" onclick="return doclink('link-19', 'views',
 <a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                           <tt class="py-string">'sprints.views.aprobar_user_story'</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'aprobar'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
 <a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                       <tt class="py-name">url</tt><tt class="py-op">(</tt><tt class="py-string">r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/kanban/(?P&lt;pk_sprint&gt;\d+)/adjuntar/(?P&lt;pk_user_story&gt;\d+)/$'</tt><tt class="py-op">,</tt> </tt>
 <a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                           <tt class="py-string">'sprints.views.adjuntar_archivo'</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'adjuntar_archivo'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
-<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/update_sm/(?P&lt;pk_user_story_sm&gt;\d+)/$', login_required(views.UserStoryUpdateSM.as_view()), name='update_sm'),</tt> </tt>
-<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/delete/(?P&lt;pk_user_story&gt;\d+)/$', 'user_stories.views.descartar_user_story', name='delete'),</tt> </tt>
-<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/historial/(?P&lt;pk_user_story&gt;\d+)/$', login_required(views.VerHistorialUserStory.as_view()), name='historial'),</tt> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk&gt;\d+)/$', 'proyectos.views.proyecto_index', name='proyecto_index'),</tt> </tt>
-<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/add/$', login_required(views.AddMiembro.as_view()),</tt> </tt>
-<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                       <tt class="py-comment">#    name='add_miembro'),</tt> </tt>
-<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/$', 'proyectos.views.listar_equipo', name='equipo_list'),</tt> </tt>
-<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/delete/(?P&lt;pk_user&gt;\d+)/$', 'proyectos.views.delete_miembro',</tt> </tt>
-<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                       <tt class="py-comment">#    name='delete_miembro'),</tt> </tt>
-<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/rol/(?P&lt;pk_user&gt;\d+)/$',</tt> </tt>
-<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                       <tt class="py-comment">#    login_required(views.RolMiembro.as_view()), name='rol_miembro'),</tt> </tt>
-<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">                       <tt class="py-op">)</tt> </tt>
-<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">                       <tt class="py-name">url</tt><tt class="py-op">(</tt><tt class="py-string">r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/burndown-chart/(?P&lt;pk_sprint&gt;\d+)/$'</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">                           <tt class="py-string">'sprints.views.burndown_chart'</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'burndown_chart'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">                       <tt class="py-name">url</tt><tt class="py-op">(</tt><tt class="py-string">r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/finalizar/(?P&lt;pk_sprint&gt;\d+)/$'</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                           <tt class="py-string">'sprints.views.finalizar_sprint'</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'finalizar'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                       <tt class="py-name">url</tt><tt class="py-op">(</tt><tt class="py-string">r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/backlog/(?P&lt;pk_sprint&gt;\d+)/descartar/(?P&lt;pk_user_story&gt;\d+)$'</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                           <tt class="py-string">'sprints.views.descartar_user_story'</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">=</tt><tt class="py-string">'descartar'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/update_sm/(?P&lt;pk_user_story_sm&gt;\d+)/$', login_required(views.UserStoryUpdateSM.as_view()), name='update_sm'),</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/delete/(?P&lt;pk_user_story&gt;\d+)/$', 'user_stories.views.descartar_user_story', name='delete'),</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^proyecto/(?P&lt;pk_proyecto&gt;\d+)/historial/(?P&lt;pk_user_story&gt;\d+)/$', login_required(views.VerHistorialUserStory.as_view()), name='historial'),</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk&gt;\d+)/$', 'proyectos.views.proyecto_index', name='proyecto_index'),</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/add/$', login_required(views.AddMiembro.as_view()),</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">                       <tt class="py-comment">#    name='add_miembro'),</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/$', 'proyectos.views.listar_equipo', name='equipo_list'),</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/delete/(?P&lt;pk_user&gt;\d+)/$', 'proyectos.views.delete_miembro',</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">                       <tt class="py-comment">#    name='delete_miembro'),</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                       <tt class="py-comment">#url(r'^(?P&lt;pk_proyecto&gt;\d+)/equipo/rol/(?P&lt;pk_user&gt;\d+)/$',</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">                       <tt class="py-comment">#    login_required(views.RolMiembro.as_view()), name='rol_miembro'),</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">                       <tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -237,7 +243,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 17:48:02 2015
+    Generated by Epydoc 3.0.1 on Fri Jul  3 21:06:17 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

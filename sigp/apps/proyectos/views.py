@@ -13,9 +13,10 @@ from django.utils.decorators import method_decorator
 
 from models import Proyecto
 from apps.roles_proyecto.models import RolProyecto_Proyecto
-from apps.user_stories.models import UserStory
+from apps.user_stories.models import UserStory, Tarea
 from apps.sprints.models import Sprint
 from apps.flujos.models import Flujo
+
 from forms import AddMiembroForm, ProyectoCreateForm, ProyectoUpdateForm, RolMiembroForm, HorasDeveloperForm
 
 from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle
@@ -438,7 +439,7 @@ def reporte_pdf(reques, pk):
     lista = Proyecto.objects.get(pk=pk)
     #template = 'proyectos/reportes.html'
     #return render(request, template, locals())
-    print lista
+    #print lista
 
     return render_to_response("proyectos/reportes.html", {'i': lista,
     })
@@ -600,11 +601,6 @@ def reporte2_pdf(request, pk_proyecto):
              ltrabajoequipo.append([rol.user, len(usp), len(usi), len(usf)])
 
 
-    print ltrabajoequipo
-    print usp
-    print usi
-    print usf
-
     t = Table(ltrabajoequipo, style=style)
     story.append(t)
     story.append(Spacer(0, 20))
@@ -741,24 +737,27 @@ def reporte4_pdf(request, pk_proyecto):
     d = Drawing(400, 200)
 
     sprints = Sprint.objects.filter(proyecto=proy)
+    print sprints
     listasprint = []
     listaplan = []
     listaejec = []
+
     for sp in sprints:
         listasprint.append(sp.nombre)
         US = UserStory.objects.filter(sprint=sp)
-        sumahora = 0
-        totalplan = 0
-        for u in US:
-            totalplan += u.estimacion
-            ust = UserStory.objects.get(id=u.id)
-            sumahora += u.estimacion
-            #trabajo = Comentarios.objects.filter(userhistory = ust)
+        tarea = Tarea.objects.filter(id=US.id)
 
-             #for j in trabajo:
-              #   sumahora = sumahora + j.horas
-        listaejec.append(sumahora)
-        listaplan.append(totalplan)
+        totalus = 0
+        sumatarea = 0
+        for u in US:
+            totalus += u.estimacion
+
+            for t in tarea:
+                sumatarea += t.horas_de_trabajo
+
+        listaejec.append(totalus)
+        listaplan.append(sumatarea)
+
     mayor = 0
     for j in listaejec:
         if j > mayor:
@@ -872,9 +871,9 @@ def reporte5_pdf(request, pk_proyecto):
     ltrabajoequipo = []
     ltrabajoequipo.append(['5. BACKLOG DEL PRODUCTO', '', '', ''])
     ltrabajoequipo.append([' ', ' ', ' ', ' '])
-    ltrabajoequipo.append(['NOMBRE', 'DESCRIPCION', 'ORDEN', 'ESTADO'])
+    ltrabajoequipo.append(['NOMBRE', 'DESCRIPCION', 'VALOR TECNICO', 'ESTADO'])
     for u in uh:
-        if u.estado != 'Descartado':
+        if u.estado != 'Descartado' and u.estado != 'Finalizado' and u.estado != 'Aprobado':
             ltrabajoequipo.append([u.nombre, u.descripcion, u.valor_tecnico, u.estado])
 
     t = Table(ltrabajoequipo, style=style)
@@ -950,10 +949,11 @@ def reporte6_pdf(request, pk_proyecto):
     ltrabajoequipo = []
     ltrabajoequipo.append(['6. SPRINT BACKLOG', '', ''])
     ltrabajoequipo.append([' ', ' ', ''])
-    ltrabajoequipo.append(['NOMBRE', 'ACTIVIDADES', 'ESTADO'])
+    ltrabajoequipo.append(['NOMBRE', 'ACTIVIDADES', 'ESTADO', 'USUARIO'])
     for u in uh:
-        if u.sprint.estado == 'Activo':
-            ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado])
+        print uh
+        if u.estado != 'Descartado' and u.estado != 'Finalizado' and u.estado != 'Aprobado' and u.estado != 'No asignado':
+            ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado, u.usuario.username])
 
     t = Table(ltrabajoequipo, style=style)
     story.append(t)
