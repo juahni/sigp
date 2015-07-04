@@ -745,7 +745,8 @@ def reporte4_pdf(request, pk_proyecto):
     for sp in sprints:
         listasprint.append(sp.nombre)
         US = UserStory.objects.filter(sprint=sp)
-        tarea = Tarea.objects.filter(id=US.id)
+        print US
+        tarea = Tarea.objects.filter(user_story_id= US)
 
         totalus = 0
         sumatarea = 0
@@ -951,7 +952,7 @@ def reporte6_pdf(request, pk_proyecto):
     ltrabajoequipo.append([' ', ' ', ''])
     ltrabajoequipo.append(['NOMBRE', 'ACTIVIDADES', 'ESTADO', 'USUARIO'])
     for u in uh:
-        print uh
+
         if u.estado != 'Descartado' and u.estado != 'Finalizado' and u.estado != 'Aprobado' and u.estado != 'No asignado':
             ltrabajoequipo.append([u.sprint.nombre, u.nombre, u.sprint.estado, u.usuario.username])
 
