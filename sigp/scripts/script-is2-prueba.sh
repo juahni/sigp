@@ -29,7 +29,7 @@ psql -U sigp -d sigp-desarrollo -p 5432 -h localhost < /home/fran/PycharmProject
 
 #cuando ya esta todo el proyecto copiar a produccion
 echo "**************Eliminando el proyecto en produccion********************"
-sudo rm -rf /var/www/is2/
+sudo rm -rf /var/www/sigp/
 
 echo "**************Copiando el proyecto actualizado a produccion************"
 sudo cp -R /home/fran/PycharmProjects/sigp  /var/www/sigp/
